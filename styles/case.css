@@ -1,0 +1,501 @@
+/* ================================
+   Parallax
+   ================================ */
+
+.parallax-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-content {
+  position: relative;
+  will-change: transform;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+blockquote {
+  text-align: center;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 52px;
+}
+
+cite {
+  text-align: right;
+}
+
+/* ================================
+   Typography específica do case
+   ================================ */
+h1.case {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 28px;
+}
+
+h2.casetitle {
+  font-size: 60px;
+}
+
+h3.casesubtitle {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+p.special {
+  font-family: "Tanker", system-ui, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+a.logo {
+  font-family: "Tanker", system-ui, sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+a.logo-mobile {
+  font-family: "Tanker", system-ui, sans-serif;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  display: none;
+}
+
+/* ================================
+   Insight Card
+   ================================ */
+
+.insight-card {
+  display: flex;
+  width: 100%;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+
+  border-radius: 24px;
+  border: 1.5px solid var(--color-primary);
+  background: linear-gradient(
+    45deg,
+    rgba(247, 253, 160, 0) 0%,
+    rgba(247, 253, 160, 0.15) 100%
+  );
+}
+
+.insight-card .tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.insight-card .tag img {
+  width: 20px;
+  height: 20px;
+  aspect-ratio: 1/1;
+}
+
+.insight-card .tag p {
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.insight-card .card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.insight-card .card-content .title {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.insight-card .card-content .subtitle {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 200;
+  line-height: 16px;
+}
+
+.insight-card .card-content .description {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* ================================
+   Nav do case
+   ================================ */
+
+nav.case {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+  max-width: 1532px;
+  margin: 0 auto;
+
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  z-index: 1000;
+}
+
+nav.case ul {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 40px;
+}
+
+/* ================================
+   Layout base da section
+   ================================ */
+
+.case-content section {
+  width: 100%;
+  max-width: 1532px;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 120px 24px;
+}
+
+.case-content section .container {
+  width: 100%;
+  min-height: 100%;
+  flex: 1;
+  border-radius: var(--radius-xl);
+
+  display: grid;
+  gap: 64px;
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+
+  padding: 80px;
+}
+
+.case-content section .container .content {
+  grid-column: 1 / span 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.case-content section .container .content-center {
+  grid-column: 2 / span 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.case-content section .container .mockup {
+  grid-column: 4 / span 2;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ================================
+   Intro 
+   ================================ */
+
+#intro .container .content {
+  grid-column: 1 / span 3;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex: 1 0 0;
+  align-self: stretch;
+
+  gap: 32px;
+}
+
+#intro .container .content .top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+/* Cards de impacto */
+
+.card-role {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin-top: 8px;
+  gap: 16px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.card-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+/* ================================
+   Project Overview
+   ================================ */
+
+#overview .container .card-column {
+  grid-column: 4 / span 2;
+}
+
+#overview .container .card-column .card1 {
+  align-self: flex-end;
+}
+
+#overview .container .card-column .card2 {
+  align-self: center;
+}
+
+#overview .container .card-column .card3 {
+  align-self: flex-start;
+}
+
+#overview .container .card-light {
+  width: 280px;
+  max-height: 120px;
+
+  padding: 16px;
+  justify-content: space-between;
+}
+
+/* ================================
+   Breadcrumbs
+   ================================ */
+
+.breadcrumbs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+
+  gap: 0;
+
+  background: var(--transparency-secondary);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.breadcrumbs li div {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal */
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.image-modal.is-visible {
+  display: flex;
+}
+
+.image-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.image-modal__content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  z-index: 1;
+}
+
+/* FIX para não cortar imagem */
+.image-modal__content img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* 🔥 Botão de fechar restaurado */
+.image-modal__close {
+  position: absolute;
+  top: -10px;
+  right: -40px;
+
+  width: 32px; /* tamanho do círculo */
+  height: 32px;
+  border-radius: 50%; /* 🔥 transforma em círculo */
+
+  background: rgba(255, 255, 255, 0.2); /* fundo translúcido */
+  backdrop-filter: blur(6px); /* efeito glass (opcional, mas bonito) */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.image-modal__close:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* cursor original */
+.js-zoom-image {
+  cursor: zoom-in;
+}
+
+/* =========================
+   Breakpoints
+   ========================= */
+
+@media (max-width: 1440px) {
+  nav.case {
+    max-height: 80px;
+  }
+
+  .case-content section {
+    padding: 92px 24px;
+  }
+
+  .case-content section .container {
+    padding: 32px;
+  }
+
+  .breadcrumbs {
+    max-height: 80px;
+  }
+}
+
+@media (max-width: 1224px) {
+  .case-content section {
+    padding: 100px 0px;
+  }
+
+  .case-content section .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 24px;
+    padding: 32px;
+  }
+
+  .case-content section .container .mockup {
+    width: 70%;
+    height: 70%;
+    align-self: center;
+    object-fit: contain;
+    padding-bottom: 100px;
+  }
+
+  .hide-m {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  a.logo {
+    display: none;
+  }
+
+  a.logo-mobile {
+    display: block;
+  }
+  nav.case ul {
+    gap: 16px;
+  }
+
+  .case-content section .container {
+    padding: 24px;
+  }
+
+  .case-content section .container .mockup {
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    object-fit: contain;
+    padding-bottom: 100px;
+  }
+}
+
+@media (max-width: 425px) {
+  nav.case ul {
+    gap: 8px;
+  }
+
+  h1.case {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;
+  }
+
+  h2.casetitle {
+    font-size: 40px;
+  }
+
+  .case-content section {
+    padding: 60px 0px;
+  }
+
+  .case-content {
+    padding: 0 16px;
+  }
+}

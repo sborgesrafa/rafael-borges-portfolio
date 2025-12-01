@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rafael Borges - Product Designer</title>
+
+    <!-- SEO basic -->
+    <meta
+      name="description"
+      content="Rafael Borges - Product Designer who blends clarity, intuition, and strategic thinking to create high-performing user experiences."
+    />
+
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="/styles/style.css" />
+
+    <!-- Fontshare: Tanker -->
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=tanker@1&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GoogleFonts: Sora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      (function () {
+        // Só aplica essa lógica se a URL tiver hash: ex: index.html#about
+        if (window.location.hash) {
+          document.documentElement.classList.add("hash-loading");
+
+          window.addEventListener("load", function () {
+            var target = document.querySelector(window.location.hash);
+            if (target) {
+              // garante que o scroll vai direto pra seção alvo, sem smooth
+              target.scrollIntoView({ behavior: "auto", block: "start" });
+            }
+
+            // mostra a página depois de reposicionar
+            document.documentElement.classList.remove("hash-loading");
+            document.documentElement.classList.add("hash-loaded");
+          });
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <section id="hero-banner" class="light">
+        <p class="title">Rafael Borges</p>
+
+        <div class="content left">
+          <p>
+            I design digital products that turn uncertainty into clarity. My
+            work helps companies solve real problems and unlock measurable
+            business results
+          </p>
+          <ul class="clean-list hide">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/sborgesrafa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open LinkedIn profile"
+                class="btn-icon dark"
+              >
+                <img src="./assets/icons/linkedin.svg" alt="Linkedin Icon" />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://medium.com/@rafa-borges"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-icon dark"
+                aria-label="Open Medium profile"
+              >
+                <img src="./assets/icons/medium.svg" alt="Medium Icon" />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content right">
+          <h1>
+            Step into a space where every project blends clarity, intuition, and
+            strategic thinking, crafted to create user experiences that truly
+            perform
+          </h1>
+          <ul class="clean-list hide-mobile">
+            <li>
+              <a href="#work" class="btn-icon dark" aria-label="Go to Work">
+                <img
+                  src="./assets/icons/arrow-down.svg"
+                  alt="Arrow Down Icon"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content center">
+          <img
+            src="./assets/images/Rafael Portrait.png"
+            alt="Portrait of Rafael Borges"
+          />
+        </div>
+
+        <ul class="clean-list hide-desktop">
+          <li>
+            <a href="#work" class="btn-icon dark" aria-label="Go to Work">
+              <img src="./assets/icons/arrow-down.svg" alt="Arrow Down Icon" />
+            </a>
+          </li>
+        </ul>
+      </section>
+    </header>
+
+    <!-- NavBar -->
+    <nav aria-label="Main navigation">
+      <ul class="clean-list">
+        <li><a class="btn-menu" href="#work">Work</a></li>
+        <li><a class="btn-menu" href="#about">About</a></li>
+        <li><a class="btn-menu" href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main -->
+    <main>
+      <section id="work">
+        <h2>I made this</h2>
+
+        <div class="navigation">
+          <a
+            href="#"
+            class="btn-icon dark js-cases-nav"
+            aria-label="Previous case study"
+          >
+            <img src="./assets/icons/arrow-left.svg" alt="Arrow Left Icon" />
+          </a>
+          <a
+            href="#"
+            class="btn-icon dark js-cases-nav"
+            aria-label="Next case study"
+          >
+            <img src="./assets/icons/arrow-right.svg" alt="Arrow Right Icon" />
+          </a>
+        </div>
+
+        <div class="case-cover">
+          <div class="content">
+            <h3>Comprehensive Insurance</h3>
+            <p>
+              A 40% growth in insurance adoption was achieved by rethinking how
+              protection options were presented. By applying behavioral design
+              principles like framing, nudges and the decoy effect, I
+              transformed a complex and confusing decision into a clear and
+              confidence-building experience.
+            </p>
+            <a href="/cases/comprehensive-insurance.html" class="btn dark">
+              Read More
+              <img
+                src="./assets/icons/arrow-up-right.svg"
+                alt="Arrow Up Right Icon"
+              />
+            </a>
+          </div>
+          <img
+            class="mockup"
+            src="./assets/images/Multiple Insurance Mockup.png"
+            alt="Multiple Insurance Mockup"
+          />
+        </div>
+      </section>
+
+      <!-- Modal: More case studies coming soon -->
+      <div class="case-modal" id="caseSoonModal" aria-hidden="true">
+        <div class="case-modal__backdrop"></div>
+
+        <div
+          class="case-modal__content"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="caseSoonTitle"
+        >
+          <button class="case-modal__close" aria-label="Close">&times;</button>
+
+          <h3 id="caseSoonTitle">Just one case for now</h3>
+
+          <p>
+            Oops, you caught me in the middle of that classic designer dilemma:
+            too many projects, not enough time, and a bit too much perfectionism
+            😅
+          </p>
+
+          <p>
+            For now, this is the only case study available here. I am working on
+            new ones and will publish them soon. In the meantime, you can dive
+            into this case in detail, and if you would like to see more work,
+            feel free to contact me.
+          </p>
+
+          <div class="case-modal__actions">
+            <a href="/cases/comprehensive-insurance.html" class="btn dark">
+              Comprehensive Insurance
+              <img
+                src="./assets/icons/arrow-up-right.svg"
+                alt="Arrow Up Right Icon"
+              />
+            </a>
+
+            <a href="#contact" class="btn secondary">Contact me</a>
+          </div>
+        </div>
+      </div>
+
+      <section id="about">
+        <h2>Here I am</h2>
+        <img
+          class="working"
+          src="./assets/images/Rafael_Working.png"
+          alt="Rafael working at his desk"
+        />
+        <img
+          class="working-mobile"
+          src="./assets/images/Rafael_Working1.png"
+          alt="Rafael working at his desk"
+        />
+        <div class="content">
+          <p>
+            I am a Product Designer focused on turning complexity into clarity.
+            I have worked across travel, mobility, e-commerce for B2B and B2C
+            platforms, often designing flows with many rules, variables and
+            operational constraints. I enjoy understanding how systems work and
+            shaping experiences that feel intuitive for users and efficient for
+            the business.
+          </p>
+          <p>
+            My background includes redesigning critical booking flows, launching
+            complete digital journeys and helping offline services transition
+            into scalable products. I bring structure and strategic thinking to
+            every project, supported by experience in Design Systems, Product
+            Psychology and AI-assisted workflows that help me explore ideas
+            faster and make better decisions.
+          </p>
+          <p>
+            I have strengthened my leadership by guiding cross-functional teams
+            and teaching aspiring designers. From instructor roles to
+            collaborating with engineering, product and operations, I learned
+            how to simplify complex ideas and communicate clearly.
+          </p>
+          <p>
+            Outside of design, I find inspiration in travel, movies, salsa
+            dancing and the ocean. These experiences shape my curiosity and the
+            way I solve problems.
+          </p>
+          <p>
+            I am motivated by work that combines complexity, clarity and impact,
+            and I enjoy partnering with teams to create thoughtful experiences
+            at scale.
+          </p>
+          <a
+            href="https://www.linkedin.com/pulse/how-i-became-product-designer-rafael-borges-gd8bf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn dark"
+          >
+            How I became a Product Designer
+            <img
+              src="/assets/icons/arrow-up-right.svg"
+              alt="Arrow Up Right Icon"
+            />
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <h3 class="title">
+        Looking for a Product Designer?
+        <br />
+        Let's work together
+      </h3>
+      <div class="banner light">
+        <div class="email">
+          <h3>sborges.rafa@gmail.com</h3>
+          <a
+            href="mailto:sborges.rafa@gmail.com"
+            class="btn-icon dark"
+            aria-label="Send an email to Rafael"
+          >
+            <img
+              src="./assets/icons/arrow-up-right.svg"
+              alt="Arrow Up Right Icon"
+            />
+          </a>
+        </div>
+        <ul class="menu clean-list">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/sborgesrafa/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-menu"
+            >
+              Linkedin
+            </a>
+          </li>
+          <li>
+            <a
+              href="/Curriculum - Rafael Borges.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-menu"
+            >
+              Curriculum
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://calendly.com/rafael-sborges/new-meeting"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-menu"
+            >
+              Calendly
+            </a>
+          </li>
+        </ul>
+        <p>&copy;2025 - Designed and coded by Rafael Borges</p>
+      </div>
+    </footer>
+
+    <!-- Title Resize -->
+    <script>
+      (function () {
+        const EPS = 0.5; // folga sub-pixel
+        const MIN = 8; // font-size mínimo
+        const MAX = 2000; // teto de segurança
+
+        // mede o texto fora do layout para não sofrer efeito do grid
+        function measureOutside(sampleEl, fsPx) {
+          const cs = getComputedStyle(sampleEl);
+          const meter = document.createElement("span");
+          meter.textContent = sampleEl.textContent || "";
+
+          meter.style.position = "absolute";
+          meter.style.left = "-99999px";
+          meter.style.top = "0";
+          meter.style.whiteSpace = "nowrap";
+          meter.style.lineHeight = "1";
+
+          meter.style.fontFamily = cs.fontFamily;
+          meter.style.fontWeight = cs.fontWeight;
+          meter.style.fontStyle = cs.fontStyle;
+          meter.style.fontStretch = cs.fontStretch;
+          meter.style.letterSpacing = cs.letterSpacing;
+          meter.style.textTransform = cs.textTransform;
+          meter.style.fontSize = fsPx + "px";
+
+          document.body.appendChild(meter);
+          const rect = meter.getBoundingClientRect();
+          meter.remove();
+          return { w: rect.width, h: rect.height };
+        }
+
+        function fitTitle() {
+          const hero = document.getElementById("hero-banner");
+          if (!hero) return;
+          const title = hero.querySelector(".title");
+          if (!title) return;
+
+          const csHero = getComputedStyle(hero);
+          const rHero = hero.getBoundingClientRect();
+          const padL = parseFloat(csHero.paddingLeft) || 0;
+          const padR = parseFloat(csHero.paddingRight) || 0;
+          const padT = parseFloat(csHero.paddingTop) || 0;
+          const padB = parseFloat(csHero.paddingBottom) || 0;
+
+          const availW = Math.max(0, rHero.width - padL - padR);
+          const availH = Math.max(0, rHero.height - padT - padB);
+          if (availW <= 0 || availH <= 0) return;
+
+          const csTitle = getComputedStyle(title);
+          const mL = parseFloat(csTitle.marginLeft) || 0;
+          const mR = parseFloat(csTitle.marginRight) || 0;
+          const marginsX = mL + mR;
+
+          let lo = MIN,
+            hi = Math.min(MAX, Math.floor(availW));
+          const chars = Math.max(1, (title.textContent || "").trim().length);
+          const guess = Math.max(
+            lo,
+            Math.min(hi, Math.floor((availW / chars) * 1.1))
+          );
+
+          const fits = (fs) => {
+            const m = measureOutside(title, fs);
+            return m.w + marginsX <= availW - EPS && m.h <= availH - EPS;
+          };
+
+          if (fits(guess)) lo = guess;
+          else hi = guess;
+
+          while (lo < hi) {
+            const mid = Math.floor((lo + hi + 1) / 2);
+            if (fits(mid)) lo = mid;
+            else hi = mid - 1;
+          }
+
+          title.style.fontSize = lo + "px";
+        }
+
+        const run = () =>
+          requestAnimationFrame(() => requestAnimationFrame(fitTitle));
+
+        window.addEventListener("load", run, { passive: true });
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(run);
+        }
+
+        const hero = document.getElementById("hero-banner");
+        if (hero && "ResizeObserver" in window) {
+          const ro = new ResizeObserver(run);
+          ro.observe(hero);
+        } else {
+          window.addEventListener("resize", run, { passive: true });
+          window.addEventListener("orientationchange", run, {
+            passive: true,
+          });
+        }
+      })();
+    </script>
+
+    <!-- Active menu highlight -->
+    <script>
+      (function () {
+        const sections = document.querySelectorAll("section, footer");
+        const menuLinks = document.querySelectorAll(".btn-menu");
+
+        if (!("IntersectionObserver" in window)) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                menuLinks.forEach((link) => link.classList.remove("active"));
+                const id = entry.target.getAttribute("id");
+                const activeLink = document.querySelector(
+                  `.btn-menu[href="#${id}"]`
+                );
+                if (activeLink) activeLink.classList.add("active");
+              }
+            });
+          },
+          {
+            threshold: 0.5, // 50% visível já conta
+          }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+      })();
+    </script>
+
+    <script>
+      (function () {
+        // pega só links que apontam para âncoras na MESMA página (#work, #about, etc)
+        const internalLinks = document.querySelectorAll('a[href^="#"]');
+
+        internalLinks.forEach((link) => {
+          link.addEventListener("click", function (event) {
+            const hash = this.getAttribute("href");
+
+            // só hash puro (#algo). Ignora links vazios ou só "#"
+            if (!hash || hash === "#") return;
+
+            const target = document.querySelector(hash);
+            if (!target) return;
+
+            event.preventDefault(); // impede o scroll instantâneo padrão
+
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+
+            // opcional: atualiza a URL com o hash
+            history.pushState(null, "", hash);
+          });
+        });
+      })();
+    </script>
+
+    <!-- Modal Script -->
+
+    <script>
+      (function () {
+        const navButtons = document.querySelectorAll(".js-cases-nav");
+        if (!navButtons.length) return;
+
+        const modal = document.getElementById("caseSoonModal");
+        if (!modal) return;
+
+        const closeBtn = modal.querySelector(".case-modal__close");
+        const backdrop = modal.querySelector(".case-modal__backdrop");
+        const contactLink = modal.querySelector('a[href="#contact"]');
+
+        function openCaseModal(event) {
+          event.preventDefault();
+          modal.classList.add("is-visible");
+          document.body.classList.add("case-modal-open");
+        }
+
+        function closeCaseModal() {
+          modal.classList.remove("is-visible");
+          document.body.classList.remove("case-modal-open");
+        }
+
+        navButtons.forEach((btn) => {
+          btn.addEventListener("click", openCaseModal);
+        });
+
+        if (closeBtn) {
+          closeCaseModal;
+          closeBtn.addEventListener("click", closeCaseModal);
+        }
+
+        if (backdrop) {
+          backdrop.addEventListener("click", closeCaseModal);
+        }
+
+        // 👇 Aqui está o truque: fecha o modal, deixa o outro script cuidar do scroll
+        if (contactLink) {
+          contactLink.addEventListener("click", () => {
+            closeCaseModal();
+            // não damos preventDefault aqui de propósito
+          });
+        }
+
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeCaseModal();
+        });
+      })();
+    </script>
+  </body>
+</html>
