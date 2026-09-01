@@ -14,12 +14,6 @@
     <!-- StyleSheet -->
     <link rel="stylesheet" href="/styles/style.css" />
 
-    <!-- Fontshare: Tanker -->
-    <link
-      href="https://api.fontshare.com/v2/css?f[]=tanker@1&display=swap"
-      rel="stylesheet"
-    />
-
     <!-- GoogleFonts: Sora -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -107,10 +101,20 @@
         </div>
 
         <div class="content center">
-          <img
-            src="./assets/images/Rafael Portrait.png"
-            alt="Portrait of Rafael Borges"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="./assets/images/Rafael%20Portrait.webp"
+            />
+            <img
+              src="./assets/images/Rafael Portrait.png"
+              alt="Portrait of Rafael Borges"
+              width="680"
+              height="680"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
 
         <ul class="clean-list hide-desktop">
@@ -135,23 +139,14 @@
     <!-- Main -->
     <main>
       <section id="work">
-        <h2>I made this</h2>
-
-        <div class="navigation">
-          <a
-            href="#"
-            class="btn-icon dark js-cases-nav"
-            aria-label="Previous case study"
-          >
-            <img src="./assets/icons/arrow-left.svg" alt="Arrow Left Icon" />
-          </a>
-          <a
-            href="#"
-            class="btn-icon dark js-cases-nav"
-            aria-label="Next case study"
-          >
-            <img src="./assets/icons/arrow-right.svg" alt="Arrow Right Icon" />
-          </a>
+        <div class="work-intro">
+          <h2>I made this</h2>
+          <p class="work-note">
+            One case study for now &mdash;
+            <button type="button" class="btn-link js-cases-nav">
+              more on the way
+            </button>
+          </p>
         </div>
 
         <div class="case-cover">
@@ -172,12 +167,23 @@
               />
             </a>
           </div>
-          <img
-            class="mockup"
-            src="./assets/images/Multiple Insurance Mockup.png"
-            alt="Multiple Insurance Mockup"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="./assets/images/Multiple%20Insurance%20Mockup.webp"
+            />
+            <img
+              class="mockup"
+              src="./assets/images/Multiple Insurance Mockup.png"
+              alt="The redesigned insurance selection screens from the Comprehensive Insurance case study"
+              width="1788"
+              height="2064"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
+
       </section>
 
       <!-- Modal: More case studies coming soon -->
@@ -186,11 +192,12 @@
 
         <div
           class="case-modal__content"
+          tabindex="-1"
           role="dialog"
           aria-modal="true"
           aria-labelledby="caseSoonTitle"
         >
-          <button class="case-modal__close" aria-label="Close">&times;</button>
+          <button type="button" class="case-modal__close" aria-label="Close">&times;</button>
 
           <h3 id="caseSoonTitle">Just one case for now</h3>
 
@@ -223,16 +230,28 @@
 
       <section id="about">
         <h2>Here I am</h2>
-        <img
-          class="working"
-          src="./assets/images/Rafael_Working.png"
-          alt="Rafael working at his desk"
-        />
-        <img
-          class="working-mobile"
-          src="./assets/images/Rafael_Working1.png"
-          alt="Rafael working at his desk"
-        />
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            type="image/webp"
+            srcset="./assets/images/Rafael_Working1.webp"
+          />
+          <source
+            media="(max-width: 768px)"
+            srcset="./assets/images/Rafael_Working1.png"
+          />
+          <source
+            type="image/webp"
+            srcset="./assets/images/Rafael_Working.webp"
+          />
+          <img
+            class="working"
+            src="./assets/images/Rafael_Working.png"
+            alt="Rafael working at his desk with colleagues"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="content">
           <p>
             I am a Product Designer focused on turning complexity into clarity.
@@ -291,16 +310,15 @@
       </h3>
       <div class="banner light">
         <div class="email">
-          <h3>sborges.rafa@gmail.com</h3>
           <a
             href="mailto:sborges.rafa@gmail.com"
-            class="btn-icon dark"
+            class="email-link"
             aria-label="Send an email to Rafael"
           >
-            <img
-              src="./assets/icons/arrow-up-right.svg"
-              alt="Arrow Up Right Icon"
-            />
+            <h3>sborges.rafa@gmail.com</h3>
+            <span class="btn-icon dark" aria-hidden="true">
+              <img src="./assets/icons/arrow-up-right.svg" alt="" />
+            </span>
           </a>
         </div>
         <ul class="menu clean-list">
@@ -339,134 +357,65 @@
       </div>
     </footer>
 
-    <!-- Title Resize -->
-    <script>
-      (function () {
-        const EPS = 0.5; // folga sub-pixel
-        const MIN = 8; // font-size mínimo
-        const MAX = 2000; // teto de segurança
-
-        // mede o texto fora do layout para não sofrer efeito do grid
-        function measureOutside(sampleEl, fsPx) {
-          const cs = getComputedStyle(sampleEl);
-          const meter = document.createElement("span");
-          meter.textContent = sampleEl.textContent || "";
-
-          meter.style.position = "absolute";
-          meter.style.left = "-99999px";
-          meter.style.top = "0";
-          meter.style.whiteSpace = "nowrap";
-          meter.style.lineHeight = "1";
-
-          meter.style.fontFamily = cs.fontFamily;
-          meter.style.fontWeight = cs.fontWeight;
-          meter.style.fontStyle = cs.fontStyle;
-          meter.style.fontStretch = cs.fontStretch;
-          meter.style.letterSpacing = cs.letterSpacing;
-          meter.style.textTransform = cs.textTransform;
-          meter.style.fontSize = fsPx + "px";
-
-          document.body.appendChild(meter);
-          const rect = meter.getBoundingClientRect();
-          meter.remove();
-          return { w: rect.width, h: rect.height };
-        }
-
-        function fitTitle() {
-          const hero = document.getElementById("hero-banner");
-          if (!hero) return;
-          const title = hero.querySelector(".title");
-          if (!title) return;
-
-          const csHero = getComputedStyle(hero);
-          const rHero = hero.getBoundingClientRect();
-          const padL = parseFloat(csHero.paddingLeft) || 0;
-          const padR = parseFloat(csHero.paddingRight) || 0;
-          const padT = parseFloat(csHero.paddingTop) || 0;
-          const padB = parseFloat(csHero.paddingBottom) || 0;
-
-          const availW = Math.max(0, rHero.width - padL - padR);
-          const availH = Math.max(0, rHero.height - padT - padB);
-          if (availW <= 0 || availH <= 0) return;
-
-          const csTitle = getComputedStyle(title);
-          const mL = parseFloat(csTitle.marginLeft) || 0;
-          const mR = parseFloat(csTitle.marginRight) || 0;
-          const marginsX = mL + mR;
-
-          let lo = MIN,
-            hi = Math.min(MAX, Math.floor(availW));
-          const chars = Math.max(1, (title.textContent || "").trim().length);
-          const guess = Math.max(
-            lo,
-            Math.min(hi, Math.floor((availW / chars) * 1.1))
-          );
-
-          const fits = (fs) => {
-            const m = measureOutside(title, fs);
-            return m.w + marginsX <= availW - EPS && m.h <= availH - EPS;
-          };
-
-          if (fits(guess)) lo = guess;
-          else hi = guess;
-
-          while (lo < hi) {
-            const mid = Math.floor((lo + hi + 1) / 2);
-            if (fits(mid)) lo = mid;
-            else hi = mid - 1;
-          }
-
-          title.style.fontSize = lo + "px";
-        }
-
-        const run = () =>
-          requestAnimationFrame(() => requestAnimationFrame(fitTitle));
-
-        window.addEventListener("load", run, { passive: true });
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(run);
-        }
-
-        const hero = document.getElementById("hero-banner");
-        if (hero && "ResizeObserver" in window) {
-          const ro = new ResizeObserver(run);
-          ro.observe(hero);
-        } else {
-          window.addEventListener("resize", run, { passive: true });
-          window.addEventListener("orientationchange", run, {
-            passive: true,
-          });
-        }
-      })();
-    </script>
-
     <!-- Active menu highlight -->
     <script>
       (function () {
-        const sections = document.querySelectorAll("section, footer");
-        const menuLinks = document.querySelectorAll(".btn-menu");
+        const menuLinks = Array.from(document.querySelectorAll("nav .btn-menu"));
+        if (!menuLinks.length) return;
 
-        if (!("IntersectionObserver" in window)) return;
+        // only the sections the menu actually points at
+        const targets = menuLinks
+          .map(function (link) {
+            const id = (link.getAttribute("href") || "").replace(/^#/, "");
+            const el = id ? document.getElementById(id) : null;
+            return el ? { link: link, el: el } : null;
+          })
+          .filter(Boolean);
 
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                menuLinks.forEach((link) => link.classList.remove("active"));
-                const id = entry.target.getAttribute("id");
-                const activeLink = document.querySelector(
-                  `.btn-menu[href="#${id}"]`
-                );
-                if (activeLink) activeLink.classList.add("active");
-              }
-            });
-          },
-          {
-            threshold: 0.5, // 50% visível já conta
-          }
-        );
+        if (!targets.length) return;
 
-        sections.forEach((section) => observer.observe(section));
+        function setActive(current) {
+          menuLinks.forEach(function (link) {
+            const on = !!current && link === current.link;
+            link.classList.toggle("active", on);
+            if (on) link.setAttribute("aria-current", "true");
+            else link.removeAttribute("aria-current");
+          });
+        }
+
+        function update() {
+          // the last section that has crossed a line 40% down the viewport.
+          // (the old threshold: 0.5 could never fire on sections taller than
+          // the viewport, so the highlight used to stick on the wrong item)
+          const line = window.innerHeight * 0.4;
+          let current = null;
+
+          targets.forEach(function (t) {
+            if (t.el.getBoundingClientRect().top <= line) current = t;
+          });
+
+          // at the very bottom of the page the last section always wins
+          const atBottom =
+            window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight - 2;
+          if (atBottom) current = targets[targets.length - 1];
+
+          setActive(current);
+        }
+
+        let ticking = false;
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(function () {
+            update();
+            ticking = false;
+          });
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
       })();
     </script>
 
@@ -503,50 +452,96 @@
 
     <script>
       (function () {
-        const navButtons = document.querySelectorAll(".js-cases-nav");
-        if (!navButtons.length) return;
-
+        const openers = document.querySelectorAll(".js-cases-nav");
         const modal = document.getElementById("caseSoonModal");
-        if (!modal) return;
+        if (!openers.length || !modal) return;
 
+        const dialog = modal.querySelector(".case-modal__content");
         const closeBtn = modal.querySelector(".case-modal__close");
         const backdrop = modal.querySelector(".case-modal__backdrop");
         const contactLink = modal.querySelector('a[href="#contact"]');
+        const FOCUSABLE =
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+        let lastFocused = null;
+
+        function isOpen() {
+          return modal.classList.contains("is-visible");
+        }
 
         function openCaseModal(event) {
-          event.preventDefault();
+          if (event) event.preventDefault();
+          lastFocused = document.activeElement;
           modal.classList.add("is-visible");
+          modal.setAttribute("aria-hidden", "false");
           document.body.classList.add("case-modal-open");
+          (closeBtn || dialog).focus();
         }
 
-        function closeCaseModal() {
+        // restoreFocus is skipped when the modal closes on its way somewhere
+        // else, so returning focus does not fight the smooth scroll
+        function closeCaseModal(restoreFocus) {
+          if (!isOpen()) return;
           modal.classList.remove("is-visible");
+          modal.setAttribute("aria-hidden", "true");
           document.body.classList.remove("case-modal-open");
+          if (restoreFocus !== false && lastFocused && document.contains(lastFocused)) {
+            lastFocused.focus();
+          }
+          lastFocused = null;
         }
 
-        navButtons.forEach((btn) => {
+        openers.forEach(function (btn) {
           btn.addEventListener("click", openCaseModal);
         });
 
         if (closeBtn) {
-          closeCaseModal;
-          closeBtn.addEventListener("click", closeCaseModal);
-        }
-
-        if (backdrop) {
-          backdrop.addEventListener("click", closeCaseModal);
-        }
-
-        // 👇 Aqui está o truque: fecha o modal, deixa o outro script cuidar do scroll
-        if (contactLink) {
-          contactLink.addEventListener("click", () => {
+          closeBtn.addEventListener("click", function () {
             closeCaseModal();
-            // não damos preventDefault aqui de propósito
           });
         }
 
-        document.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") closeCaseModal();
+        if (backdrop) {
+          backdrop.addEventListener("click", function () {
+            closeCaseModal();
+          });
+        }
+
+        // closes the modal and lets the smooth-scroll script take #contact
+        if (contactLink) {
+          contactLink.addEventListener("click", function () {
+            closeCaseModal(false);
+          });
+        }
+
+        document.addEventListener("keydown", function (e) {
+          if (!isOpen()) return;
+
+          if (e.key === "Escape") {
+            closeCaseModal();
+            return;
+          }
+
+          if (e.key !== "Tab") return;
+
+          // keep focus inside the dialog while it is open
+          const items = Array.from(dialog.querySelectorAll(FOCUSABLE)).filter(
+            function (el) {
+              return el.offsetParent !== null;
+            }
+          );
+          if (!items.length) return;
+
+          const first = items[0];
+          const last = items[items.length - 1];
+
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
         });
       })();
     </script>

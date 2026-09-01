@@ -313,7 +313,7 @@ nav.case ul {
 
   gap: 0;
 
-  background: var(--transparency-secondary);
+  background: var(--nav-scrim);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }

@@ -4,16 +4,9 @@
     url("/assets/fonts/tanker/Tanker-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Tanker";
-  src: url("/assets/fonts/tanker/Tanker-Bold.woff2") format("woff2"),
-    url("/assets/fonts/tanker/Tanker-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  /* block, not swap: the hero name is sized to Tanker's metrics, so painting a
+     fallback face at that size would overflow the banner for a few frames. */
+  font-display: block;
 }
 
 /* =========================
@@ -64,6 +57,9 @@ ul {
   /* Transparency */
   --transparency-primary: hsla(64, 96%, 81%, 0.3);
   --transparency-secondary: hsla(95, 50%, 9%, 0.3);
+  /* the sticky nav sits over both themes; 0.85 keeps the blur but holds the
+     labels at 9.8:1 even where the light hero/footer passes underneath */
+  --nav-scrim: hsla(95, 50%, 9%, 0.85);
 
   /* Background / Text */
   --color-bg-dark: var(--color-secondary);
@@ -105,6 +101,19 @@ ul {
 .light {
   background-color: var(--color-bg-light);
   color: var(--color-text-on-light);
+}
+
+/* <picture> is a wrapper only: display:contents keeps the <img> as the
+   flex/grid item, so all the existing layout rules still target it. The
+   <source> children must be hidden explicitly — they compute to display:block,
+   so display:contents promotes them to grid/flex items too, which silently
+   added an implicit row to every container holding an image. */
+picture {
+  display: contents;
+}
+
+picture source {
+  display: none;
 }
 
 /* =========================
@@ -152,6 +161,10 @@ strong {
    ========================= */
 .btn {
   display: flex;
+  /* NB: no background here. .dark / .light set it and share this specificity,
+     so a background on .btn would win by source order and blank them out. */
+  font-family: inherit;
+  cursor: pointer;
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
@@ -199,6 +212,29 @@ strong {
 .btn-icon:focus-visible {
   outline: 2px solid orangered;
   outline-offset: 2px;
+}
+
+/* Text link that is really a button (opens the case-studies note) */
+.btn-link {
+  display: inline;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn-link:hover {
+  opacity: 0.8;
+}
+
+.btn-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 /* Menu Button */
@@ -275,6 +311,10 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  /* the hero plus the nav should be exactly one screen, in both directions */
+  height: calc(100vh - 100px);
+  height: calc(100svh - 100px);
 }
 
 /* Hero Banner */
@@ -282,6 +322,12 @@ header {
   width: 100%;
   max-width: 1532px;
   aspect-ratio: 3/1.5;
+  flex: 1;
+  min-height: 0;
+
+  /* 100cqw below == the banner's content box (its width minus its padding) */
+  container-type: inline-size;
+  container-name: hero;
 
   display: grid;
   padding: 24px 24px 0px 24px;
@@ -295,6 +341,12 @@ header {
   font-family: "Tanker", system-ui, sans-serif;
   font-weight: 400;
   letter-spacing: -0.03em;
+
+  /* "Rafael Borges" in Tanker at -0.03em advances ~4.92x its font-size, so
+     100cqw / 4.92 = 20.3cqw would fill the line exactly. 19.5cqw is the largest
+     value that never overflows once the browser rounds letter-spacing to whole
+     pixels at small sizes: swept 320-2000px, worst-case fill 98.0%. */
+  font-size: clamp(28px, 19.5cqw, 320px);
 
   grid-row: 1 / 2;
   grid-column: 1 / -1;
@@ -358,6 +410,13 @@ header {
   object-fit: contain;
 }
 
+#hero-banner .center img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
 #hero-banner ul {
   display: flex;
   align-items: flex-start;
@@ -385,7 +444,7 @@ nav {
   top: 0;
   z-index: 1000;
 
-  background: var(--transparency-secondary);
+  background: var(--nav-scrim);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -418,33 +477,49 @@ main {
 /* =========================
    Work
    ========================= */
+#work,
+#about,
+#contact {
+  scroll-margin-top: 100px;
+}
+
 #work {
   position: relative;
   width: 100%;
   max-width: 1532px;
-}
 
-#work h2 {
-  position: absolute;
-  top: 120px;
-  left: 4%;
-}
+  /* fill the screen below the sticky nav; content-taller sections just grow */
+  min-height: calc(100vh - 100px);
+  min-height: calc(100svh - 100px);
 
-#work .navigation {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+}
+
+#work .work-intro {
   position: absolute;
-  top: 50%;
+  top: 48px;
+  left: 120px;
+  z-index: 1;
+}
+
+/* only the caption is constrained; the h2 runs as wide as it needs so the
+   mockup can encroach on it, which is the point of the composition */
+#work .work-note {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 24px;
+  max-width: 40ch;
 }
 
 /* Work / Case Cover */
 #work .case-cover {
   display: grid;
   width: 100%;
-  min-height: 800px;
-  padding: 160px 120px;
+  flex: 1;
+  min-height: 0;
+  padding: 24px 120px 64px;
   gap: 32px;
   grid-template-rows: repeat(1, minmax(0, 1fr));
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -452,6 +527,8 @@ main {
 
 #work .case-cover .content {
   display: flex;
+  /* clears .work-intro overhead; the mockup column deliberately does not */
+  padding-top: 208px;
   padding-bottom: 18%;
   flex-direction: column;
   justify-content: flex-end;
@@ -466,7 +543,10 @@ main {
 #work .case-cover .mockup {
   width: 100%;
   height: 100%;
+  /* min-height:0 on .case-cover stops the image's 1788x2064 ratio from
+     flooring the row; height:100% then just fills whatever the section gives */
   object-fit: contain;
+  object-position: top center;
 }
 
 /* =========================
@@ -475,12 +555,19 @@ main {
 #about {
   width: 100%;
   max-width: 1532px;
-  min-height: 800px;
-  padding: 100px 120px;
+  min-height: calc(100vh - 100px);
+  min-height: calc(100svh - 100px);
+  /* top matches #work .work-intro's 48px so anchor landings are consistent */
+  padding: 48px 120px 100px;
 
   display: grid;
-  gap: 60px;
-  grid-template-rows: auto auto;
+  align-content: start;
+  row-gap: 24px;
+  column-gap: 60px;
+  /* row 2 is flexible so .working (which spans both rows) puts its height
+     contribution THERE. With two auto rows the photo inflated row 1 and
+     re-opened the title -> paragraph gap on wide screens. */
+  grid-template-rows: auto 1fr;
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
@@ -504,26 +591,12 @@ main {
   border: 6px solid var(--color-primary);
 }
 
-#about .working-mobile {
-  grid-row: 1 / span 2;
-  grid-column: 1 / span 2;
-  justify-self: center;
-  align-self: center;
-
-  width: 100%;
-  height: 80%;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 40px;
-  border: 6px solid var(--color-primary);
-
-  display: none;
-}
-
 #about .content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  /* top, not bottom: on wide screens row 2 is taller than the copy, and
+     bottom-aligning re-opened the gap under the title */
+  justify-content: flex-start;
   align-items: flex-start;
   align-self: stretch;
   gap: 16px;
@@ -573,6 +646,24 @@ main {
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
+}
+
+#contact .email-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-radius: 100px;
+}
+
+#contact .email-link:hover {
+  opacity: 0.8;
+}
+
+#contact .email-link:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 6px;
 }
 
 #contact .btn-icon {
@@ -701,23 +792,41 @@ body.case-modal-open {
   #hero-banner {
     aspect-ratio: 3/1.65;
     margin-bottom: 8px;
+    /* same 50/50 rule as portrait tablets: the photo track's 50% growth limit
+       is filled before the 1fr spacer, so the photo takes half the card when
+       there is room and the spacer bottom-aligns the copy just above it;
+       when the copy grows the spacer collapses and the photo shrinks. */
+    grid-template-rows: auto minmax(0, 1fr) auto auto minmax(0, 50%);
+    row-gap: 16px;
   }
 
-  #hero-banner .center {
-    grid-row: 2 / span 3;
-    grid-column: 1 / span 3;
-  }
-
+  /* On a wide card the 50/50 is horizontal, not vertical: the photo is square,
+     so capping it at half the HEIGHT also caps its width and strands it in a
+     corner. Photo takes the left half at full height, copy the right half with
+     the row-2 spacer bottom-aligning it in the top half. */
   #hero-banner .left {
-    grid-row: 2 / span 1;
-    grid-column: 4 / span 4;
+    grid-row: 3 / span 1;
+    grid-column: 5 / -1;
+    align-items: flex-end;
     text-align: right;
+    margin-top: 16px;
   }
 
   #hero-banner .right {
-    grid-row: 3 / span 1;
-    grid-column: 4 / span 4;
+    grid-row: 4 / span 1;
+    grid-column: 5 / -1;
+    align-items: flex-end;
     text-align: right;
+    margin-bottom: 16px;
+  }
+
+  #hero-banner .center {
+    grid-row: 2 / -1;
+    grid-column: 1 / span 4;
+  }
+
+  #hero-banner .center img {
+    object-position: bottom left;
   }
 
   #hero-banner .hide {
@@ -732,34 +841,39 @@ body.case-modal-open {
     height: 60px;
   }
 
+  #work,
+  #about,
+  #contact {
+    scroll-margin-top: 60px;
+  }
+
+  #work,
+  #about {
+    min-height: calc(100vh - 60px);
+    min-height: calc(100svh - 60px);
+  }
+
+  header {
+    height: calc(100vh - 60px);
+    height: calc(100svh - 60px);
+  }
+
   #work .case-cover {
-    padding: 80px 40px;
+    padding: 24px 40px 56px;
   }
 
-  #work h2 {
-    position: absolute;
-    top: 10vh;
-    left: 4%;
+  #work .work-intro {
+    top: 48px;
+    left: 40px;
   }
 
-  #work {
-    min-height: auto;
-  }
-
-  #work h2 {
-    top: 60px;
-  }
-
-  #work .navigation {
-    justify-content: flex-end;
-    gap: 24px;
-    top: auto;
-    bottom: 16px;
+  #work .case-cover .content {
+    padding-top: 208px;
   }
 
   #about {
-    padding: 80px 40px;
-    row-gap: 60px;
+    padding: 48px 40px 80px;
+    row-gap: 24px;
     column-gap: 32px;
   }
 
@@ -785,26 +899,49 @@ body.case-modal-open {
     aspect-ratio: 3/2;
     padding: 16px 16px 0px 16px;
     border-radius: var(--radius-m);
-    grid-template-rows: repeat(3, minmax(0, 1fr));
+    /* same 50/50 rule as portrait tablets: the photo track's 50% growth limit
+       is filled before the 1fr spacer, so the photo takes half the card when
+       there is room and the spacer bottom-aligns the copy just above it;
+       when the copy grows the spacer collapses and the photo shrinks. */
+    grid-template-rows: auto minmax(0, 1fr) auto auto minmax(0, 50%);
+    row-gap: 16px;
   }
 
+  /* On a wide card the 50/50 is horizontal, not vertical: the photo is square,
+     so capping it at half the HEIGHT also caps its width and strands it in a
+     corner. Photo takes the left half at full height, copy the right half with
+     the row-2 spacer bottom-aligning it in the top half. */
   #hero-banner .left {
-    display: none;
+    grid-row: 3 / span 1;
+    grid-column: 5 / -1;
+    align-items: flex-end;
+    text-align: right;
+    margin-top: 16px;
   }
 
   #hero-banner .right {
-    grid-row: 2 / span 1;
-    grid-column: 5 / span 3;
+    grid-row: 4 / span 1;
+    grid-column: 5 / -1;
+    align-items: flex-end;
     text-align: right;
+    margin-bottom: 16px;
   }
 
   #hero-banner .center {
-    grid-row: 2 / span 3;
+    grid-row: 2 / -1;
     grid-column: 1 / span 4;
+  }
+
+  #hero-banner .center img {
+    object-position: bottom left;
   }
 
   #work .case-cover {
     gap: 16px;
+  }
+
+  #work .case-cover .content {
+    padding-top: 176px;
   }
 
   #work .case-cover .content {
@@ -824,17 +961,9 @@ body.case-modal-open {
   }
 
   #about .working {
-    display: none;
-  }
-
-  #about .working-mobile {
     grid-row: 2 / span 1;
     grid-column: 1 / span 5;
-    justify-self: center;
-    align-self: center;
     height: 100%;
-
-    display: block;
   }
 
   #about .content {
@@ -859,18 +988,31 @@ body.case-modal-open {
     aspect-ratio: 3/4;
     padding: 16px 16px 0px 16px;
     border-radius: var(--radius-s);
-    grid-template-rows: repeat(5, minmax(0, 1fr));
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    row-gap: 16px;
+  }
+
+  #hero-banner .left {
+    grid-row: 2 / span 1;
+    grid-column: 1 / -1;
+    align-items: flex-start;
+    text-align: left;
+    /* extra air above the pair; the 16px row-gap still separates the two */
+    margin-top: 16px;
   }
 
   #hero-banner .right {
-    grid-row: 2 / span 1;
-    grid-column: 1 / span 7;
-    text-align: center;
+    grid-row: 3 / span 1;
+    grid-column: 1 / -1;
+    align-items: flex-start;
+    text-align: left;
+    margin-bottom: 16px;
   }
 
   #hero-banner .center {
-    grid-row: 3 / span 3;
-    grid-column: 1 / span 6;
+    grid-row: 4 / -1;
+    /* full width so the photo can actually grow into the spare height */
+    grid-column: 1 / -1;
   }
 
   #hero-banner .hide-mobile {
@@ -879,19 +1021,32 @@ body.case-modal-open {
 
   #hero-banner .hide-desktop {
     display: flex;
-    grid-row: 5 / span 1;
+    /* sits in the portrait row, pinned bottom-right over it */
+    grid-row: 4 / -1;
+    grid-column: 1 / -1;
     align-items: flex-end;
     text-align: right;
     justify-content: flex-end;
     padding-bottom: 16px;
+    z-index: 1;
   }
 
   nav {
     padding: 0px 24px;
   }
 
+  #work .work-intro {
+    position: static;
+    max-width: none;
+    padding: 48px 0 0;
+  }
+
+  #work .case-cover .content {
+    padding-top: 0;
+  }
+
   #work .case-cover {
-    padding: 80px 0px;
+    padding: 24px 0px 64px;
     height: auto;
     grid-template-rows: auto 1fr;
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -910,7 +1065,7 @@ body.case-modal-open {
   }
 
   #about {
-    padding: 80px 0px;
+    padding: 48px 0px 80px;
     row-gap: 32px;
     column-gap: 32px;
   }
@@ -937,7 +1092,6 @@ body.case-modal-open {
     aspect-ratio: 3/5;
     padding: 16px 16px 0px 16px;
     border-radius: var(--radius-s);
-    grid-template-rows: repeat(5, minmax(0, 1fr));
   }
 
   #contact .menu {
@@ -966,7 +1120,98 @@ body.case-modal-open {
     right: 12px;
   }
 
-  #contact .banner .btn-icon {
+  #contact .email-link {
+    gap: 8px;
+  }
+
+  #contact .email h3 {
+    font-size: 18px;
+  }
+}
+
+/* =========================
+   Portrait-shaped tablets
+   ========================= */
+
+/* The width breakpoints between 601 and 1024 assume a LANDSCAPE tablet: the
+   photo sits in 3-4 of 7 columns with the copy beside it. On a portrait tablet
+   (iPad 834x1112, 768x1024) that caps the photo's width, so it cannot absorb
+   the height the full-viewport hero gives it and strands it bottom-left.
+   Stack everything and hand the photo the full width instead.
+   Last in the file on purpose: it has to win over the width-only blocks. */
+@media (min-width: 601px) and (max-width: 1024px) and (orientation: portrait) {
+  /* Copy sits at the TOP, straight under the wordmark; the flexible spacer
+     moved below it (row 4) so the slack falls between the copy and the photo.
+     The photo still takes its 50% first and the spacer absorbs the rest, so
+     the 50/50 rule and the shrink behaviour are unchanged. */
+  #hero-banner {
+    grid-template-rows: auto auto auto minmax(0, 1fr) minmax(0, 50%);
+    row-gap: 16px;
+  }
+
+  /* copy runs 80% of the card width, left-aligned; the grid column still spans
+     the full width so the 80% is measured against the card, not a column band */
+  #hero-banner .left {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 80%;
+    margin-top: 16px;
+  }
+
+  #hero-banner .right {
+    grid-row: 3;
+    grid-column: 1 / -1;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 80%;
+    margin-bottom: 16px;
+  }
+
+  #hero-banner .center {
+    grid-row: 5 / -1;
+    grid-column: 1 / -1;
+  }
+
+  /* the landscape blocks above set bottom left for their overlap layout;
+     the stacked layout wants the photo centred again */
+  #hero-banner .center img {
+    object-position: bottom center;
+  }
+
+  /* the arrow leaves the copy block and pins to the bottom-right over the
+     photo, which lets both paragraphs run the full width */
+  #hero-banner .hide-mobile {
     display: none;
+  }
+
+  #hero-banner .hide-desktop {
+    display: flex;
+    grid-row: 5 / -1;
+    grid-column: 1 / -1;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 16px;
+    z-index: 1;
+  }
+}
+
+/* Phones (<= 600px and aspect <= 3/5) have vertical room to spare, so the
+   wordmark breaks onto two lines and roughly doubles in size. "Borges" is the
+   wider of the two words at 2.47x its font-size; 38cqw fills ~94% of the line.
+   Tablets are deliberately excluded: their cards are wide enough that a SINGLE
+   line already fills ~95%, whereas two lines there only reach ~65% and leave a
+   ragged right edge while halving the portrait. */
+/* min-height guard: on a short phone the two-line wordmark plus both
+   paragraphs leaves almost nothing for the photo (16px on a 320x568). */
+@media (max-width: 600px) and (max-aspect-ratio: 3/5) and (min-height: 700px) {
+  #hero-banner .title {
+    white-space: normal;
+    /* 38cqw fills the line, but on a big portrait tablet that is 512px of
+       wordmark and only a 119px photo left. The vh cap keeps the two lines to
+       roughly a third of the card so the portrait still has room. */
+    font-size: clamp(28px, min(38cqw, 18vh), 320px);
+    font-size: clamp(28px, min(38cqw, 18svh), 320px);
   }
 }
