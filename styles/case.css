@@ -31,20 +31,39 @@ cite {
 /* ================================
    Typography específica do case
    ================================ */
-h1.case {
+/* The case page outline is now h1 (case title) -> h2 (section headings) ->
+   h3 (insight cards). These three used to be h1/h2/h3 and inherited their
+   family and weight from the global tag rules, so they now state it. */
+p.case {
   font-size: 20px;
   font-style: normal;
   font-weight: 300;
   line-height: 28px;
 }
 
-h2.casetitle {
+.casetitle {
+  font-family: "Tanker", system-ui, sans-serif;
   font-size: 60px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
 }
 
-h3.casesubtitle {
+.casesubtitle {
+  font-family: "Sora", sans-serif;
   font-size: 24px;
+  font-style: normal;
   font-weight: 600;
+  line-height: 100%;
+}
+
+/* section headings kept their old h3 appearance after being promoted to h2 */
+.case-content h2 {
+  font-family: "Sora", sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 100%;
 }
 
 p.special {
@@ -424,6 +443,7 @@ body.modal-open {
 }
 
 @media (max-width: 1224px) {
+
   .case-content section {
     padding: 100px 0px;
   }
@@ -480,14 +500,14 @@ body.modal-open {
     gap: 8px;
   }
 
-  h1.case {
+  p.case {
     font-size: 16px;
     font-style: normal;
     font-weight: 300;
     line-height: 24px;
   }
 
-  h2.casetitle {
+  .casetitle {
     font-size: 40px;
   }
 
@@ -498,4 +518,35 @@ body.modal-open {
   .case-content {
     padding: 0 16px;
   }
+}
+
+/* ================================
+   Case outro
+   ================================ */
+
+.case-outro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  /* rule separating the outro from the case content above it */
+  padding-top: 40px;
+  border-top: 1.5px solid var(--transparency-primary);
+  text-align: center;
+}
+
+.case-outro p {
+  max-width: 52ch;
+}
+
+.case-outro__actions {
+  margin-top: 8px;
+}
+
+.case-outro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
 }

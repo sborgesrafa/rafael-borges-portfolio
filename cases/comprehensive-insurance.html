@@ -41,11 +41,11 @@
         <div class="container light parallax-content">
           <div class="content">
             <div class="top">
-              <h2 class="casetitle">Comprehensive Insurance</h2>
-              <h3 class="casesubtitle">
+              <h1 class="casetitle">Comprehensive Insurance</h1>
+              <p class="casesubtitle">
                 Driving user adoption and revenue growth
-              </h3>
-              <h1 class="case">
+              </p>
+              <p class="case">
                 A project focused on helping travelers booking train tickets on
                 Omio understand their protection options and confidently choose
                 the insurance plan that fits their trip.
@@ -130,7 +130,7 @@
       <section id="overview" class="parallax-section" data-speed="0.5">
         <div class="container dark parallax-content">
           <div class="content">
-            <h3>Project Overview</h3>
+            <h2>Project Overview</h2>
             <p>
               When the project began, many travelers booking train tickets on
               Omio were unsure about the value of adding insurance. This lack of
@@ -196,7 +196,7 @@
       >
         <div class="container dark parallax-content">
           <div class="content">
-            <h3>Enhancing User Perception</h3>
+            <h2>Enhancing User Perception</h2>
             <p>
               User testing and quantitative data revealed a key problem:
               <br />
@@ -250,7 +250,7 @@
       <section id="encouraging" class="parallax-section" data-speed="0.5">
         <div class="container dark parallax-content">
           <div class="content">
-            <h3>Encouraging Mindful Choices</h3>
+            <h2>Encouraging Mindful Choices</h2>
             <p>
               Early A/B tests showed that many travelers moved through the
               booking flow without realizing they had skipped the insurance
@@ -308,7 +308,7 @@
       <section id="balancing" class="parallax-section" data-speed="0.5">
         <div class="container dark parallax-content">
           <div class="content">
-            <h3>Balancing Flexibility with Clarity</h3>
+            <h2>Balancing Flexibility with Clarity</h2>
             <p>
               When more protection options were introduced, the intention was to
               offer greater flexibility. However, testing revealed an unexpected
@@ -365,7 +365,7 @@
       <section id="final" class="parallax-section" data-speed="0.5">
         <div class="container dark parallax-content">
           <div class="content">
-            <h3>Final Solution</h3>
+            <h2>Final Solution</h2>
             <p>
               Based on the insights gathered, I redesigned the insurance
               component to:
@@ -406,7 +406,7 @@
       <section id="learnings" class="parallax-section" data-speed="0.5">
         <div class="container dark parallax-content">
           <div class="content-center">
-            <h3>Learnings and Outcomes</h3>
+            <h2>Learnings and Outcomes</h2>
             <p>
               Looking back, this project became a clear example of how
               intentional, insight-driven design can create meaningful impact.
@@ -472,7 +472,7 @@
       </section>
       <!-- Iterations -->
       <section id="iteration" class="parallax-section" data-speed="0.5">
-        <div class="container dardl parallax-content">
+        <div class="container dark parallax-content">
           <div class="content-center">
             <blockquote>
               "Keep in mind that MVP gets you to the basecamp of the opportunity
@@ -487,15 +487,20 @@
               one.
             </p>
 
-            <a style="align-self: center; margin-top: 24px" href="/index.html">
-              <button class="btn dark">
-                Back to Home Page
-                <img
-                  src="/assets/icons/arrow-up-right.svg"
-                  alt="Arrow Up Right Icon"
-                />
-              </button>
-            </a>
+            <div class="case-outro">
+              <p class="special">You made it to the end</p>
+              <p>
+                If you would like to talk about a project, or just say hi, my
+                inbox is open.
+              </p>
+              <div class="case-outro__actions">
+                <a href="mailto:sborges.rafa@gmail.com" class="btn dark">
+                  sborges.rafa@gmail.com
+                  <img src="/assets/icons/arrow-up-right.svg" alt="" />
+                </a>
+                <a href="/index.html" class="btn dark">Back to home</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -622,30 +627,56 @@
   <!-- Active menu highlight -->
   <script>
     (function () {
-      const sections = document.querySelectorAll("section, footer");
-      const menuLinks = document.querySelectorAll(".btn-menu");
+      // breadcrumb highlight. Same fix as the homepage: the old
+      // IntersectionObserver used threshold 0.5, which can never fire on a
+      // section taller than the viewport, so the highlight stuck.
+      const links = Array.from(document.querySelectorAll(".breadcrumbs .btn-menu"));
+      if (!links.length) return;
 
-      if (!("IntersectionObserver" in window)) return;
+      const targets = links
+        .map(function (link) {
+          const id = (link.getAttribute("href") || "").replace(/^#/, "");
+          const el = id ? document.getElementById(id) : null;
+          return el ? { link: link, el: el } : null;
+        })
+        .filter(Boolean);
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              menuLinks.forEach((link) => link.classList.remove("active"));
-              const id = entry.target.getAttribute("id");
-              const activeLink = document.querySelector(
-                `.btn-menu[href="#${id}"]`
-              );
-              if (activeLink) activeLink.classList.add("active");
-            }
-          });
-        },
-        {
-          threshold: 0.5, // 50% visível já conta
-        }
-      );
+      if (!targets.length) return;
 
-      sections.forEach((section) => observer.observe(section));
+      function update() {
+        const line = window.innerHeight * 0.4;
+        let current = null;
+
+        targets.forEach(function (t) {
+          if (t.el.getBoundingClientRect().top <= line) current = t;
+        });
+
+        const atBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 2;
+        if (atBottom) current = targets[targets.length - 1];
+
+        links.forEach(function (link) {
+          const on = !!current && link === current.link;
+          link.classList.toggle("active", on);
+          if (on) link.setAttribute("aria-current", "true");
+          else link.removeAttribute("aria-current");
+        });
+      }
+
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          update();
+          ticking = false;
+        });
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      update();
     })();
   </script>
 
