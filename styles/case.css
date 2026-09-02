@@ -18,7 +18,7 @@ html {
 
 blockquote {
   text-align: center;
-  font-size: 40px;
+  font-size: var(--text-title-l);
   font-style: normal;
   font-weight: 800;
   line-height: 52px;
@@ -35,59 +35,59 @@ cite {
    h3 (insight cards). These three used to be h1/h2/h3 and inherited their
    family and weight from the global tag rules, so they now state it. */
 p.case {
-  font-size: 20px;
+  font-size: var(--text-body-lg);
   font-style: normal;
   font-weight: 300;
   line-height: 28px;
 }
 
 .casetitle {
-  font-family: "Tanker", system-ui, sans-serif;
-  font-size: 60px;
+  font-family: var(--font-display);
+  font-size: var(--text-display-s);
   font-style: normal;
   font-weight: 400;
-  line-height: 100%;
+  line-height: var(--leading-display);
 }
 
 .casesubtitle {
-  font-family: "Sora", sans-serif;
-  font-size: 24px;
+  font-family: var(--font-body);
+  font-size: var(--text-title-s);
   font-style: normal;
   font-weight: 600;
-  line-height: 100%;
+  line-height: var(--leading-display);
 }
 
 /* section headings kept their old h3 appearance after being promoted to h2 */
 .case-content h2 {
-  font-family: "Sora", sans-serif;
-  font-size: 32px;
+  font-family: var(--font-body);
+  font-size: var(--text-title-m);
   font-style: normal;
   font-weight: 800;
-  line-height: 100%;
+  line-height: var(--leading-display);
 }
 
 p.special {
-  font-family: "Tanker", system-ui, sans-serif;
-  font-size: 32px;
+  font-family: var(--font-display);
+  font-size: var(--text-title-m);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
 
 a.logo {
-  font-family: "Tanker", system-ui, sans-serif;
-  font-size: 40px;
+  font-family: var(--font-display);
+  font-size: var(--text-title-l);
   font-style: normal;
   font-weight: 400;
-  line-height: 100%;
+  line-height: var(--leading-display);
 }
 
 a.logo-mobile {
-  font-family: "Tanker", system-ui, sans-serif;
-  font-size: 40px;
+  font-family: var(--font-display);
+  font-size: var(--text-title-l);
   font-style: normal;
   font-weight: 400;
-  line-height: 100%;
+  line-height: var(--leading-display);
   display: none;
 }
 
@@ -138,21 +138,21 @@ a.logo-mobile {
 }
 
 .insight-card .card-content .title {
-  font-size: 24px;
+  font-size: var(--text-title-s);
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
 }
 
 .insight-card .card-content .subtitle {
-  font-size: 16px;
+  font-size: var(--text-body);
   font-style: normal;
   font-weight: 200;
   line-height: 16px;
 }
 
 .insight-card .card-content .description {
-  font-size: 16px;
+  font-size: var(--text-body);
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -245,10 +245,18 @@ nav.case ul {
 }
 
 /* ================================
-   Intro 
+   Intro
    ================================ */
 
-#intro .container .content {
+/* These used to be #intro / #overview. They are classes now so the case
+   template is an explicit contract rather than a rule that only fires if a new
+   case happens to reuse the same two ids.
+
+   Specificity matters here: the generic
+   `.case-content section .container .content` is (0,3,1), so a bare
+   `.case-intro .container .content` (0,3,0) would lose. Keeping .case-content
+   in front makes it (0,4,0), which wins on class count. Don't shorten it. */
+.case-content .case-intro .container .content {
   grid-column: 1 / span 3;
 
   display: flex;
@@ -261,7 +269,7 @@ nav.case ul {
   gap: 32px;
 }
 
-#intro .container .content .top {
+.case-content .case-intro .container .content .top {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -292,23 +300,23 @@ nav.case ul {
    Project Overview
    ================================ */
 
-#overview .container .card-column {
+.case-content .case-overview .container .card-column {
   grid-column: 4 / span 2;
 }
 
-#overview .container .card-column .card1 {
+.case-content .case-overview .container .card-column .card1 {
   align-self: flex-end;
 }
 
-#overview .container .card-column .card2 {
+.case-content .case-overview .container .card-column .card2 {
   align-self: center;
 }
 
-#overview .container .card-column .card3 {
+.case-content .case-overview .container .card-column .card3 {
   align-self: flex-start;
 }
 
-#overview .container .card-light {
+.case-content .case-overview .container .card {
   width: 280px;
   max-height: 120px;
 
@@ -401,7 +409,7 @@ nav.case ul {
   align-items: center;
 
   color: var(--color-primary);
-  font-size: 20px;
+  font-size: var(--text-body-lg);
   font-weight: bold;
   cursor: pointer;
 
@@ -536,14 +544,14 @@ body.modal-open {
   }
 
   p.case {
-    font-size: 16px;
+    font-size: var(--text-body);
     font-style: normal;
     font-weight: 300;
     line-height: 24px;
   }
 
   .casetitle {
-    font-size: 40px;
+    font-size: var(--text-title-l);
   }
 
   .case-content section {
@@ -553,6 +561,21 @@ body.modal-open {
   .case-content {
     padding: 0 16px;
   }
+}
+
+/* ================================
+   Content utilities
+   ================================ */
+
+/* A metric that moved the wrong way. Was an inline style="color: #fd6b6b". */
+.metric-down {
+  color: var(--color-negative);
+}
+
+/* The short label that introduces a results block — a step down from the
+   section h2, not a heading in the outline. Was an inline font-size. */
+.subhead {
+  font-size: var(--text-title-s);
 }
 
 /* ================================

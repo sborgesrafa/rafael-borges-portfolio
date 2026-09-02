@@ -3,14 +3,14 @@
 Documented from source on 2 September 2026, from `styles/style.css`,
 `styles/case.css`, `index.html` and `cases/comprehensive-insurance.html`.
 
-**Status:** the six findings marked ✅ below were fixed on 2 September 2026.
-Score moved 52 → 60; the remaining gap is token adoption.
+**Status:** ten of the fourteen findings below are fixed (2 September 2026).
+Score moved 52 → 60 → **73**. The remaining gap is spacing and motion adoption.
 
 A live version with rendered swatches, type specimens and component previews is
 published as a Claude artifact.
 
-**Snapshot:** 26 tokens declared in `:root` · 11 components · 15.42:1 core text
-contrast · system health **60 / 100**.
+**Snapshot:** 39 tokens declared in `:root` · 10 components · 15.42:1 core text
+contrast · system health **73 / 100**.
 
 ---
 
@@ -29,6 +29,7 @@ inversion instead of shadow.
 | `--transparency-primary` | `hsla(64, 96%, 81%, 0.3)` | Active nav pill; hairline above the case outro. |
 | `--transparency-secondary` | `hsla(95, 50%, 9%, 0.3)` | **Unused.** |
 | `--nav-scrim` | `hsla(95, 50%, 9%, 0.85)` | Sticky nav and case breadcrumbs. 0.85 holds labels at 9.8:1 even where the lime hero passes underneath. |
+| `--color-negative` | `#fd6b6b` | A metric that moved the wrong way. 5.92:1 on the dark ground — clears AA, not AAA, so use it for short labels rather than paragraphs. There is deliberately no `--color-positive`: good news already reads in the brand yellow. |
 
 Aliases:
 
@@ -39,6 +40,7 @@ Aliases:
 | `--color-bg-light` | `--color-primary` | 2 |
 | `--color-text-on-light` | `--color-secondary` | 2 |
 | `--focus-ring` | `--color-primary`, flipped by `.light` | 5 |
+| `--card-border` | `--color-primary`, flipped by `.light` | 1 (every card) |
 
 **Contrast**
 
@@ -79,33 +81,47 @@ Tanker loads with `font-display: block` rather than `swap` — the hero wordmark
 sized to Tanker's metrics, so painting a fallback at that size would overflow the
 banner for a few frames.
 
-| Role | Face | Size | Line height |
-|---|---|---|---|
-| `h2` display | Tanker 400 | 120px (72px ≤768) | 100% |
-| `.casetitle` | Tanker 400 | 60px (40px ≤425) | 100% |
-| `p.special` | Tanker 400 | 32px | normal |
-| `h3` section | Sora 800 | 32px | 100% |
-| `.casesubtitle` | Sora 600 | 24px | 100% |
-| `p.case` lead | Sora 300 | 20px (16px ≤425) | 28px |
-| body | Sora 200 | 16px | 28px (24px ≤425) |
-| `.btn` | Sora 400 | 16px | 24px |
-| `.btn-menu.small` | Sora 300 | 14px | normal |
+Families are `--font-display` (Tanker) and `--font-body` (Sora).
 
-**Size scale, as used:** 14 · 16 · *18* · 20 · 24 · *28* · 32 · 40 · 60 · 72 ·
-120. Italic steps appear only inside media queries. 29 `font-size` declarations,
-none tokenised.
+The scale is named by **role, not size** — the same step is reused at different
+breakpoints, so a size-based name would go stale the first time one moved.
+
+| Token | Value | Used by |
+|---|---|---|
+| `--text-caption` | 14px | `.btn-menu.small` (breadcrumbs) |
+| `--text-body` | 16px | body, `.btn`, hero paragraphs, insight subtitle & description |
+| `--text-body-lg` | 20px | `.btn-menu`, `p.case` lead, contact heading ≤600 |
+| `--text-title-s` | 24px | `.casesubtitle`, insight title, `.subhead` |
+| `--text-title-m` | 32px | `h3`, `.case-content h2`, `p.special` |
+| `--text-title-l` | 40px | `blockquote`, `a.logo`, `.casetitle` ≤425 |
+| `--text-display-s` | 60px | `.casetitle` |
+| `--text-display-m` | 72px | `h2` ≤768 |
+| `--text-display-l` | 120px | `h2` |
+
+`--leading-display: 100%` covers the seven display headings. The px
+line-heights elsewhere are tied to the font-size beside them and don't
+generalise, so they stay literal — tokenising them would have been worse than
+leaving them.
+
+**Four literals remain, all deliberate:** `1.4rem` / `0.95rem` in
+`.case-modal__content` (rem-based, so the modal scales with the root — but note
+neither resolves to a scale step: 22.4px and 15.2px), the `18px` glyph on
+`.case-modal__close`, and an `18px` nudge on the contact heading at ≤425. That
+last one is a one-off, not a step, which is why it isn't in the scale.
 
 **Weights used:** 200 (5×), 300 (3×), 400 (9×), 600 (5×), 700 (1×), 800 (3×).
-The font request asks for the full `wght@100..800` range; 100 never appears.
-Narrowing to `200;300;400;600;700;800` trims the download with no visual change.
+The Google Fonts request is now `wght@200..800` — 100 was never used. Narrow the
+*range* rather than listing discrete weights: for a variable family a list of
+values can produce more files, not fewer.
 
 ### 1.4 Spacing
 
 Nine tokens on a 4px grid: `--space-2` (8) · `-3` (12) · `-4` (16) · `-6` (24) ·
 `-8` (32) · `-9` (36) · `-10` (40) · `-11` (44) · `-12` (48).
 
-**None of them is referenced anywhere in either stylesheet.** All 113 spacing
-values in the codebase are literals. The scale also skips 4px, 20px and 28px, and
+**None of them is referenced anywhere in either stylesheet** — spacing and
+motion are now the only token groups with zero adoption. All 113 spacing values
+in the codebase are literals. The scale also skips 4px, 20px and 28px, and
 doesn't reach the 64/80/100/120/208px values the layouts actually use. 36px
 appears nowhere; 44px is the control height rather than a grid step.
 
@@ -190,16 +206,21 @@ Navigation only. `.active` is applied by the scroll-spy script and pairs with
 An inline `<button>` styled as a link, used once — the "more on the way" trigger
 in the work note. Underlined at 4px offset, transparent, inherits its font.
 
-### 2.5 Card — `.card` / `.card-light`
+### 2.5 Card — `.card`
 
-An icon-plus-label block for impact figures. The two classes are byte-for-byte
-identical except for `border-color`: `.card` takes the dark green for lime
-surfaces, `.card-light` the yellow for green ones.
+An icon-plus-label block for impact figures. **One class, both grounds.** The
+border comes from `--card-border`, which defaults to the yellow and is flipped to
+the dark green by `.light` — the same mechanism as `--focus-ring`. A card nested
+inside a `.light` block inherits the flip, so it is correct by construction
+rather than by remembering which class to type.
 
-> **The naming is inverted.** `.card-light` is the variant for *dark* surfaces.
-> Everywhere else `.light` means "this surface is lime". Two classes differing by
-> one property are also one class and a token: `--card-border`, flipped by
-> `.light` exactly as `--focus-ring` already is.
+Verified: the three intro cards (on the lime container) resolve to
+`rgb(21, 34, 11)`; the overview and learnings cards (on dark containers) resolve
+to `rgb(247, 253, 160)` — identical to the two-class version.
+
+> This used to be `.card` plus `.card-light`, byte-for-byte identical except for
+> `border-color`, and the names were inverted: `.card-light` was the variant for
+> *dark* surfaces, while everywhere else `.light` means "this surface is lime".
 
 ### 2.6 Insight card — `.insight-card`
 
@@ -331,15 +352,15 @@ where icons sitting beside their own visible label were announced twice.
 
 ## 5. Audit
 
-**Score: 60 / 100** (was 52 before the 2 Sep fixes), weighted across six
-categories.
+**Score: 73 / 100** (52 → 60 → 73 across two rounds of fixes on 2 Sep),
+weighted across six categories.
 
 | Category | Score | Change |
 |---|---|---|
-| Token definition | 8/10 | — |
-| Token adoption | 3.5/10 | +0.5 — focus ring now fully tokenised |
-| Component states | 5/10 | — |
-| Naming consistency | 5/10 | — |
+| Token definition | 9/10 | +1 — type, semantic colour and card tokens added |
+| Token adoption | 6.5/10 | **+3.5** — typography and colour fully adopted; spacing and motion still zero |
+| Component states | 5/10 | — still no `:active` or disabled |
+| Naming consistency | 8/10 | **+3** — card duplication and the ID-scoped sections resolved |
 | Accessibility | 9/10 | **+3** — keyboard, dialog and reduced-motion fixed |
 | Documentation | 8/10 | +2 — this file |
 
@@ -347,10 +368,10 @@ categories.
 
 | Category | Defined | Referenced | Hardcoded in CSS |
 |---|---|---|---|
-| Colour | 10 | 9 | 6 |
+| Colour | 12 | 12 | 5 |
 | Spacing | 9 | **0** | **113** |
 | Radius | 4 | 3 | 15 |
-| Typography | **0** | — | **29** |
+| Typography | 12 | 12 | 4 (all deliberate) |
 | Motion | 3 | **0** | 1 |
 | Breakpoints | 0 | — | 11 |
 
@@ -379,14 +400,17 @@ Zero references; 113 spacing literals. The scale skips 4/20/28px and doesn't rea
 the 64/80/100/120px values the layouts use. → extend the scale to the layout
 sizes, then convert the ~40 component-level values first.
 
-**Tokens — No typography tokens at all** · 29 declarations
+**✅ Tokens — No typography tokens at all** · 29 declarations
 Sizes, families and line-heights are literals everywhere, including inside media
 queries. The scale that emerges is coherent — 14/16/20/24/32/40/60/72/120 — it
-just isn't written down. → add `--text-*` and `--font-display` / `--font-body`.
+just wasn't written down. → added `--font-display` / `--font-body`, nine
+role-named `--text-*` steps and `--leading-display`; 29 literals down to 4
+deliberate ones. **Done.**
 
-**Naming — `.card` and `.card-light` are duplicates**
+**✅ Naming — `.card` and `.card-light` were duplicates**
 Eight identical declarations each; only `border-color` differs, and the name is
-inverted. → one `.card` using `--card-border`, flipped by `.light`.
+inverted. → now one `.card` driven by `--card-border`, flipped by `.light`
+exactly as `--focus-ring` is. **Done.**
 
 **✅ A11y — Decorative icons carry descriptive alt text** · case page, 12 images
 Icons beside their own visible label are announced twice — "Idea Icon" then
@@ -404,11 +428,11 @@ on the lime hero rendered lime-on-lime with no visible edge. → now `currentCol
 Verified identical rendering on dark surfaces (`rgb(247, 253, 160)` either way).
 **Done.**
 
-**Consistency — Three inline styles bypass the system** · case page :337, :381, :417
+**✅ Consistency — Three inline styles bypassed the system** · case page
 `color: #fd6b6b` is the only semantic colour in the project and it lives in an HTML
-attribute. `font-size: 24px` appears twice as an ad-hoc sub-heading. → promote the
-red to `--color-negative` (it clears AA at 5.92:1), give the two "Results" lines a
-real class.
+attribute. `font-size: 24px` appeared twice as an ad-hoc sub-heading. → the red is
+now `--color-negative` applied via `.metric-down`, and the two headings use
+`.subhead`. The page has zero inline styles. **Done.**
 
 **Polish — Motion tokens unused; no transitions on hover**
 Every hover snaps instantly to `opacity: 0.8`. → `transition: opacity var(--t-fast)
@@ -452,14 +476,9 @@ possible to write from the source alone.
    trap + focus restore + `role="dialog"`, and the parallax bails out under
    `prefers-reduced-motion`.
 
-3. **Add typography tokens before the next case study** — the scale is already
-   coherent; writing it down costs one `:root` block. Doing it now means the
-   second case study inherits it instead of adding a third set of literals.
-   *~1 h, highest leverage on the next page.*
+~~3. **Add typography tokens before the next case study**~~ — ✅ done 2 Sep 2026.
 
-4. **Collapse `.card` / `.card-light` into one component** — introduces the
-   `--card-border` pattern, the same surface-aware mechanism `--focus-ring`
-   already proves. *~30 min.*
+~~4. **Collapse `.card` / `.card-light` into one component**~~ — ✅ done 2 Sep 2026.
 
 5. **Adopt the spacing scale, component-level first** — convert padding and gap
    inside components and leave section-level layout numbers literal until the
@@ -468,18 +487,19 @@ possible to write from the source alone.
 
 ### Next up
 
-Items 3–5 above, and two things the audit didn't cover but that matter more once
-a second case study exists:
+Item 5 above, plus what the audit didn't originally cover:
 
-- **The case template has a hidden contract.** `case.css` styles most sections
-  generically, but `#intro` and `#overview` are ID-scoped — a new case must reuse
-  those two IDs or silently lose its layout. Convert to `.case-intro` /
-  `.case-overview` so the contract is explicit.
-- **Missing components for case #2.** The before/after mockup comparison appears
-  four times and isn't a declared component (it's four `.mockup` images plus a
-  handler). And there is one semantic colour, `#fd6b6b`, living in an HTML
-  attribute — case studies report numbers that go both ways, so
-  positive/negative/neutral should be tokens before the next case is written.
+- ~~**The case template has a hidden contract.**~~ ✅ Done. `#intro` /
+  `#overview` are now `.case-intro` / `.case-overview`. **Watch the specificity
+  if you touch these:** the generic `.case-content section .container .content`
+  is (0,3,1), so a bare `.case-intro .container .content` (0,3,0) would lose.
+  The rules keep `.case-content` in front, making them (0,4,0). Don't shorten
+  them.
+- ~~**Semantic colour.**~~ ✅ Done — `--color-negative`, applied via
+  `.metric-down`.
+- **The before/after comparison is still not a declared component.** It's four
+  `.zoom-btn` + `.mockup` pairs. Worth naming when case #2 needs its second
+  instance.
 
 ### Deliberately not on this list
 

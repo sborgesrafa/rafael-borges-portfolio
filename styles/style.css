@@ -93,6 +93,38 @@ ul {
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --t-fast: 150ms;
   --t-med: 300ms;
+
+  /* Typefaces */
+  --font-display: "Tanker", system-ui, sans-serif;
+  --font-body: "Sora", sans-serif;
+
+  /* Type scale, named by role rather than by size: the same step is reused at
+     different breakpoints, so a size-based name would go stale the first time
+     one of them moved. 18px is deliberately not here — it appears once, as a
+     <=425 nudge on the contact heading, and is not a step of the scale. */
+  --text-caption: 14px;
+  --text-body: 16px;
+  --text-body-lg: 20px;
+  --text-title-s: 24px;
+  --text-title-m: 32px;
+  --text-title-l: 40px;
+  --text-display-s: 60px;
+  --text-display-m: 72px;
+  --text-display-l: 120px;
+
+  /* Only the ratio is tokenised. The px line-heights elsewhere are tied to the
+     font-size they sit beside and do not generalise, so they stay literal. */
+  --leading-display: 100%;
+
+  /* Semantic colour. One is all the system needs today: a metric that moved the
+     wrong way. 5.92:1 on --color-secondary, so it clears AA for body text but
+     not AAA — keep it for short labels, not paragraphs. */
+  --color-negative: #fd6b6b;
+
+  /* The card border follows the surface, exactly as --focus-ring does: this
+     default suits dark surfaces and .light flips it below. That is what lets a
+     single .card class sit correctly on either ground. */
+  --card-border: var(--color-primary);
 }
 
 /* =========================
@@ -107,6 +139,7 @@ ul {
   background-color: var(--color-bg-light);
   color: var(--color-text-on-light);
   --focus-ring: var(--color-secondary);
+  --card-border: var(--color-secondary);
 }
 
 /* <picture> is a wrapper only: display:contents keeps the <img> as the
@@ -126,19 +159,19 @@ picture source {
    Typography
    ========================= */
 h2 {
-  font-family: "Tanker", system-ui, sans-serif;
-  font-size: 120px;
+  font-family: var(--font-display);
+  font-size: var(--text-display-l);
   font-style: normal;
   font-weight: 400;
-  line-height: 100%;
+  line-height: var(--leading-display);
 }
 
 h3 {
-  font-family: "Sora", sans-serif;
-  font-size: 32px;
+  font-family: var(--font-body);
+  font-size: var(--text-title-m);
   font-style: normal;
   font-weight: 800;
-  line-height: 100%;
+  line-height: var(--leading-display);
 }
 
 /* Class to remove style from ul */
@@ -151,8 +184,8 @@ h3 {
 body {
   background-color: var(--color-bg-dark);
   color: var(--color-text-on-dark);
-  font-family: "Sora", sans-serif;
-  font-size: 16px;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
   font-style: normal;
   font-weight: 200;
   line-height: 28px;
@@ -182,7 +215,7 @@ strong {
      invisible lime-on-lime one. Identical rendering on dark surfaces. */
   border: 1.5px solid currentColor;
 
-  font-size: 16px;
+  font-size: var(--text-body);
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
@@ -254,7 +287,7 @@ strong {
   align-items: center;
   border-radius: 100px;
   height: 44px;
-  font-size: 20px;
+  font-size: var(--text-body-lg);
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
@@ -265,7 +298,7 @@ strong {
 .btn-menu.small {
   padding: 4px 8px;
   height: auto;
-  font-size: 14px;
+  font-size: var(--text-caption);
   font-style: normal;
   font-weight: 300;
   line-height: normal;
@@ -285,6 +318,11 @@ strong {
 /* =========================
    Card
    ========================= */
+/* One card for both grounds. It used to be two classes that differed only in
+   border-colour — and the names were inverted, since .card-light was the
+   variant for DARK surfaces. --card-border does that job now, flipped by
+   .light the same way --focus-ring is. A card nested inside a .light block
+   inherits the flip, which is the behaviour you want. */
 .card {
   display: flex;
   flex-direction: column;
@@ -295,20 +333,7 @@ strong {
   flex: 1 0 0;
 
   border-radius: 24px;
-  border: 1.5px solid var(--color-secondary);
-}
-
-.card-light {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 210px;
-  padding: 12px 16px;
-  gap: 16px;
-  flex: 1 0 0;
-
-  border-radius: 24px;
-  border: 1.5px solid var(--color-primary);
+  border: 1.5px solid var(--card-border);
 }
 
 /* =========================
@@ -347,7 +372,7 @@ header {
 }
 
 #hero-banner .title {
-  font-family: "Tanker", system-ui, sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: -0.03em;
 
@@ -370,7 +395,7 @@ header {
 }
 
 #hero-banner p {
-  font-size: 16px;
+  font-size: var(--text-body);
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
@@ -509,7 +534,7 @@ main {
    mockup can encroach on it, which is the point of the composition */
 #work .work-note {
   margin-top: 16px;
-  font-size: 16px;
+  font-size: var(--text-body);
   font-weight: 200;
   line-height: 24px;
   max-width: 40ch;
@@ -839,7 +864,7 @@ body.case-modal-open {
   }
 
   .btn-menu {
-    font-size: 16px;
+    font-size: var(--text-body);
   }
 
   nav {
@@ -885,15 +910,11 @@ body.case-modal-open {
   .card {
     min-width: 300px;
   }
-
-  .card-light {
-    min-width: 300px;
-  }
 }
 
 @media (max-width: 768px) {
   h2 {
-    font-size: 72px;
+    font-size: var(--text-display-m);
   }
 
   header {
@@ -1076,7 +1097,7 @@ body.case-modal-open {
   }
 
   #contact .email h3 {
-    font-size: 20px;
+    font-size: var(--text-body-lg);
   }
 
   #contact .btn-icon {
@@ -1087,7 +1108,7 @@ body.case-modal-open {
 
 @media (max-width: 425px) {
   body {
-    font-size: 16px;
+    font-size: var(--text-body);
     font-style: normal;
     font-weight: 200;
     line-height: 24px;
@@ -1113,7 +1134,7 @@ body.case-modal-open {
     justify-content: flex-start;
     align-items: center;
     height: 44px;
-    font-size: 20px;
+    font-size: var(--text-body-lg);
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
