@@ -308,7 +308,9 @@ strong {
   outline-offset: 2px;
 }
 
-/* Text link that is really a button (opens the case-studies note) */
+/* Text link that is really a button. Used for the case-studies note, and for
+   the design system link in the footer colophon — that one is an <a>, but the
+   class carries appearance only, so reusing it beats a second one-off rule. */
 .btn-link {
   display: inline;
   background: transparent;
@@ -325,6 +327,15 @@ strong {
 
 .btn-link:hover {
   opacity: var(--opacity-hover);
+}
+
+/* .btn-link was written for <button>. On an <a> the reset at the top of this
+   file wins — `a:link` is (0,1,1) and beats the bare class at (0,1,0) — so the
+   underline silently disappears, taking the only affordance with it. This rule
+   is (0,1,1) too and sits later in the file, so it wins. Needed by the design
+   system link in the footer colophon. */
+a.btn-link {
+  text-decoration: underline;
 }
 
 .btn-link:active {

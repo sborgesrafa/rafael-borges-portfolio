@@ -1107,15 +1107,36 @@ a.rail-mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4p
 
       <h3>Text button · <code>.btn-link</code></h3>
       <p>
-        An inline <code>&lt;button&gt;</code> styled as a link, used once — the
-        "more on the way" trigger in the work note. Underlined at 4px offset,
-        transparent, inherits its font.
+        A link-shaped control that sits inside running copy. Underlined at 4px
+        offset, transparent, inherits its font. Two uses, and they are different
+        elements:
       </p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Element</th><th>Where</th></tr></thead>
+          <tbody>
+            <tr><td class="m">&lt;button&gt;</td><td>The "more on the way" trigger in the work note — it opens a dialog, so it is a button.</td></tr>
+            <tr><td class="m">&lt;a&gt;</td><td>The design system link in the footer colophon — it navigates, so it is an anchor.</td></tr>
+          </tbody>
+        </table>
+      </div>
       <div class="demo">
         <div class="demo-head"><span>.btn-link</span><span class="surface-tag">inline, in running copy</span></div>
         <div class="stage on-dark">
           <span style="color:#F7FDA0;font-weight:200;font-size:16px">One case study for now — <span class="p-link">more on the way</span></span>
         </div>
+        <div class="demo-head" style="border-top:1px solid var(--line-soft)"><span>a.btn-link</span><span class="surface-tag">on --color-bg-light</span></div>
+        <div class="stage on-light">
+          <span style="color:#15220B;font-weight:300;font-size:16px">©2026 - Designed and coded by Rafael Borges (<span style="text-decoration:underline;text-underline-offset:4px">Design system</span>)</span>
+        </div>
+      </div>
+      <div class="note">
+        <b>On an <code>&lt;a&gt;</code> this class silently loses its underline.</b>
+        The reset sets <code>a:link { text-decoration: none }</code>, which is
+        (0,1,1) and beats the bare class at (0,1,0) — so the only affordance the
+        link had disappears. <code>a.btn-link</code> restores it at matching
+        specificity, later in the file. Any component class used on an anchor
+        needs the same check.
       </div>
 
       <h3>Card · <code>.card</code></h3>

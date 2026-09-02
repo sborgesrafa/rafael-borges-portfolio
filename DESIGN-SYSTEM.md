@@ -61,6 +61,10 @@ the breadcrumbs anchor to the ids, the CSS targets the classes. Mockups use the
 These are also commented at the point of use in the CSS. Repeated here because
 they're the ones that fail *silently*.
 
+- **A component class on an `<a>` may silently lose its styling.** The reset's
+  `a:link` is (0,1,1) and beats any bare class at (0,1,0) — that's how
+  `.btn-link` lost its underline in the footer. `a.btn-link` fixes that one;
+  check any other class you put on an anchor.
 - **No `background` on `.btn`.** It ties with `.dark`/`.light` on specificity and
   would win by source order, blanking every themed button.
 - **Don't shorten `.case-content .case-intro .container .content`.** The generic
