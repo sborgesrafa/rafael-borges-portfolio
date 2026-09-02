@@ -177,7 +177,10 @@ strong {
   height: 44px;
   gap: 8px;
   border-radius: 100px;
-  border: 1.5px solid var(--color-primary);
+  /* currentColor, not --color-primary: the colour comes from the surface class,
+     so a .btn on a .light surface gets a dark green border instead of an
+     invisible lime-on-lime one. Identical rendering on dark surfaces. */
+  border: 1.5px solid currentColor;
 
   font-size: 16px;
   font-style: normal;
@@ -238,7 +241,7 @@ strong {
 }
 
 .btn-link:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 4px;
   border-radius: 4px;
 }
@@ -661,7 +664,7 @@ main {
 }
 
 #contact .email-link:focus-visible {
-  outline: 2px solid var(--color-secondary);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 6px;
 }
 
@@ -766,9 +769,8 @@ body.case-modal-open {
 
 .btn.secondary {
   background: transparent;
-  /* currentColor, not --color-primary: this variant sits on the light modal
-     surface, where a yellow border is invisible. It also matches the 1.5px
-     border weight used everywhere else. */
+  /* .btn already borders with currentColor; this variant only drops the
+     surface background, so it reads as the quieter of two adjacent actions. */
   border: 1.5px solid currentColor;
   color: inherit;
 }

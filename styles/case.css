@@ -236,7 +236,8 @@ nav.case ul {
   gap: 24px;
 }
 
-.case-content section .container .mockup {
+.case-content section .container .mockup,
+.case-content section .container .zoom-btn {
   grid-column: 4 / span 2;
   width: 100%;
   height: 100%;
@@ -415,9 +416,41 @@ body.modal-open {
   overflow: hidden;
 }
 
-/* cursor original */
-.js-zoom-image {
+/* Zoomable mockups.
+
+   These open the lightbox, so they are real <button>s rather than click
+   handlers on an <img> — that is what makes them tab-reachable and announces
+   them as controls. The button takes the grid/flex placement the plain .mockup
+   images have (see the three rules above); the image inside just fills it. */
+.zoom-btn {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  min-width: 0;
   cursor: zoom-in;
+}
+
+/* one level more specific than the .container .mockup layout rules, so the
+   image fills the button instead of trying to place itself */
+.case-content section .container .zoom-btn .mockup {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  grid-column: auto;
+}
+
+.zoom-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.image-modal__close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 /* =========================
@@ -457,7 +490,8 @@ body.modal-open {
     padding: 32px;
   }
 
-  .case-content section .container .mockup {
+  .case-content section .container .mockup,
+  .case-content section .container .zoom-btn {
     width: 70%;
     height: 70%;
     align-self: center;
@@ -486,7 +520,8 @@ body.modal-open {
     padding: 24px;
   }
 
-  .case-content section .container .mockup {
+  .case-content section .container .mockup,
+  .case-content section .container .zoom-btn {
     width: 100%;
     height: 100%;
     align-self: center;
@@ -549,4 +584,21 @@ body.modal-open {
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
+}
+
+/* ================================
+   Reduced motion
+   ================================ */
+
+/* The parallax is scroll-coupled, which is a vestibular trigger. The script
+   also bails out early on this query; this rule clears any transform that was
+   already applied if the preference changes mid-session. */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-content {
+    transform: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
