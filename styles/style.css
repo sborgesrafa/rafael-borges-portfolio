@@ -42,7 +42,7 @@ html.hash-loaded body {
 
 ul {
   margin: 0;
-  padding-left: 1.2rem; /* controla a posição da bullet */
+  padding-left: 1.2rem; /* controls where the bullet sits */
   list-style-position: outside;
 }
 
@@ -56,7 +56,6 @@ ul {
 
   /* Transparency */
   --transparency-primary: hsla(64, 96%, 81%, 0.3);
-  --transparency-secondary: hsla(95, 50%, 9%, 0.3);
   /* the sticky nav sits over both themes; 0.85 keeps the blur but holds the
      labels at 9.8:1 even where the light hero/footer passes underneath */
   --nav-scrim: hsla(95, 50%, 9%, 0.85);
@@ -67,27 +66,52 @@ ul {
   --color-bg-light: var(--color-primary);
   --color-text-on-light: var(--color-secondary);
 
-  /* Spacing */
+  /* Spacing. The number is the multiple of 4, so the gaps in the sequence are
+     meaningful rather than missing: 28px (7) is not used anywhere, and 36px (9)
+     was dropped because nothing referenced it.
+
+     This scale governs COMPONENT rhythm — padding, gaps and margins inside
+     buttons, cards, modals and content blocks. Section-scale numbers
+     (56, 60, 64, 80, 92, 100, 120, 176, 208px) stay literal on purpose: each
+     appears once or twice in an unrelated place, so tokenising them would
+     invent a shared rhythm that does not exist. If a new value repeats three
+     or more times across components, add it here instead. */
+  --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
+  --space-5: 20px;
   --space-6: 24px;
   --space-8: 32px;
-  --space-9: 36px;
   --space-10: 40px;
-  --space-11: 44px;
   --space-12: 48px;
 
-  /* Radius */
+  /* Not spacing: this is the interactive control height, and it is 44px because
+     that is the WCAG 2.5.5 minimum touch target, not because it is a step of
+     the scale. It used to be filed as --space-11, which is why the scale looked
+     like it had a step nothing ever used. The icon button is square, so it
+     takes this on both axes. */
+  --control-height: 44px;
+
+  /* Radius. 36px (l) was declared and never referenced, so it is gone; the gap
+     in the sizes is real rather than an oversight. */
   --radius-s: 28px;
   --radius-m: 32px;
-  --radius-l: 36px;
   --radius-xl: 40px;
 
   /* Focus ring. Defaults to the yellow for dark surfaces; .light containers
      flip it to the dark green below, so the ring is always visible against
      whatever it is sitting on. */
   --focus-ring: var(--color-primary);
+
+  /* Interaction feedback. Three states, one language: the control fades rather
+     than changing colour, so it works identically on both surfaces. Disabled is
+     0.5 rather than lower because at that value the yellow still clears 4.8:1 on
+     the dark ground — WCAG exempts inactive controls from contrast, but a
+     disabled label you cannot read is still a bad label. */
+  --opacity-hover: 0.8;
+  --opacity-active: 0.65;
+  --opacity-disabled: 0.5;
 
   /* Motion */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -204,11 +228,11 @@ strong {
      so a background on .btn would win by source order and blank them out. */
   font-family: inherit;
   cursor: pointer;
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
   justify-content: center;
   align-items: center;
-  height: 44px;
-  gap: 8px;
+  height: var(--control-height);
+  gap: var(--space-2);
   border-radius: 100px;
   /* currentColor, not --color-primary: the colour comes from the surface class,
      so a .btn on a .light surface gets a dark green border instead of an
@@ -221,6 +245,8 @@ strong {
   line-height: 24px;
   text-decoration: none;
   color: inherit;
+
+  transition: opacity var(--t-fast) var(--ease);
 }
 
 .btn.dark {
@@ -228,7 +254,20 @@ strong {
 }
 
 .btn:hover {
-  opacity: 0.8;
+  opacity: var(--opacity-hover);
+}
+
+.btn:active {
+  opacity: var(--opacity-active);
+}
+
+/* :disabled covers real <button>s; [aria-disabled] covers the anchors that are
+   styled as buttons, which cannot carry the disabled attribute. */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .btn:focus-visible {
@@ -239,16 +278,29 @@ strong {
 /* Icon Button */
 .btn-icon {
   display: flex;
-  width: 44px;
-  height: 44px;
+  width: var(--control-height);
+  height: var(--control-height);
   justify-content: center;
   align-items: center;
   border-radius: 100px;
   border: 1.5px solid var(--color-primary);
+
+  transition: opacity var(--t-fast) var(--ease);
 }
 
 .btn-icon:hover {
-  opacity: 0.8;
+  opacity: var(--opacity-hover);
+}
+
+.btn-icon:active {
+  opacity: var(--opacity-active);
+}
+
+.btn-icon:disabled,
+.btn-icon[aria-disabled="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .btn-icon:focus-visible {
@@ -267,10 +319,24 @@ strong {
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 4px;
+
+  transition: opacity var(--t-fast) var(--ease);
 }
 
 .btn-link:hover {
-  opacity: 0.8;
+  opacity: var(--opacity-hover);
+}
+
+.btn-link:active {
+  opacity: var(--opacity-active);
+}
+
+.btn-link:disabled,
+.btn-link[aria-disabled="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+  text-decoration: none;
 }
 
 .btn-link:focus-visible {
@@ -282,21 +348,28 @@ strong {
 /* Menu Button */
 .btn-menu {
   display: flex;
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
   justify-content: center;
   align-items: center;
   border-radius: 100px;
-  height: 44px;
+  height: var(--control-height);
   font-size: var(--text-body-lg);
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
   text-decoration: none;
   color: inherit;
+
+  /* Two speeds, deliberately. Opacity is direct feedback for the pointer, so it
+     is fast. The background is the .is-current pill, which the scroll-spy sets as
+     the page moves rather than in response to a click — ambient state reads
+     better a little slower. */
+  transition: opacity var(--t-fast) var(--ease),
+    background-color var(--t-med) var(--ease);
 }
 
 .btn-menu.small {
-  padding: 4px 8px;
+  padding: var(--space-1) var(--space-2);
   height: auto;
   font-size: var(--text-caption);
   font-style: normal;
@@ -307,7 +380,18 @@ strong {
 }
 
 .btn-menu:hover {
-  opacity: 0.8;
+  opacity: var(--opacity-hover);
+}
+
+.btn-menu:active {
+  opacity: var(--opacity-active);
+}
+
+.btn-menu:disabled,
+.btn-menu[aria-disabled="true"] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .btn-menu:focus-visible {
@@ -328,8 +412,8 @@ strong {
   flex-direction: column;
   align-items: flex-start;
   min-width: 210px;
-  padding: 12px 16px;
-  gap: 16px;
+  padding: var(--space-3) var(--space-4);
+  gap: var(--space-4);
   flex: 1 0 0;
 
   border-radius: 24px;
@@ -340,7 +424,7 @@ strong {
    Header / Hero
    ========================= */
 header {
-  padding: 48px 48px 24px 48px;
+  padding: var(--space-12) var(--space-12) var(--space-6) var(--space-12);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -364,7 +448,7 @@ header {
   container-name: hero;
 
   display: grid;
-  padding: 24px 24px 0px 24px;
+  padding: var(--space-6) var(--space-6) 0px var(--space-6);
   border-radius: var(--radius-xl);
   grid-template-rows: 2fr repeat(3, minmax(0, 1fr));
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -404,7 +488,7 @@ header {
 #hero-banner .content {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
   align-self: stretch;
 }
 
@@ -447,10 +531,16 @@ header {
 #hero-banner ul {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
-#hero-banner .hide-desktop {
+/* The scroll cue exists twice in the markup: once inline at the end of the
+   right-hand copy, once pinned bottom-right over the photo. Exactly one is ever
+   rendered. These were .hide-mobile / .hide-desktop, which described when each
+   disappears rather than what either one is. */
+/* stays scoped to the hero: `#hero-banner ul` is (1,1,0), so a bare class at
+   (0,1,0) would lose to it and the cue would never hide. */
+#hero-banner .hero-cue--overlay {
   display: none;
 }
 
@@ -476,7 +566,9 @@ nav {
   -webkit-backdrop-filter: blur(10px);
 }
 
-.btn-menu.active {
+/* set by the scroll-spy, alongside aria-current="true". Named .is-current, not
+   .active, so it cannot be confused with the :active pressed state below. */
+.btn-menu.is-current {
   background-color: var(--transparency-primary);
   border-radius: 100px;
 }
@@ -533,7 +625,7 @@ main {
 /* only the caption is constrained; the h2 runs as wide as it needs so the
    mockup can encroach on it, which is the point of the composition */
 #work .work-note {
-  margin-top: 16px;
+  margin-top: var(--space-4);
   font-size: var(--text-body);
   font-weight: 200;
   line-height: 24px;
@@ -546,8 +638,8 @@ main {
   width: 100%;
   flex: 1;
   min-height: 0;
-  padding: 24px 120px 64px;
-  gap: 32px;
+  padding: var(--space-6) 120px 64px;
+  gap: var(--space-8);
   grid-template-rows: repeat(1, minmax(0, 1fr));
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -560,7 +652,7 @@ main {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  gap: 24px;
+  gap: var(--space-6);
   flex: 1 0 0;
   align-self: stretch;
   grid-row: 1 / span 1;
@@ -585,11 +677,11 @@ main {
   min-height: calc(100vh - 100px);
   min-height: calc(100svh - 100px);
   /* top matches #work .work-intro's 48px so anchor landings are consistent */
-  padding: 48px 120px 100px;
+  padding: var(--space-12) 120px 100px;
 
   display: grid;
   align-content: start;
-  row-gap: 24px;
+  row-gap: var(--space-6);
   column-gap: 60px;
   /* row 2 is flexible so .working (which spans both rows) puts its height
      contribution THERE. With two auto rows the photo inflated row 1 and
@@ -626,7 +718,7 @@ main {
   justify-content: flex-start;
   align-items: flex-start;
   align-self: stretch;
-  gap: 16px;
+  gap: var(--space-4);
   flex: 1 0 0;
 
   grid-row: 2 / span 1;
@@ -638,12 +730,12 @@ main {
    ========================= */
 #contact {
   width: 100%;
-  padding: 48px 48px 0px 48px;
+  padding: var(--space-12) var(--space-12) 0px var(--space-12);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 48px;
+  gap: var(--space-12);
 }
 
 #contact .title {
@@ -663,7 +755,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 32px;
+  gap: var(--space-8);
   align-self: center;
   border-radius: 40px 40px 0 0;
 }
@@ -680,12 +772,20 @@ main {
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--space-3);
   border-radius: 100px;
 }
 
+#contact .email-link {
+  transition: opacity var(--t-fast) var(--ease);
+}
+
 #contact .email-link:hover {
-  opacity: 0.8;
+  opacity: var(--opacity-hover);
+}
+
+#contact .email-link:active {
+  opacity: var(--opacity-active);
 }
 
 #contact .email-link:focus-visible {
@@ -703,7 +803,8 @@ main {
   flex-direction: row;
   justify-content: space-around;
   gap: 18px;
-  margin-left: -16px;
+  /* pulls the row back over the first link's own padding */
+  margin-left: calc(var(--space-4) * -1);
 }
 
 #contact .banner p {
@@ -723,7 +824,6 @@ main {
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  display: none;
 }
 
 .case-modal.is-visible {
@@ -742,7 +842,7 @@ main {
   z-index: 1;
   max-width: 520px;
   width: 90%;
-  padding: 24px 24px 20px;
+  padding: var(--space-6) var(--space-6) var(--space-5);
   border-radius: 16px;
   background: var(--color-bg-light, #ffffff);
   color: var(--color-text-on-light, #111111);
@@ -750,7 +850,7 @@ main {
 }
 
 .case-modal__content h3 {
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-3);
   font-size: 1.4rem;
 }
 
@@ -761,9 +861,9 @@ main {
 }
 
 .case-modal__actions {
-  margin-top: 16px;
+  margin-top: var(--space-4);
   display: flex;
-  gap: 12px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 
@@ -782,6 +882,8 @@ main {
   font-size: 18px;
   cursor: pointer;
   color: inherit;
+
+  transition: background-color var(--t-fast) var(--ease);
 }
 
 .case-modal__close:hover {
@@ -806,28 +908,28 @@ body.case-modal-open {
 
 @media (max-width: 1440px) {
   header {
-    padding: 32px 32px 16px 32px;
+    padding: var(--space-8) var(--space-8) var(--space-4) var(--space-8);
   }
 
   main {
-    padding: 0px 32px;
+    padding: 0px var(--space-8);
   }
 
   #contact {
-    padding: 32px 32px 0px 32px;
+    padding: var(--space-8) var(--space-8) 0px var(--space-8);
   }
 }
 
 @media (max-width: 1024px) {
   #hero-banner {
     aspect-ratio: 3/1.65;
-    margin-bottom: 8px;
+    margin-bottom: var(--space-2);
     /* same 50/50 rule as portrait tablets: the photo track's 50% growth limit
        is filled before the 1fr spacer, so the photo takes half the card when
        there is room and the spacer bottom-aligns the copy just above it;
        when the copy grows the spacer collapses and the photo shrinks. */
     grid-template-rows: auto minmax(0, 1fr) auto auto minmax(0, 50%);
-    row-gap: 16px;
+    row-gap: var(--space-4);
   }
 
   /* On a wide card the 50/50 is horizontal, not vertical: the photo is square,
@@ -839,7 +941,7 @@ body.case-modal-open {
     grid-column: 5 / -1;
     align-items: flex-end;
     text-align: right;
-    margin-top: 16px;
+    margin-top: var(--space-4);
   }
 
   #hero-banner .right {
@@ -847,7 +949,7 @@ body.case-modal-open {
     grid-column: 5 / -1;
     align-items: flex-end;
     text-align: right;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 
   #hero-banner .center {
@@ -859,8 +961,12 @@ body.case-modal-open {
     object-position: bottom left;
   }
 
-  #hero-banner .hide {
-    display: none;
+  /* A real utility: the name states the breakpoint and it is not scoped to any
+     parent, so it works anywhere. !important is deliberate — a utility exists to
+     override the component rules it is layered over, and here it has to beat
+     `#hero-banner ul` at (1,1,0). */
+  .u-hide-below-1024 {
+    display: none !important;
   }
 
   .btn-menu {
@@ -889,7 +995,7 @@ body.case-modal-open {
   }
 
   #work .case-cover {
-    padding: 24px 40px 56px;
+    padding: var(--space-6) var(--space-10) 56px;
   }
 
   #work .work-intro {
@@ -902,9 +1008,9 @@ body.case-modal-open {
   }
 
   #about {
-    padding: 48px 40px 80px;
-    row-gap: 24px;
-    column-gap: 32px;
+    padding: var(--space-12) var(--space-10) 80px;
+    row-gap: var(--space-6);
+    column-gap: var(--space-8);
   }
 
   .card {
@@ -918,19 +1024,19 @@ body.case-modal-open {
   }
 
   header {
-    padding: 16px 16px 8px 16px;
+    padding: var(--space-4) var(--space-4) var(--space-2) var(--space-4);
   }
 
   #hero-banner {
     aspect-ratio: 3/2;
-    padding: 16px 16px 0px 16px;
+    padding: var(--space-4) var(--space-4) 0px var(--space-4);
     border-radius: var(--radius-m);
     /* same 50/50 rule as portrait tablets: the photo track's 50% growth limit
        is filled before the 1fr spacer, so the photo takes half the card when
        there is room and the spacer bottom-aligns the copy just above it;
        when the copy grows the spacer collapses and the photo shrinks. */
     grid-template-rows: auto minmax(0, 1fr) auto auto minmax(0, 50%);
-    row-gap: 16px;
+    row-gap: var(--space-4);
   }
 
   /* On a wide card the 50/50 is horizontal, not vertical: the photo is square,
@@ -942,7 +1048,7 @@ body.case-modal-open {
     grid-column: 5 / -1;
     align-items: flex-end;
     text-align: right;
-    margin-top: 16px;
+    margin-top: var(--space-4);
   }
 
   #hero-banner .right {
@@ -950,7 +1056,7 @@ body.case-modal-open {
     grid-column: 5 / -1;
     align-items: flex-end;
     text-align: right;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 
   #hero-banner .center {
@@ -963,21 +1069,18 @@ body.case-modal-open {
   }
 
   #work .case-cover {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   #work .case-cover .content {
     padding-top: 176px;
-  }
-
-  #work .case-cover .content {
     padding-bottom: 0%;
   }
 
   #about {
     grid-template-rows: auto 240px auto;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 24px;
+    gap: var(--space-6);
   }
 
   #about h2 {
@@ -993,29 +1096,29 @@ body.case-modal-open {
   }
 
   #about .content {
-    gap: 12px;
+    gap: var(--space-3);
 
     grid-row: 3 / span 1;
     grid-column: 1 / span 5;
   }
 
   #contact {
-    padding: 16px 16px 0px 16px;
+    padding: var(--space-4) var(--space-4) 0px var(--space-4);
   }
 
   #contact .banner {
-    padding: 0 32px;
-    gap: 16px;
+    padding: 0 var(--space-8);
+    gap: var(--space-4);
   }
 }
 
 @media (max-width: 600px) {
   #hero-banner {
     aspect-ratio: 3/4;
-    padding: 16px 16px 0px 16px;
+    padding: var(--space-4) var(--space-4) 0px var(--space-4);
     border-radius: var(--radius-s);
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    row-gap: 16px;
+    row-gap: var(--space-4);
   }
 
   #hero-banner .left {
@@ -1024,7 +1127,7 @@ body.case-modal-open {
     align-items: flex-start;
     text-align: left;
     /* extra air above the pair; the 16px row-gap still separates the two */
-    margin-top: 16px;
+    margin-top: var(--space-4);
   }
 
   #hero-banner .right {
@@ -1032,7 +1135,7 @@ body.case-modal-open {
     grid-column: 1 / -1;
     align-items: flex-start;
     text-align: left;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 
   #hero-banner .center {
@@ -1041,11 +1144,11 @@ body.case-modal-open {
     grid-column: 1 / -1;
   }
 
-  #hero-banner .hide-mobile {
+  #hero-banner .hero-cue--inline {
     display: none;
   }
 
-  #hero-banner .hide-desktop {
+  #hero-banner .hero-cue--overlay {
     display: flex;
     /* sits in the portrait row, pinned bottom-right over it */
     grid-row: 4 / -1;
@@ -1053,18 +1156,18 @@ body.case-modal-open {
     align-items: flex-end;
     text-align: right;
     justify-content: flex-end;
-    padding-bottom: 16px;
+    padding-bottom: var(--space-4);
     z-index: 1;
   }
 
   nav {
-    padding: 0px 24px;
+    padding: 0px var(--space-6);
   }
 
   #work .work-intro {
     position: static;
     max-width: none;
-    padding: 48px 0 0;
+    padding: var(--space-12) 0 0;
   }
 
   #work .case-cover .content {
@@ -1072,7 +1175,7 @@ body.case-modal-open {
   }
 
   #work .case-cover {
-    padding: 24px 0px 64px;
+    padding: var(--space-6) 0px 64px;
     height: auto;
     grid-template-rows: auto 1fr;
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -1091,9 +1194,9 @@ body.case-modal-open {
   }
 
   #about {
-    padding: 48px 0px 80px;
-    row-gap: 32px;
-    column-gap: 32px;
+    padding: var(--space-12) 0px 80px;
+    row-gap: var(--space-8);
+    column-gap: var(--space-8);
   }
 
   #contact .email h3 {
@@ -1101,8 +1204,8 @@ body.case-modal-open {
   }
 
   #contact .btn-icon {
-    width: 44px;
-    height: 44px;
+    width: var(--control-height);
+    height: var(--control-height);
   }
 }
 
@@ -1116,7 +1219,7 @@ body.case-modal-open {
 
   #hero-banner {
     aspect-ratio: 3/5;
-    padding: 16px 16px 0px 16px;
+    padding: var(--space-4) var(--space-4) 0px var(--space-4);
     border-radius: var(--radius-s);
   }
 
@@ -1124,16 +1227,16 @@ body.case-modal-open {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap: 4px;
+    gap: var(--space-1);
     margin: 0px;
   }
 
   #contact .menu .btn-menu {
     display: flex;
-    padding: 8px 4px;
+    padding: var(--space-2) var(--space-1);
     justify-content: flex-start;
     align-items: center;
-    height: 44px;
+    height: var(--control-height);
     font-size: var(--text-body-lg);
     font-style: normal;
     font-weight: 600;
@@ -1147,7 +1250,7 @@ body.case-modal-open {
   }
 
   #contact .email-link {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   #contact .email h3 {
@@ -1172,7 +1275,7 @@ body.case-modal-open {
      the 50/50 rule and the shrink behaviour are unchanged. */
   #hero-banner {
     grid-template-rows: auto auto auto minmax(0, 1fr) minmax(0, 50%);
-    row-gap: 16px;
+    row-gap: var(--space-4);
   }
 
   /* copy runs 80% of the card width, left-aligned; the grid column still spans
@@ -1183,7 +1286,7 @@ body.case-modal-open {
     align-items: flex-start;
     text-align: left;
     max-width: 80%;
-    margin-top: 16px;
+    margin-top: var(--space-4);
   }
 
   #hero-banner .right {
@@ -1192,7 +1295,7 @@ body.case-modal-open {
     align-items: flex-start;
     text-align: left;
     max-width: 80%;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
   }
 
   #hero-banner .center {
@@ -1206,19 +1309,19 @@ body.case-modal-open {
     object-position: bottom center;
   }
 
-  /* the arrow leaves the copy block and pins to the bottom-right over the
-     photo, which lets both paragraphs run the full width */
-  #hero-banner .hide-mobile {
+  /* the cue leaves the copy block and pins to the bottom-right over the photo,
+     which lets both paragraphs run the full width */
+  #hero-banner .hero-cue--inline {
     display: none;
   }
 
-  #hero-banner .hide-desktop {
+  #hero-banner .hero-cue--overlay {
     display: flex;
     grid-row: 5 / -1;
     grid-column: 1 / -1;
     align-items: flex-end;
     justify-content: flex-end;
-    padding-bottom: 16px;
+    padding-bottom: var(--space-4);
     z-index: 1;
   }
 }
@@ -1239,5 +1342,25 @@ body.case-modal-open {
        roughly a third of the card so the portrait still has room. */
     font-size: clamp(28px, min(38cqw, 18vh), 320px);
     font-size: clamp(28px, min(38cqw, 18svh), 320px);
+  }
+}
+
+/* =========================
+   Reduced motion
+   ========================= */
+
+/* Everything above is a short opacity or colour fade, which is mild — but the
+   preference is a preference, not a severity judgement, so honour it globally.
+   Near-zero rather than `none` so transitionend still fires and nothing that
+   waits on it can hang. style.css loads on both pages, so this covers the
+   homepage too; case.css adds the parallax rules on top. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }

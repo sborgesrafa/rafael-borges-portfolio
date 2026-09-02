@@ -1,0 +1,1747 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The design system behind rafaelborges.design — tokens, components, patterns, and the audit that produced them. Documented from source.">
+<meta property="og:title" content="Design system — Rafael Borges">
+<meta property="og:description" content="Two colours, two typefaces, and one idea: every component inherits its palette from the surface it sits on.">
+<meta property="og:type" content="article">
+<title>Design system — Rafael Borges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+@font-face{
+  font-family:"Tanker";
+  src:url(data:font/woff2;base64,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) format("woff2");
+  font-weight:400;font-style:normal;font-display:block;
+}
+
+/* ---- Doc palette. Derived from the system's own two colours: the ground and
+   the accent are the real tokens; the panels, hairlines and severity hues are
+   documentation chrome, marked as such wherever they appear. ---- */
+:root{
+  --ground:#15220B;
+  --panel:#1B2B10;
+  --panel-2:#223514;
+  --line:#33461F;
+  --line-soft:#26361A;
+  --accent:#F7FDA0;
+  --body:#E8F0C4;
+  --muted:#9DAA7E;
+  --sev-high:#FD6B6B;
+  --sev-med:#E8B84B;
+  --sev-low:#7E8F63;
+
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Sora",system-ui,-apple-system,Segoe UI,sans-serif;
+  --display:"Tanker","Sora",system-ui,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--ground);
+  color:var(--body);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{background:var(--accent);color:var(--ground);}
+
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px;}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+/* =========================================================
+   Shell
+   ========================================================= */
+.shell{
+  display:grid;
+  grid-template-columns:232px minmax(0,1fr);
+  gap:0;
+  max-width:1320px;
+  margin:0 auto;
+}
+
+.rail{
+  position:sticky;
+  top:0;
+  align-self:start;
+  height:100vh;
+  overflow-y:auto;
+  padding:40px 24px 40px 32px;
+  border-right:1px solid var(--line-soft);
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+.rail-mark{
+  font-family:var(--display);
+  font-size:30px;
+  line-height:.95;
+  color:var(--accent);
+  letter-spacing:-.02em;
+}
+.rail-sub{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted);
+  line-height:1.5;
+}
+.rail nav{display:flex;flex-direction:column;gap:2px;}
+.rail nav a{
+  font-size:13.5px;
+  font-weight:400;
+  color:var(--body);
+  text-decoration:none;
+  padding:4px 0;
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+}
+.rail nav a .n{
+  font-family:var(--mono);
+  font-size:10.5px;
+  color:var(--sev-low);
+  min-width:16px;
+}
+.rail nav a:hover{color:var(--accent);}
+.rail nav .sub{padding-left:26px;font-size:12.5px;color:var(--muted);}
+.rail nav .sub:hover{color:var(--accent);}
+
+.doc{padding:56px 56px 120px;min-width:0;}
+
+/* =========================================================
+   Masthead
+   ========================================================= */
+.masthead{border-bottom:1px solid var(--line);padding-bottom:36px;margin-bottom:8px;}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 18px;
+}
+h1{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(44px,7vw,88px);
+  line-height:.9;
+  letter-spacing:-.025em;
+  color:var(--accent);
+  margin:0 0 20px;
+  text-wrap:balance;
+}
+.standfirst{
+  font-size:19px;
+  font-weight:200;
+  line-height:1.55;
+  max-width:60ch;
+  margin:0 0 28px;
+  color:var(--body);
+}
+.meta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 32px;
+  font-family:var(--mono);
+  font-size:11.5px;
+  color:var(--muted);
+}
+.meta-row b{color:var(--body);font-weight:500;}
+
+/* Snapshot strip */
+.snapshot{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:0;
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+  margin:36px 0 8px;
+}
+.snapshot div{
+  padding:18px 20px;
+  border-right:1px solid var(--line-soft);
+}
+.snapshot div:last-child{border-right:0;}
+.snapshot .fig{
+  font-family:var(--mono);
+  font-size:26px;
+  font-weight:500;
+  color:var(--accent);
+  line-height:1.1;
+  font-variant-numeric:tabular-nums;
+}
+.snapshot .cap{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.4;
+  margin-top:4px;
+}
+
+/* =========================================================
+   Sections
+   ========================================================= */
+section{padding-top:64px;scroll-margin-top:24px;}
+h2{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:clamp(30px,4vw,44px);
+  line-height:1;
+  letter-spacing:-.02em;
+  color:var(--accent);
+  margin:0 0 6px;
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+}
+h2 .num{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.1em;
+  color:var(--sev-low);
+}
+.sec-intro{
+  max-width:66ch;
+  font-weight:200;
+  margin:0 0 8px;
+  color:var(--body);
+}
+h3{
+  font-family:var(--sans);
+  font-weight:700;
+  font-size:19px;
+  line-height:1.3;
+  color:var(--accent);
+  margin:44px 0 10px;
+  letter-spacing:-.01em;
+}
+h4{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:28px 0 12px;
+}
+p{max-width:68ch;margin:0 0 14px;}
+p.tight{margin-bottom:6px;}
+code,.tok{
+  font-family:var(--mono);
+  font-size:.87em;
+  color:var(--accent);
+  background:var(--panel-2);
+  padding:1px 5px;
+  border-radius:4px;
+  white-space:nowrap;
+}
+.note{
+  border-left:2px solid var(--sev-low);
+  padding:2px 0 2px 16px;
+  color:var(--muted);
+  font-size:14px;
+  max-width:66ch;
+  margin:18px 0;
+}
+.note b{color:var(--body);font-weight:600;}
+
+/* =========================================================
+   Tables
+   ========================================================= */
+.tw{overflow-x:auto;margin:16px 0 8px;}
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:520px;
+  font-size:13.5px;
+}
+th{
+  text-align:left;
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:10.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding:0 16px 8px 0;
+  border-bottom:1px solid var(--line);
+  vertical-align:bottom;
+}
+td{
+  padding:10px 16px 10px 0;
+  border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+  font-weight:300;
+}
+td:last-child,th:last-child{padding-right:0;}
+td.m{font-family:var(--mono);font-size:12.5px;color:var(--body);font-variant-numeric:tabular-nums;white-space:nowrap;}
+td.m.a{color:var(--accent);}
+tr:last-child td{border-bottom:0;}
+
+/* =========================================================
+   Colour
+   ========================================================= */
+.swatches{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;
+  margin:20px 0;
+}
+.sw{border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.sw .chip{height:96px;display:flex;align-items:flex-end;padding:10px 12px;}
+.sw .chip span{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+}
+.sw .info{padding:12px;border-top:1px solid var(--line-soft);}
+.sw .name{font-family:var(--mono);font-size:12px;color:var(--accent);}
+.sw .vals{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;line-height:1.6;font-variant-numeric:tabular-nums;}
+.sw .use{font-size:12.5px;color:var(--body);margin-top:8px;font-weight:200;line-height:1.45;}
+
+/* Surface demo */
+.surfaces{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+.surf{border-radius:20px;padding:22px;border:1px solid var(--line);}
+.surf.is-dark{background:#15220B;color:#F7FDA0;}
+.surf.is-light{background:#F7FDA0;color:#15220B;border-color:#F7FDA0;}
+.surf .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:12px;}
+.surf p{font-size:13.5px;margin:0 0 14px;max-width:none;}
+
+/* =========================================================
+   Type specimens
+   ========================================================= */
+.spec-type{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:20px 0;}
+.spec-type .row{
+  display:grid;
+  grid-template-columns:186px minmax(0,1fr);
+  gap:20px;
+  padding:18px 20px;
+  border-bottom:1px solid var(--line-soft);
+  align-items:center;
+}
+.spec-type .row:last-child{border-bottom:0;}
+.spec-type .k{
+  font-family:var(--mono);font-size:10.5px;color:var(--muted);line-height:1.7;
+  font-variant-numeric:tabular-nums;
+}
+.spec-type .k b{display:block;color:var(--accent);font-weight:500;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px;}
+.spec-type .v{color:var(--body);min-width:0;overflow:hidden;text-overflow:ellipsis;}
+.sp-h2{font-family:var(--display);font-weight:400;font-size:64px;line-height:1;letter-spacing:-.02em;color:var(--accent);}
+.sp-case{font-family:var(--display);font-weight:400;font-size:44px;line-height:1;color:var(--accent);}
+.sp-special{font-family:var(--display);font-weight:400;font-size:28px;line-height:normal;color:var(--accent);}
+.sp-h3{font-family:var(--sans);font-weight:800;font-size:28px;line-height:1;}
+.sp-sub{font-family:var(--sans);font-weight:600;font-size:22px;line-height:1;}
+.sp-lead{font-family:var(--sans);font-weight:300;font-size:19px;line-height:1.4;}
+.sp-body{font-family:var(--sans);font-weight:200;font-size:16px;line-height:1.75;}
+.sp-btn{font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.5;}
+.sp-small{font-family:var(--sans);font-weight:300;font-size:14px;line-height:normal;}
+
+.scale-bar{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px;}
+.scale-bar span{
+  font-family:var(--mono);font-size:11px;color:var(--body);
+  border:1px solid var(--line);border-radius:6px;padding:3px 9px;
+  font-variant-numeric:tabular-nums;
+}
+.scale-bar span.gap{border-style:dashed;color:var(--sev-low);border-color:var(--line-soft);}
+
+/* =========================================================
+   Spacing / radius rulers
+   ========================================================= */
+.ruler{display:flex;flex-direction:column;gap:7px;margin:18px 0;}
+.ruler .r{display:grid;grid-template-columns:96px 56px minmax(0,1fr);gap:14px;align-items:center;font-family:var(--mono);font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;}
+.ruler .r .bar{height:12px;background:var(--accent);border-radius:2px;}
+.ruler .r.unused .bar{background:var(--line);}
+.ruler .r.unused{color:var(--sev-low);}
+.ruler .r em{font-style:normal;color:var(--accent);}
+.ruler .r.unused em{color:var(--sev-low);}
+
+.radii{display:flex;flex-wrap:wrap;gap:16px;margin:18px 0;}
+.radii .rd{width:112px;}
+.radii .box{height:80px;border:1.5px solid var(--accent);}
+.radii .cap{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:7px;line-height:1.5;}
+.radii .cap b{display:block;color:var(--accent);font-weight:500;}
+.radii .rd.unused .box{border-color:var(--line);border-style:dashed;}
+.radii .rd.unused .cap b{color:var(--sev-low);}
+
+/* =========================================================
+   Component previews — real declarations from style.css
+   ========================================================= */
+.demo{
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  margin:18px 0 10px;
+}
+.demo-head{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  padding:9px 16px;border-bottom:1px solid var(--line-soft);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+.demo-head .surface-tag{color:var(--sev-low);letter-spacing:.08em;}
+.stage{padding:28px 24px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;}
+.stage.on-dark{background:#15220B;}
+.stage.on-light{background:#F7FDA0;}
+.stage.col{flex-direction:column;align-items:flex-start;}
+
+/* --- his components, verbatim values --- */
+.p-btn{
+  display:flex;font-family:var(--sans);cursor:default;
+  padding:8px 16px;justify-content:center;align-items:center;
+  height:44px;gap:8px;border-radius:100px;border:1.5px solid currentColor;
+  font-size:16px;font-weight:400;line-height:24px;text-decoration:none;
+}
+.p-btn.on-d{background:#15220B;color:#F7FDA0;}
+.p-btn.on-l{background:#F7FDA0;color:#15220B;}
+.p-btn.is-hover{opacity:.8;}
+.p-btn.is-focus{outline:2px solid #F7FDA0;outline-offset:2px;}
+.p-btn.on-l.is-focus{outline-color:#15220B;}
+.p-btn.sec{background:transparent;border:1.5px solid currentColor;color:#15220B;}
+.p-btn .ar{font-size:13px;line-height:1;}
+
+.p-icon{
+  display:flex;width:44px;height:44px;justify-content:center;align-items:center;
+  border-radius:100px;border:1.5px solid #F7FDA0;background:#15220B;color:#F7FDA0;font-size:14px;
+}
+.p-icon.lg{width:56px;height:56px;}
+
+.p-menu{
+  display:flex;padding:8px 16px;justify-content:center;align-items:center;
+  border-radius:100px;height:44px;font-size:20px;font-weight:600;line-height:24px;color:#F7FDA0;
+}
+.p-menu.small{padding:4px 8px;height:auto;font-size:14px;font-weight:300;line-height:normal;}
+.p-menu.active{background:hsla(64,96%,81%,.3);}
+
+.p-link{
+  font:inherit;color:#F7FDA0;text-decoration:underline;text-underline-offset:4px;font-size:16px;font-weight:300;
+}
+
+.p-card{
+  display:flex;flex-direction:column;align-items:flex-start;min-width:0;width:190px;
+  padding:12px 16px;gap:16px;border-radius:24px;border:1.5px solid #15220B;color:#15220B;
+  font-size:16px;line-height:1.4;
+}
+.p-card.light-variant{border-color:#F7FDA0;color:#F7FDA0;}
+.p-card b{font-weight:600;}
+.p-card .ic{width:22px;height:22px;border-radius:5px;border:1.5px solid currentColor;}
+
+.p-insight{
+  display:flex;width:100%;max-width:460px;padding:24px;flex-direction:column;align-items:flex-start;gap:24px;
+  border-radius:24px;border:1.5px solid #F7FDA0;
+  background:linear-gradient(45deg,rgba(247,253,160,0) 0%,rgba(247,253,160,.15) 100%);
+  color:#F7FDA0;
+}
+.p-insight .tag{display:flex;align-items:center;gap:8px;}
+.p-insight .tag .d{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;}
+.p-insight .tag p{font-weight:200;text-transform:uppercase;margin:0;font-size:16px;}
+.p-insight .cc{display:flex;flex-direction:column;align-items:flex-start;gap:12px;}
+.p-insight .cc .t{font-size:24px;font-weight:700;line-height:24px;}
+.p-insight .cc .s{font-size:16px;font-weight:200;line-height:16px;}
+.p-insight .cc .d2{font-size:16px;font-weight:400;line-height:normal;margin:0;}
+
+.p-nav{
+  display:flex;justify-content:center;align-items:center;gap:40px;width:100%;
+  background:hsla(95,50%,9%,.85);height:64px;border-radius:10px;
+}
+.p-crumbs{display:flex;align-items:center;gap:0;flex-wrap:wrap;width:100%;justify-content:center;
+  background:hsla(95,50%,9%,.85);padding:12px;border-radius:10px;}
+.p-crumbs .dot{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--sev-low);}
+
+.p-modal{
+  max-width:420px;width:100%;padding:24px 24px 20px;border-radius:16px;
+  background:#F7FDA0;color:#15220B;box-shadow:0 18px 45px rgba(0,0,0,.25);position:relative;
+}
+.p-modal h5{font-family:var(--sans);font-size:1.4rem;font-weight:700;margin:0 0 12px;line-height:1.2;}
+.p-modal p{font-size:.95rem;line-height:1.5;margin:0 0 10px;max-width:none;font-weight:300;}
+.p-modal .x{
+  position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;
+  background:rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.p-modal .acts{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;}
+
+/* state matrix */
+.states{display:flex;flex-wrap:wrap;gap:26px;margin:4px 0;}
+.states .st{display:flex;flex-direction:column;gap:9px;align-items:flex-start;}
+.states .st .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.states .st.missing .lbl{color:var(--sev-med);}
+.states .st.missing .ghost{
+  height:44px;display:flex;align-items:center;padding:0 16px;border-radius:100px;
+  border:1.5px dashed var(--line);color:var(--sev-low);font-size:13px;font-family:var(--mono);
+}
+
+/* =========================================================
+   Audit
+   ========================================================= */
+.score{
+  display:grid;
+  grid-template-columns:190px minmax(0,1fr);
+  gap:34px;
+  align-items:center;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:26px 28px;
+  margin:22px 0 10px;
+}
+.score .big{
+  font-family:var(--mono);font-size:64px;font-weight:500;color:var(--accent);line-height:.95;
+  font-variant-numeric:tabular-nums;
+}
+.score .big small{font-size:20px;color:var(--muted);font-weight:400;}
+.score .bl{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45;}
+.bars{display:flex;flex-direction:column;gap:9px;min-width:0;}
+.bars .b{display:grid;grid-template-columns:150px minmax(0,1fr) 40px;gap:12px;align-items:center;font-size:12.5px;}
+.bars .b .track{height:8px;background:var(--line-soft);border-radius:99px;overflow:hidden;}
+.bars .b .fill{height:100%;background:var(--accent);border-radius:99px;}
+.bars .b .fill.warn{background:var(--sev-med);}
+.bars .b .fill.bad{background:var(--sev-high);}
+.bars .b .n{font-family:var(--mono);font-size:11.5px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;}
+.bars .b .lb{color:var(--body);}
+
+.findings{display:flex;flex-direction:column;gap:0;margin:20px 0 8px;border-top:1px solid var(--line);}
+.f{
+  display:grid;
+  grid-template-columns:22px minmax(0,1fr);
+  gap:16px;
+  padding:18px 0 18px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+.f .stripe{width:3px;border-radius:99px;background:var(--sev-low);margin-left:9px;}
+.f.high .stripe{background:var(--sev-high);}
+.f.med .stripe{background:var(--sev-med);}
+.f .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;margin-bottom:6px;}
+.f .ti{font-size:15.5px;font-weight:600;color:var(--accent);line-height:1.35;}
+.f .where{font-family:var(--mono);font-size:11px;color:var(--sev-low);}
+.f .sev{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:99px;padding:2px 8px;color:var(--muted);
+}
+.f.high .sev{color:var(--sev-high);border-color:rgba(253,107,107,.4);}
+.f.med .sev{color:var(--sev-med);border-color:rgba(232,184,75,.35);}
+.f p{font-size:14px;margin:0;color:var(--body);font-weight:200;max-width:78ch;}
+.f p + p{margin-top:8px;}
+.f.done .stripe{background:var(--accent);}
+.f.done .ti{color:var(--body);}
+.f.done .sev{color:var(--ground);background:var(--accent);border-color:var(--accent);}
+.f.done .was{color:var(--sev-low);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;}
+.f .fix{color:var(--muted);font-size:13.5px;}
+.f .fix b{color:var(--body);font-weight:600;}
+
+.actions{counter-reset:a;display:flex;flex-direction:column;gap:2px;margin:18px 0;}
+.actions .a{
+  display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;
+  padding:16px 0;border-bottom:1px solid var(--line-soft);
+}
+.actions .a:last-child{border-bottom:0;}
+.actions .a .idx{font-family:var(--mono);font-size:12px;color:var(--sev-low);padding-top:3px;font-variant-numeric:tabular-nums;}
+.actions .a .t{font-size:15.5px;font-weight:600;color:var(--accent);margin-bottom:5px;line-height:1.35;}
+.actions .a p{font-size:14px;font-weight:200;margin:0;color:var(--body);}
+.actions .a .eff{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:7px;letter-spacing:.06em;}
+
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:18px 0;}
+.dodont > div{padding:18px 20px;}
+.dodont .do{border-right:1px solid var(--line-soft);}
+.dodont h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px;font-weight:500;}
+.dodont .do h5{color:var(--accent);}
+.dodont .dont h5{color:var(--sev-high);}
+.dodont ul{margin:0;padding-left:16px;font-size:13.5px;font-weight:200;line-height:1.55;}
+.dodont li{margin-bottom:8px;}
+.dodont li:last-child{margin-bottom:0;}
+
+.colophon{
+  margin-top:80px;padding-top:26px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11.5px;color:var(--sev-low);line-height:1.8;
+}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;}
+  .rail{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line-soft);padding:32px 24px;}
+  .rail nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px 18px;}
+  .rail nav .sub{display:none;}
+  .doc{padding:36px 24px 90px;}
+  .surfaces,.dodont{grid-template-columns:1fr;}
+  .dodont .do{border-right:0;border-bottom:1px solid var(--line-soft);}
+  .score{grid-template-columns:1fr;gap:22px;}
+  .bars .b{grid-template-columns:110px minmax(0,1fr) 36px;}
+  .spec-type .row{grid-template-columns:1fr;gap:10px;}
+}
+
+/* site-only: the wordmark is a link here */
+a.rail-mark { display: block; text-decoration: none; }
+a.rail-mark:hover { opacity: .8; }
+a.rail-mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+</style>
+<style>
+  :root { color-scheme: dark; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="rail">
+    <div>
+      <a href="/" class="rail-mark" aria-label="Back to the portfolio">Rafael<br>Borges</a>
+      <div class="rail-sub">Design system<br>v1 · Sep 2026</div>
+    </div>
+    <nav>
+      <a href="#foundations"><span class="n">01</span>Foundations</a>
+      <a class="sub" href="#colour">Colour</a>
+      <a class="sub" href="#surfaces">Surfaces</a>
+      <a class="sub" href="#type">Typography</a>
+      <a class="sub" href="#space">Spacing</a>
+      <a class="sub" href="#radius">Radius &amp; border</a>
+      <a class="sub" href="#motion">Motion</a>
+      <a href="#components"><span class="n">02</span>Components</a>
+      <a href="#patterns"><span class="n">03</span>Patterns</a>
+      <a href="#responsive"><span class="n">04</span>Responsive</a>
+      <a href="#audit"><span class="n">05</span>Audit</a>
+      <a href="#next"><span class="n">06</span>Done &amp; open</a>
+    </nav>
+  </aside>
+
+  <main class="doc">
+
+    <header class="masthead">
+      <p class="eyebrow">rafaelborges.design · design system reference</p>
+      <h1>Lime on Deep&nbsp;Green</h1>
+      <p class="standfirst">
+        The whole portfolio runs on two colours, two typefaces and one idea: every
+        component inherits its palette from the surface it sits on. This is what
+        exists today, documented from the source — plus an audit of where the
+        system holds and where it leaks. <b>All fourteen findings were fixed on
+        2 September</b> and are marked
+        <span style="color:var(--accent)">Fixed</span> below.
+      </p>
+      <div class="meta-row">
+        <span>Source · <b>styles/style.css</b>, <b>styles/case.css</b></span>
+        <span>Pages · <b>2</b></span>
+        <span>Read · <b>2 Sep 2026</b></span>
+      </div>
+    </header>
+
+    <div class="snapshot">
+      <div>
+        <div class="fig">42</div>
+        <div class="cap">tokens in <code>:root</code>, none unused</div>
+      </div>
+      <div>
+        <div class="fig">11</div>
+        <div class="cap">components in use</div>
+      </div>
+      <div>
+        <div class="fig">15.4<small>:1</small></div>
+        <div class="cap">core text contrast</div>
+      </div>
+      <div>
+        <div class="fig">96<small>/100</small></div>
+        <div class="cap">system health score</div>
+      </div>
+    </div>
+
+    <!-- ============================================ 01 -->
+    <section id="foundations">
+      <h2><span class="num">01</span>Foundations</h2>
+      <p class="sec-intro">
+        Everything derives from two HSL values. There is no third brand colour, no
+        neutral ramp and no elevation scale — depth comes from borders and surface
+        inversion instead of shadow.
+      </p>
+
+      <h3 id="colour">Colour</h3>
+      <div class="swatches">
+        <div class="sw">
+          <div class="chip" style="background:#F7FDA0;color:#15220B"><span>primary</span></div>
+          <div class="info">
+            <div class="name">--color-primary</div>
+            <div class="vals">hsla(64, 96%, 81%, 1)<br>#F7FDA0</div>
+            <div class="use">Text and borders on dark. Becomes the background on light surfaces. The only accent.</div>
+          </div>
+        </div>
+        <div class="sw">
+          <div class="chip" style="background:#15220B;color:#F7FDA0;border-bottom:1px solid var(--line)"><span>secondary</span></div>
+          <div class="info">
+            <div class="name">--color-secondary</div>
+            <div class="vals">hsla(95, 50%, 9%, 1)<br>#15220B</div>
+            <div class="use">The page ground. Text and borders on light surfaces.</div>
+          </div>
+        </div>
+        <div class="sw">
+          <div class="chip" style="background:linear-gradient(90deg,#15220B,#15220B),linear-gradient(90deg,#F7FDA0 0 100%);background-blend-mode:normal;position:relative">
+            <div style="position:absolute;inset:0;background:#15220B"></div>
+            <div style="position:absolute;inset:0;background:hsla(64,96%,81%,.3)"></div>
+            <span style="position:relative;color:#F7FDA0">transparency</span>
+          </div>
+          <div class="info">
+            <div class="name">--transparency-primary</div>
+            <div class="vals">hsla(64, 96%, 81%, 0.3)</div>
+            <div class="use">The active nav pill, and the hairline above the case outro.</div>
+          </div>
+        </div>
+        <div class="sw">
+          <div class="chip" style="background:#15220B;position:relative;border-bottom:1px solid var(--line)">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,#F7FDA0 0 8px,#15220B 8px 16px);opacity:.5"></div>
+            <div style="position:absolute;inset:0;background:hsla(95,50%,9%,.85);backdrop-filter:blur(4px)"></div>
+            <span style="position:relative;color:#F7FDA0">nav scrim</span>
+          </div>
+          <div class="info">
+            <div class="name">--nav-scrim</div>
+            <div class="vals">hsla(95, 50%, 9%, 0.85)</div>
+            <div class="use">Sticky nav and case breadcrumbs. 0.85 holds labels at 9.8:1 even where the lime hero passes underneath.</div>
+          </div>
+        </div>
+      </div>
+
+      <h4>Aliases and derived tokens</h4>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr><th>Token</th><th>Resolves to</th><th>Role</th><th>Uses</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="m a">--color-bg-dark</td><td class="m">--color-secondary</td><td>Ground of <code>.dark</code> and <code>body</code></td><td class="m">3</td></tr>
+            <tr><td class="m a">--color-text-on-dark</td><td class="m">--color-primary</td><td>Ink on dark surfaces</td><td class="m">3</td></tr>
+            <tr><td class="m a">--color-bg-light</td><td class="m">--color-primary</td><td>Ground of <code>.light</code></td><td class="m">2</td></tr>
+            <tr><td class="m a">--color-text-on-light</td><td class="m">--color-secondary</td><td>Ink on light surfaces</td><td class="m">2</td></tr>
+            <tr><td class="m a">--focus-ring</td><td class="m">--color-primary, flipped by <code>.light</code></td><td>Surface-aware focus outline</td><td class="m">5</td></tr>
+            <tr><td class="m a">--card-border</td><td class="m">--color-primary, flipped by <code>.light</code></td><td>Surface-aware card border</td><td class="m">1 (every card)</td></tr>
+            <tr><td class="m a">--opacity-hover</td><td class="m">0.8</td><td>Pointer over the control</td><td class="m">6</td></tr>
+            <tr><td class="m a">--opacity-active</td><td class="m">0.65</td><td>Pressed</td><td class="m">6</td></tr>
+            <tr><td class="m a">--opacity-disabled</td><td class="m">0.5</td><td>Unavailable. 4.82:1 on the dark ground — WCAG exempts inactive controls, but a disabled label you can't read is still a bad label.</td><td class="m">4</td></tr>
+            <tr><td class="m a">--color-negative</td><td class="m">#fd6b6b</td><td>A metric that moved the wrong way. No <code>--color-positive</code>: good news already reads in the brand yellow.</td><td class="m">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Contrast</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Pair</th><th>Ratio</th><th>WCAG AA</th><th>AAA</th></tr></thead>
+          <tbody>
+            <tr><td>#F7FDA0 on #15220B <span style="color:var(--muted)">— body text on dark</span></td><td class="m a">15.42:1</td><td class="m">Pass</td><td class="m">Pass</td></tr>
+            <tr><td>#15220B on #F7FDA0 <span style="color:var(--muted)">— text on the lime hero</span></td><td class="m a">15.42:1</td><td class="m">Pass</td><td class="m">Pass</td></tr>
+            <tr><td>#FD6B6B on #15220B <span style="color:var(--muted)">— the one-off negative-result red</span></td><td class="m">5.92:1</td><td class="m">Pass</td><td class="m" style="color:var(--sev-med)">Fail</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>The palette is the system's strongest asset.</b> A 15.4:1 ratio in both
+        directions means no component can accidentally fail contrast as long as it
+        takes its colours from the surface — which is exactly how the surface
+        classes are built.
+      </div>
+
+      <h3 id="surfaces">Surfaces</h3>
+      <p>
+        <code>.dark</code> and <code>.light</code> are the system's central
+        mechanism. They are not themes in the usual sense — both appear on the same
+        screen. A component doesn't choose its colours; it inherits them from
+        whichever surface class wraps it.
+      </p>
+      <div class="surfaces">
+        <div class="surf is-dark">
+          <div class="lab">.dark</div>
+          <p>bg <code style="background:rgba(247,253,160,.12)">--color-bg-dark</code> · ink <code style="background:rgba(247,253,160,.12)">--color-text-on-dark</code></p>
+          <p style="opacity:.8">Default. Applied to <code style="background:rgba(247,253,160,.12)">body</code>, all case-study containers except the intro, and every icon button.</p>
+        </div>
+        <div class="surf is-light">
+          <div class="lab">.light</div>
+          <p>bg <code style="background:rgba(21,34,11,.1);color:#15220B">--color-bg-light</code> · ink <code style="background:rgba(21,34,11,.1);color:#15220B">--color-text-on-light</code></p>
+          <p style="opacity:.85">Hero banner, contact banner, case intro, modal panel. Also flips <code style="background:rgba(21,34,11,.1);color:#15220B">--focus-ring</code> to the dark green so the ring stays visible.</p>
+        </div>
+      </div>
+      <div class="note">
+        <b>The specificity trap.</b> <code>.btn</code> deliberately sets no
+        <code>background</code>. <code>.btn</code> and <code>.dark</code> have the
+        same specificity, so a background declared on <code>.btn</code> would win by
+        source order and blank out every themed button. Keep backgrounds on the
+        surface classes only.
+      </div>
+
+      <h3 id="type">Typography</h3>
+      <p>
+        Two faces. <b>Tanker</b> (self-hosted, single 400 weight) carries every
+        display moment; <b>Sora</b> (variable, Google Fonts) does everything else
+        across six weights. Tanker loads with
+        <code>font-display: block</code> rather than <code>swap</code> — the hero
+        wordmark is sized to Tanker's metrics, so painting a fallback at that size
+        would overflow the banner for a few frames.
+      </p>
+
+      <div class="spec-type">
+        <div class="row">
+          <div class="k"><b>h2 · display</b>Tanker 400 · 120px<br>line-height 100%<br>72px @ ≤768</div>
+          <div class="v"><div class="sp-h2">I made this</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>.casetitle</b>Tanker 400 · 60px<br>line-height 100%<br>40px @ ≤425</div>
+          <div class="v"><div class="sp-case">Comprehensive Insurance</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>p.special</b>Tanker 400 · 32px<br>line-height normal</div>
+          <div class="v"><div class="sp-special">How might we streamline the selection?</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>h3 · section</b>Sora 800 · 32px<br>line-height 100%</div>
+          <div class="v"><div class="sp-h3">Project Overview</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>.casesubtitle</b>Sora 600 · 24px<br>line-height 100%</div>
+          <div class="v"><div class="sp-sub">Driving adoption and revenue growth</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>p.case · lead</b>Sora 300 · 20px<br>line-height 28px<br>16px @ ≤425</div>
+          <div class="v"><div class="sp-lead">Helping travellers understand their protection options and choose confidently.</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>body</b>Sora 200 · 16px<br>line-height 28px<br>24px @ ≤425</div>
+          <div class="v"><div class="sp-body">I design digital products that turn uncertainty into clarity.</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>.btn · control</b>Sora 400 · 16px<br>line-height 24px</div>
+          <div class="v"><div class="sp-btn">Read More</div></div>
+        </div>
+        <div class="row">
+          <div class="k"><b>.btn-menu.small</b>Sora 300 · 14px<br>line-height normal</div>
+          <div class="v"><div class="sp-small">Learnings and Outcomes</div></div>
+        </div>
+      </div>
+
+      <h4>The scale, now tokenised</h4>
+      <p>
+        Named by <b>role, not size</b> — the same step is reused at different
+        breakpoints, so a size-based name would go stale the first time one moved.
+      </p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
+          <tbody>
+            <tr><td class="m a">--text-caption</td><td class="m">14px</td><td><code>.btn-menu.small</code> (breadcrumbs)</td></tr>
+            <tr><td class="m a">--text-body</td><td class="m">16px</td><td>body, <code>.btn</code>, hero paragraphs, insight subtitle &amp; description</td></tr>
+            <tr><td class="m a">--text-body-lg</td><td class="m">20px</td><td><code>.btn-menu</code>, <code>p.case</code> lead, contact heading ≤600</td></tr>
+            <tr><td class="m a">--text-title-s</td><td class="m">24px</td><td><code>.casesubtitle</code>, insight title, <code>.subhead</code></td></tr>
+            <tr><td class="m a">--text-title-m</td><td class="m">32px</td><td><code>h3</code>, <code>.case-content h2</code>, <code>p.special</code></td></tr>
+            <tr><td class="m a">--text-title-l</td><td class="m">40px</td><td><code>blockquote</code>, <code>a.logo</code>, <code>.casetitle</code> ≤425</td></tr>
+            <tr><td class="m a">--text-display-s</td><td class="m">60px</td><td><code>.casetitle</code></td></tr>
+            <tr><td class="m a">--text-display-m</td><td class="m">72px</td><td><code>h2</code> ≤768</td></tr>
+            <tr><td class="m a">--text-display-l</td><td class="m">120px</td><td><code>h2</code></td></tr>
+            <tr><td class="m a">--leading-display</td><td class="m">100%</td><td>the seven display headings</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:2px">
+        Four literals remain, all deliberate: <code>1.4rem</code> /
+        <code>0.95rem</code> in the case modal (rem-based so it scales with the
+        root — though neither resolves to a scale step), the <code>18px</code>
+        close-button glyph, and an <code>18px</code> nudge on the contact heading
+        at ≤425. Px line-heights stay literal: they're tied to the font-size beside
+        them and don't generalise.
+      </p>
+
+      <h4>Weights</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Weight</th><th>Where</th><th>Declarations</th></tr></thead>
+          <tbody>
+            <tr><td class="m">200 · ExtraLight</td><td>Body copy, insight-card subtitle, work note</td><td class="m">5</td></tr>
+            <tr><td class="m">300 · Light</td><td>Case lead paragraphs, small menu links</td><td class="m">3</td></tr>
+            <tr><td class="m">400 · Regular</td><td>Tanker display, buttons, card descriptions</td><td class="m">9</td></tr>
+            <tr><td class="m">600 · SemiBold</td><td><code>strong</code>, menu links, hero paragraphs</td><td class="m">5</td></tr>
+            <tr><td class="m">700 · Bold</td><td>Insight-card title only</td><td class="m">1</td></tr>
+            <tr><td class="m">800 · ExtraBold</td><td>Section headings, blockquote</td><td class="m">3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        The request is now <code>wght@200..800</code> — 100 was never used. Narrow
+        the <i>range</i> rather than listing discrete weights: for a variable family
+        a list of values can produce more files, not fewer.
+      </div>
+
+      <h3 id="space">Spacing</h3>
+      <p>
+        The number is the multiple of 4, so gaps in the sequence are meaningful
+        rather than missing. <b>127 references across the two stylesheets.</b>
+        The bar shows each step to scale; the figure on the right is how often it
+        is used.
+      </p>
+      <div class="ruler">
+        <div class="r"><span>--space-1</span><em>4px</em><div class="bar" style="width:4px"></div></div>
+        <div class="r"><span>--space-2</span><em>8px</em><div class="bar" style="width:8px"></div></div>
+        <div class="r"><span>--space-3</span><em>12px</em><div class="bar" style="width:12px"></div></div>
+        <div class="r"><span>--space-4</span><em>16px</em><div class="bar" style="width:16px"></div></div>
+        <div class="r"><span>--space-5</span><em>20px</em><div class="bar" style="width:20px"></div></div>
+        <div class="r"><span>--space-6</span><em>24px</em><div class="bar" style="width:24px"></div></div>
+        <div class="r"><span>--space-8</span><em>32px</em><div class="bar" style="width:32px"></div></div>
+        <div class="r"><span>--space-10</span><em>40px</em><div class="bar" style="width:40px"></div></div>
+        <div class="r"><span>--space-12</span><em>48px</em><div class="bar" style="width:48px"></div></div>
+      </div>
+      <p>
+        The scale was rebuilt from usage data rather than guessed:
+        <code>--space-1</code> and <code>--space-5</code> were added because 4px
+        and 20px were already in use with no token, <code>--space-9</code> (36px)
+        was deleted because nothing referenced it, and 28px is absent because
+        nothing uses it.
+      </p>
+      <div class="note">
+        <b>44px left the scale.</b> It appears seven times and every one is a
+        <code>width</code> or <code>height</code> on an interactive control. It is
+        <code>--control-height</code> now, and it is 44px because that is the WCAG
+        2.5.5 minimum touch target — not because it is a step of the scale. Filed
+        as <code>--space-11</code> it made the scale look like it had a step
+        nothing ever used.
+      </div>
+      <h4>Where the scale stops</h4>
+      <p>
+        It governs <b>component rhythm</b> — padding, gaps and margins inside
+        buttons, cards, modals and content blocks. Section-scale numbers stay
+        literal on purpose.
+      </p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Still literal</th><th>Uses</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="m">56 · 60 · 64 · 80 · 92 · 100 · 120 · 176 · 208</td><td class="m">1–4 each</td><td>Each appears once or twice in an unrelated place — a column gap here, a section padding there. Tokenising them would invent a shared rhythm that doesn't exist.</td></tr>
+            <tr><td class="m" style="color:var(--sev-med)">10 · 18</td><td class="m">1 each</td><td><b>Off the 4px grid.</b> A modal paragraph margin and the contact menu gap. Left alone rather than silently nudged to 8/16 — that would be a visible change, so it's a decision to make rather than a cleanup.</td></tr>
+            <tr><td class="m">0</td><td class="m">14</td><td>Not a scale value.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--muted)">
+        The rule for new work: if a value repeats three or more times across
+        components, add it to the scale. Otherwise leave it literal.
+      </p>
+
+      <h3 id="radius">Radius &amp; border</h3>
+      <div class="radii">
+        <div class="rd"><div class="box" style="border-radius:28px"></div><div class="cap"><b>--radius-s</b>28px · hero ≤600</div></div>
+        <div class="rd"><div class="box" style="border-radius:32px"></div><div class="cap"><b>--radius-m</b>32px · hero ≤768</div></div>
+        <div class="rd unused"><div class="box" style="border-radius:36px"></div><div class="cap"><b>--radius-l</b>36px · unused</div></div>
+        <div class="rd"><div class="box" style="border-radius:40px"></div><div class="cap"><b>--radius-xl</b>40px · hero, case container</div></div>
+      </div>
+      <p>
+        Fifteen further radii are hardcoded: <code>100px</code> for every pill
+        control (×5), <code>24px</code> for cards (×3), <code>50%</code> for modal
+        close buttons (×2), plus <code>40px</code>, <code>16px</code>,
+        <code>8px</code>, <code>4px</code> and <code>40px 40px 0 0</code>. The pill
+        and card radii are real, recurring decisions and belong in the scale.
+      </p>
+      <h4>Border weight</h4>
+      <p>
+        <code>1.5px</code> is the system weight — buttons, icon buttons, cards,
+        insight cards and the outro rule all use it. Two deliberate exceptions:
+        the About portrait frame at <code>6px</code>, and the image-modal close
+        button at <code>1px</code>. Sub-pixel borders round inconsistently across
+        browsers at some zoom levels, so 1.5px is a choice to keep, not to
+        rediscover.
+      </p>
+
+      <h3 id="motion">Motion</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Token</th><th>Value</th><th>Uses</th><th>Applied to</th></tr></thead>
+          <tbody>
+            <tr><td class="m a">--ease</td><td class="m">cubic-bezier(0.2, 0.7, 0.2, 1)</td><td class="m">8</td><td>every transition</td></tr>
+            <tr><td class="m a">--t-fast</td><td class="m">150ms</td><td class="m">7</td><td>hover feedback, both modal close buttons</td></tr>
+            <tr><td class="m a">--t-med</td><td class="m">300ms</td><td class="m">1</td><td>the <code>.btn-menu.active</code> pill background</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <b>Two speeds, deliberately.</b> Opacity is direct feedback for the
+        pointer, so it is fast. The one use of <code>--t-med</code> is the nav
+        pill background, which the scroll-spy toggles <i>as the page moves</i>
+        rather than in response to a click — ambient state reads better a little
+        slower. <code>.btn-menu</code> therefore carries both.
+      </p>
+      <div class="note">
+        The transition sits on the base rule rather than on <code>:hover</code>,
+        so it eases in <b>and</b> out. Only <code>opacity</code> and
+        <code>background-color</code> animate — focus outlines are deliberately
+        excluded, because focus should be instantaneous.
+      </div>
+      <p>
+        The one substantial animation is the case page's scroll-driven parallax:
+        each <code>.parallax-section</code> translates its content by
+        <code>(scrollY − sectionTop) × (1 − speed)</code>, with speed 0.5 on
+        desktop and 0.8 below 1024px. The script returns early under
+        <code>prefers-reduced-motion: reduce</code> and binds no listeners;
+        <code>case.css</code> also clears any applied transform, so a preference
+        change mid-session settles the page rather than freezing it mid-parallax.
+      </p>
+      <h4>Reduced motion</h4>
+      <p>
+        <code>style.css</code> carries a global guard — <code>*</code> with
+        <code>transition-duration: 0.01ms !important</code> and the same for
+        animations and <code>scroll-behavior</code>. Because it loads on both
+        pages it covers the homepage too, which previously had none at all.
+        Near-zero rather than <code>none</code> so <code>transitionend</code>
+        still fires and nothing waiting on it can hang.
+      </p>
+      <div class="note">
+        <b>CSS can't reach the homepage's anchor scrolling</b>, which is JS
+        (<code>scrollIntoView({behavior: "smooth"})</code>). That reads the
+        preference itself and passes <code>"auto"</code> instead — checked per
+        click rather than cached, so it follows the setting if it changes
+        mid-session.
+      </div>
+    </section>
+
+    <!-- ============================================ 02 -->
+    <section id="components">
+      <h2><span class="num">02</span>Components</h2>
+      <p class="sec-intro">
+        Eleven components, previewed below with their real declarations. Each sits
+        on the surface it was designed for — which, since the card merge, is the
+        only thing that decides how any of them are coloured.
+      </p>
+
+      <h3>Button · <code>.btn</code></h3>
+      <p>
+        The primary action. A 44px pill with a 1.5px border and an optional
+        trailing arrow icon. Colour comes entirely from the surface class.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.btn.dark</span><span class="surface-tag">on --color-bg-dark</span></div>
+        <div class="stage on-dark">
+          <span class="p-btn on-d">Read More <span class="ar">↗</span></span>
+          <span class="p-btn on-d is-hover">Hover · opacity .8</span>
+          <span class="p-btn on-d is-focus">Focus-visible</span>
+        </div>
+        <div class="demo-head" style="border-top:1px solid var(--line-soft)"><span>.btn.light &amp; .btn.secondary</span><span class="surface-tag">on --color-bg-light</span></div>
+        <div class="stage on-light">
+          <span class="p-btn on-l">Read More <span class="ar">↗</span></span>
+          <span class="p-btn sec">Contact me</span>
+          <span class="p-btn on-l is-focus">Focus-visible</span>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:-2px">
+        Both rows take their border from <code>currentColor</code>, so the edge
+        follows the surface. Until 2 Sep it was hardcoded to the yellow, which is
+        why the lime row's first button had no visible edge at all.
+      </p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Variant</th><th>Use when</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td class="m a">.btn.dark</td><td>Any action on the green ground</td><td>The default. Used 5×.</td></tr>
+            <tr><td class="m a">.btn.light</td><td>Actions on the lime hero or banner</td><td>Now usable — not yet used in markup.</td></tr>
+            <tr><td class="m a">.btn.secondary</td><td>The lower-priority action beside a primary</td><td>Drops the surface background only; the border comes from <code>.btn</code>.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>States — all five, on every control</h4>
+      <div class="states">
+        <div class="st"><span class="lbl">Default</span><span class="p-btn on-d">Read More</span></div>
+        <div class="st"><span class="lbl">Hover · 0.8</span><span class="p-btn on-d is-hover">Read More</span></div>
+        <div class="st"><span class="lbl">Active · 0.65</span><span class="p-btn on-d" style="opacity:.65">Read More</span></div>
+        <div class="st"><span class="lbl">Focus · 2px ring</span><span class="p-btn on-d is-focus">Read More</span></div>
+        <div class="st"><span class="lbl">Disabled · 0.5</span><span class="p-btn on-d" style="opacity:.5;cursor:not-allowed">Read More</span></div>
+      </div>
+      <div class="note">
+        <b>Why the border is currentColor.</b> It used to be
+        <code>var(--color-primary)</code>, so a <code>.btn</code> on a lime surface
+        drew a lime-on-lime border and read as a floating text label — which is why
+        <code>.btn.light</code> was declared but never usable. Taking the ink the
+        surface class already set makes the border follow the surface like
+        everything else, with identical rendering on dark surfaces.
+      </div>
+      <div class="note">
+        Disabled is written as <code>:disabled, [aria-disabled="true"]</code>
+        because most of these "buttons" are anchors, which cannot carry the
+        <code>disabled</code> attribute. Both forms resolve identically —
+        verified in the browser. Focus is deliberately excluded from the
+        transition: it must be instantaneous.
+      </div>
+
+      <h3>Icon button · <code>.btn-icon</code></h3>
+      <p>
+        A 44×44 circle holding a single SVG. Two sizes: 44px everywhere, 56px in
+        the contact banner (dropping back to 44px below 600px). Always carries an
+        <code>aria-label</code>; the icon inside is <code>alt=""</code>.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.btn-icon</span><span class="surface-tag">44px · 56px</span></div>
+        <div class="stage on-dark">
+          <span class="p-icon">↓</span>
+          <span class="p-icon">in</span>
+          <span class="p-icon lg">↗</span>
+        </div>
+      </div>
+
+      <h3>Menu link · <code>.btn-menu</code></h3>
+      <p>
+        Navigation only. The <code>.active</code> state is applied by the scroll-spy
+        script and pairs with <code>aria-current="true"</code>. The
+        <code>.small</code> modifier is the case-page breadcrumb.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.btn-menu · nav</span><span class="surface-tag">on --nav-scrim</span></div>
+        <div class="stage on-dark" style="padding:20px">
+          <div class="p-nav">
+            <span class="p-menu active">Work</span>
+            <span class="p-menu">About</span>
+            <span class="p-menu">Contact</span>
+          </div>
+        </div>
+        <div class="demo-head" style="border-top:1px solid var(--line-soft)"><span>.btn-menu.small · breadcrumbs</span><span class="surface-tag">case page, fixed bottom</span></div>
+        <div class="stage on-dark" style="padding:20px">
+          <div class="p-crumbs">
+            <span class="p-menu small">Intro</span><span class="dot">·</span>
+            <span class="p-menu small active">Project Overview</span><span class="dot">·</span>
+            <span class="p-menu small">First Iteration</span><span class="dot">·</span>
+            <span class="p-menu small">Second Iteration</span><span class="dot">·</span>
+            <span class="p-menu small">Final Solution</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Text button · <code>.btn-link</code></h3>
+      <p>
+        An inline <code>&lt;button&gt;</code> styled as a link, used once — the
+        "more on the way" trigger in the work note. Underlined at 4px offset,
+        transparent, inherits its font.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.btn-link</span><span class="surface-tag">inline, in running copy</span></div>
+        <div class="stage on-dark">
+          <span style="color:#F7FDA0;font-weight:200;font-size:16px">One case study for now — <span class="p-link">more on the way</span></span>
+        </div>
+      </div>
+
+      <h3>Card · <code>.card</code></h3>
+      <p>
+        An icon-plus-label block for impact figures. <b>One class, both grounds.</b>
+        The border comes from <code>--card-border</code>, which defaults to the
+        yellow and is flipped to the dark green by <code>.light</code> — the same
+        mechanism as <code>--focus-ring</code>. A card nested inside a
+        <code>.light</code> block inherits the flip, so it is correct by
+        construction rather than by remembering which class to type.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.card</span><span class="surface-tag">on --color-bg-light</span></div>
+        <div class="stage on-light">
+          <div class="p-card"><div class="ic"></div><p style="margin:0"><b>+404k<br>policies sold</b></p></div>
+          <div class="p-card"><div class="ic"></div><p style="margin:0"><b>€605k<br>additional revenue</b></p></div>
+          <div class="p-card"><div class="ic"></div><p style="margin:0"><b>40%<br>growth in adoption</b></p></div>
+        </div>
+        <div class="demo-head" style="border-top:1px solid var(--line-soft)"><span>the same .card</span><span class="surface-tag">on --color-bg-dark</span></div>
+        <div class="stage on-dark">
+          <div class="p-card light-variant"><div class="ic"></div><p style="margin:0"><b>+404k<br>policies sold</b></p></div>
+          <div class="p-card light-variant"><div class="ic"></div><p style="margin:0"><b>€605k<br>additional revenue</b></p></div>
+        </div>
+      </div>
+      <div class="note">
+        Verified in the browser: the three intro cards resolve to
+        <code>rgb(21, 34, 11)</code>, the overview and learnings cards to
+        <code>rgb(247, 253, 160)</code> — identical to the two-class version.
+        <b>This used to be <code>.card</code> plus <code>.card-light</code></b>,
+        byte-for-byte identical except for <code>border-color</code>, with inverted
+        names: <code>.card-light</code> was the variant for <i>dark</i> surfaces.
+      </div>
+
+      <h3>Insight card · <code>.insight-card</code></h3>
+      <p>
+        The case study's signature block — a behavioural-design principle, tagged,
+        named and explained. The only component with a gradient fill: a 45°
+        wash from transparent to <code>rgba(247,253,160,0.15)</code>.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.insight-card</span><span class="surface-tag">on --color-bg-dark</span></div>
+        <div class="stage on-dark">
+          <div class="p-insight">
+            <div class="tag"><div class="d"></div><p>Insight</p></div>
+            <div class="cc">
+              <div class="t">Decoy Effect</div>
+              <div class="s">A well-structured option can bring clarity without pressure.</div>
+              <p class="d2">When users are choosing between alternatives, the addition of a less attractive option can influence their perception of the choices.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <b>The subtitle uses <code>line-height: normal</code>, not a number.</b>
+        It was <code>16px</code> against a <code>16px</code> font — a 1.0 ratio, so
+        the two-line subtitles had their ascenders and descenders nearly touching.
+        <code>normal</code> is what <code>.description</code> directly below
+        already uses, so the two text blocks in the card share one rhythm, and it
+        is Sora's own metric (measured: 20px at 16px) rather than a magic number
+        that would go stale if the face changed.
+      </div>
+
+      <h3>Case figure · <code>.case-figure</code></h3>
+      <p>
+        The one image component a case section uses: a mockup sitting beside the
+        copy. Two variants — <code>.case-figure</code> is zoomable and opens the
+        lightbox; <code>.case-figure.is-static</code> is not, and is used once for
+        the intro cover.
+      </p>
+      <p>
+        <b>Layout lives on the <code>&lt;figure&gt;</code></b>, not on the button
+        or the image. That is the point: both variants occupy an identical box
+        whether or not there is a button in the middle, so a section reads the
+        same either way.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>markup for a new case study</span><span class="surface-tag">copy this</span></div>
+        <div class="stage col" style="background:var(--panel);padding:20px 24px">
+<pre style="margin:0;font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--body);overflow-x:auto;width:100%">&lt;<span style="color:var(--accent)">figure</span> class="case-figure"&gt;
+  &lt;<span style="color:var(--accent)">button</span> type="button" class="case-figure__zoom js-zoom-image"
+          aria-label="Enlarge image: &lt;describe it&gt;"&gt;
+    &lt;<span style="color:var(--accent)">picture</span>&gt;
+      &lt;<span style="color:var(--accent)">source</span> type="image/webp" srcset="/assets/images/Name.webp" /&gt;
+      &lt;<span style="color:var(--accent)">img</span> class="case-figure__img" src="/assets/images/Name.png"
+           alt="&lt;describe it&gt;" decoding="async" /&gt;
+    &lt;/<span style="color:var(--accent)">picture</span>&gt;
+  &lt;/<span style="color:var(--accent)">button</span>&gt;
+&lt;/<span style="color:var(--accent)">figure</span>&gt;</pre>
+        </div>
+      </div>
+      <div class="note">
+        <b>The before/after labels are baked into the image pixels.</b> "MVP" and
+        "1st Iteration" are artwork, not text — they can't be selected, translated
+        or read aloud, and the <code>alt</code> string is the only machine-readable
+        version of them. For a new case study, prefer real captions: this component
+        has room for a <code>&lt;figcaption&gt;</code> under the image, and the
+        labels would then be actual content.
+      </div>
+      <div class="note">
+        <b>Renaming removed a collision.</b> These were <code>.mockup</code>, which
+        is <i>also</i> a homepage class (<code>#work .case-cover .mockup</code>) —
+        two unrelated components sharing one name across two stylesheets.
+      </div>
+
+      <h3>Modal · <code>.case-modal</code> and <code>.image-modal</code></h3>
+      <p>
+        Two modals, built twice. The case modal is a proper dialog: focus trap,
+        <code>role="dialog"</code>, <code>aria-modal</code>,
+        <code>aria-labelledby</code>, Escape to close, and focus returned to the
+        trigger — deliberately skipped when the modal closes on its way to
+        <code>#contact</code>, so restoring focus doesn't fight the smooth scroll.
+      </p>
+      <div class="demo">
+        <div class="demo-head"><span>.case-modal__content</span><span class="surface-tag">radius 16px · shadow 0 18px 45px</span></div>
+        <div class="stage on-dark" style="background:rgba(0,0,0,.9);justify-content:center">
+          <div class="p-modal">
+            <span class="x">×</span>
+            <h5>Just one case for now</h5>
+            <p>For now, this is the only case study available here. I am working on new ones and will publish them soon.</p>
+            <div class="acts">
+              <span class="p-btn on-l">Comprehensive Insurance <span class="ar">↗</span></span>
+              <span class="p-btn sec">Contact me</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tw">
+        <table>
+          <thead><tr><th></th><th>.case-modal</th><th>.image-modal</th></tr></thead>
+          <tbody>
+            <tr><td>role / aria-modal</td><td class="m">Yes</td><td class="m">Yes</td></tr>
+            <tr><td>Focus trap</td><td class="m">Yes</td><td class="m">Yes</td></tr>
+            <tr><td>Focus returned on close</td><td class="m">Yes</td><td class="m">Yes</td></tr>
+            <tr><td>Escape closes</td><td class="m">Yes</td><td class="m">Yes</td></tr>
+            <tr><td>Backdrop closes</td><td class="m">Yes</td><td class="m">Yes</td></tr>
+            <tr><td>Body scroll lock</td><td class="m"><code>.case-modal-open</code></td><td class="m"><code>.modal-open</code></td></tr>
+            <tr><td>Opened by</td><td class="m">button</td><td class="m">.case-figure__zoom button</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        The lightbox sets its image from <code>img.currentSrc</code>, so it enlarges
+        the WebP the <code>&lt;source&gt;</code> actually served rather than
+        re-fetching the PNG, and copies the source image's alt across.
+        <b>Two lock classes still exist for one behaviour</b> —
+        <code>.case-modal-open</code> and <code>.modal-open</code>. One modal
+        component with a variant would collapse this table into a single row; worth
+        doing when a third modal appears, not before.
+      </div>
+    </section>
+
+    <!-- ============================================ 03 -->
+    <section id="patterns">
+      <h2><span class="num">03</span>Patterns</h2>
+      <p class="sec-intro">
+        Recurring solutions that aren't components — the conventions that make the
+        pages behave consistently.
+      </p>
+
+      <h3>Responsive images</h3>
+      <p>
+        Every photograph ships as WebP with a PNG fallback via
+        <code>&lt;picture&gt;</code>. Three rules make it work invisibly:
+      </p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Rule</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="m a">picture { display: contents }</td><td>Keeps the <code>&lt;img&gt;</code> as the flex/grid item, so every existing layout rule still targets it.</td></tr>
+            <tr><td class="m a">picture source { display: none }</td><td><code>&lt;source&gt;</code> computes to <code>display:block</code>; <code>contents</code> promotes it to a grid item, silently adding a row to every container holding an image.</td></tr>
+            <tr><td class="m a">%20 in srcset</td><td>A raw space in a <code>srcset</code> is a descriptor separator. Filenames with spaces must be percent-encoded or the WebP is silently dropped.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Above the fold: <code>fetchpriority="high"</code>, no lazy loading. Below:
+        <code>loading="lazy"</code> — but never on a parallax element, whose
+        transform depends on a known <code>offsetHeight</code>.
+      </p>
+
+      <h3>Section heights</h3>
+      <p>
+        Homepage sections <b>cover</b> the viewport rather than being fixed to it:
+        <code>min-height: calc(100svh − navHeight)</code>, with the
+        <code>100vh</code> line first as the fallback. Nav height is 100px above
+        1024px and 60px below, and <code>scroll-margin-top</code> matches it so
+        anchor landings sit just under the bar.
+      </p>
+
+      <h3>Scroll spy</h3>
+      <p>
+        Both the homepage nav and the case breadcrumbs highlight the last section
+        whose top has crossed a line 40% down the viewport, with the final item
+        forced active at the bottom of the page.
+      </p>
+      <div class="note">
+        <b>Why not IntersectionObserver.</b> The original used a 0.5 threshold,
+        which can never fire on a section taller than the viewport — so the
+        highlight stuck on the wrong item. The scroll-position approach has no such
+        floor.
+      </div>
+
+      <h3>Hero wordmark sizing</h3>
+      <p>
+        The hero name is CSS-sized, not measured by JavaScript.
+        <code>#hero-banner</code> is a container
+        (<code>container-type: inline-size</code>) and the title is
+        <code>clamp(28px, 19.5cqw, 320px)</code>. "Rafael Borges" in Tanker at
+        <code>-0.03em</code> advances ≈4.92× its font-size, so 20.3cqw would fill
+        the line exactly; 19.5cqw is the largest value that never overflows once
+        letter-spacing rounds to whole pixels — worst-case fill 98.0% across
+        320–2000px.
+      </p>
+      <div class="dodont">
+        <div class="do">
+          <h5>Do</h5>
+          <ul>
+            <li>Let container queries size display type</li>
+            <li>Keep Tanker on <code>font-display: block</code></li>
+            <li>Break the wordmark to two lines only on tall phones (≤600px, ≤3/5 aspect, ≥700px tall)</li>
+          </ul>
+        </div>
+        <div class="dont">
+          <h5>Don't</h5>
+          <ul>
+            <li>Reintroduce a JavaScript text fitter</li>
+            <li>Two-line the wordmark on tablets — it only reaches ~65% of the line and halves the portrait</li>
+            <li>Switch to <code>swap</code> — the fallback overflows the banner mid-load</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Focus</h3>
+      <p>
+        <code>--focus-ring</code> defaults to the yellow and is flipped to the dark
+        green by <code>.light</code> and by <code>.case-modal__content</code>, so
+        the ring is always visible against whatever it is sitting on. Rings are
+        2px with a 2px offset (4px on <code>.btn-link</code>, 6px on the email
+        link).
+      </p>
+      <div class="note">
+        All five focus rules now use the token, plus <code>.case-figure__zoom</code>.
+        <code>.btn-link</code> and the contact email link used to hardcode
+        <code>--color-primary</code> and <code>--color-secondary</code>, bypassing
+        the mechanism built for exactly this.
+      </div>
+
+      <h3>Alt text</h3>
+      <p>
+        The convention is <code>alt=""</code> for decorative icons, with the
+        meaning carried by an adjacent <code>aria-label</code> or visible text.
+        Both pages now follow it throughout — 21 decorative images on the case
+        page, 8 on the index — and only the five content mockups carry descriptive
+        alt. The case page previously broke it in 12 places, where icons sitting
+        beside their own visible label were announced as "Idea Icon", "Shield
+        Icon", "Trade Up Icon", and twice as "Shiedl User Icon".
+      </p>
+    </section>
+
+    <!-- ============================================ 04 -->
+    <section id="responsive">
+      <h2><span class="num">04</span>Responsive</h2>
+      <p class="sec-intro">
+        Eleven media queries across two stylesheets, with two shape-aware queries
+        that width alone couldn't express.
+      </p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Query</th><th>File</th><th>What changes</th></tr></thead>
+          <tbody>
+            <tr><td class="m a">≤1440px</td><td class="m">both</td><td>Outer padding 48→32px; case section padding; nav max-height 80px</td></tr>
+            <tr><td class="m a">≤1224px</td><td class="m" style="color:var(--sev-med)">case only</td><td>Case container becomes a column; mockups to 70% and centred</td></tr>
+            <tr><td class="m a">≤1024px</td><td class="m">style only</td><td>Hero to 3/1.65 and horizontal 50/50; nav 100→60px</td></tr>
+            <tr><td class="m a">≤768px</td><td class="m">style only</td><td>h2 120→72px; hero to 3/2; About stacks</td></tr>
+            <tr><td class="m a">≤600px</td><td class="m">both</td><td>Hero to 3/4 portrait; work section stacks; logo → "RB"</td></tr>
+            <tr><td class="m a">≤425px</td><td class="m">both</td><td>Hero to 3/5; body line-height 28→24px; contact menu stacks</td></tr>
+            <tr><td class="m a">601–1024px portrait</td><td class="m">style only</td><td>Portrait tablets stack fully and hand the photo the full width</td></tr>
+            <tr><td class="m a">≤600px, ≤3/5, ≥700px tall</td><td class="m">style only</td><td>Two-line wordmark at <code>clamp(28px, min(38cqw, 18svh), 320px)</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>The two orientation queries sit last in the file on purpose</b> — they
+        have to win over the width-only blocks above them. Anything appended to
+        <code>style.css</code> after them will silently outrank them.
+      </div>
+      <p>
+        <code>case.css</code>'s 1224px breakpoint is the odd one out: it matches
+        neither 1024 nor 1440, and there is no shared list of breakpoints for a
+        third stylesheet to follow. A set of custom media values, or simply
+        aligning 1224 → 1024, would make the two files agree.
+      </p>
+    </section>
+
+    <!-- ============================================ 05 -->
+    <section id="audit">
+      <h2><span class="num">05</span>Audit</h2>
+      <p class="sec-intro">
+        The foundations were sound and unusually well commented to begin with —
+        the inline comments explaining <i>why</i> are what made this document
+        possible to write from the source alone. Five rounds of fixes on
+        2 September closed all fourteen findings and took the score from 52 to 96.
+        Every token in <code>:root</code> is now referenced by something.
+      </p>
+
+      <div class="score">
+        <div>
+          <div class="big">96<small>/100</small></div>
+          <div class="bl">52 → 60 → 73 → 81 → 85 → 96 across five rounds on 2 Sep. Every finding closed; every token referenced.</div>
+        </div>
+        <div class="bars">
+          <div class="b"><span class="lb">Token definition</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="n">10/10</span></div>
+          <div class="b"><span class="lb">Token adoption</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="n">10/10</span></div>
+          <div class="b"><span class="lb">Component states</span><div class="track"><div class="fill" style="width:90%"></div></div><span class="n">9/10</span></div>
+          <div class="b"><span class="lb">Naming consistency</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="n">10/10</span></div>
+          <div class="b"><span class="lb">Accessibility</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="n">10/10</span></div>
+          <div class="b"><span class="lb">Documentation</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="n">8/10</span></div>
+        </div>
+      </div>
+
+      <h4>Token coverage</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Category</th><th>Defined</th><th>Referenced</th><th>Hardcoded in CSS</th></tr></thead>
+          <tbody>
+            <tr><td>Colour</td><td class="m">11</td><td class="m">11</td><td class="m">5 <span style="color:var(--muted)">(rgba blacks, gradient)</span></td></tr>
+            <tr><td>Spacing</td><td class="m">9</td><td class="m">127</td><td class="m">11 <span style="color:var(--muted)">(9 section-scale, 2 off-grid)</span></td></tr>
+            <tr><td>Radius</td><td class="m">3</td><td class="m">3</td><td class="m" style="color:var(--sev-med)">15</td></tr>
+            <tr><td>Typography</td><td class="m">12</td><td class="m">12</td><td class="m">4 <span style="color:var(--muted)">(all deliberate)</span></td></tr>
+            <tr><td>Motion</td><td class="m">3</td><td class="m">16</td><td class="m">0</td></tr>
+            <tr><td>Interaction opacity</td><td class="m">3</td><td class="m">16</td><td class="m">0</td></tr>
+            <tr><td>Breakpoints</td><td class="m" style="color:var(--sev-med)">0</td><td class="m">—</td><td class="m">11</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Findings</h4>
+      <div class="findings">
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Unclosed paragraph in the case intro</span>
+              <span class="where">cases/comprehensive-insurance.html:48</span>
+              <span class="sev">Fixed</span> <span class="was">was Bug</span>
+            </div>
+            <p>A <code>&lt;p class="case"&gt;</code> is closed with <code>&lt;/h1&gt;</code>. Browsers recover, but the parse tree isn't what the markup says, and it will confuse a screen reader's heading list and anything that scrapes the page.</p>
+            <p class="fix"><b>Fixed:</b> the closing tag is now <code>&lt;/p&gt;</code>.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Zoomable case images are keyboard-inaccessible</span>
+              <span class="where">cases · .js-zoom-image ×4</span>
+              <span class="sev">Fixed</span> <span class="was">was A11y</span>
+            </div>
+            <p>The four mockups open a lightbox on click, but they are plain <code>&lt;img&gt;</code> elements — not focusable, not announced as interactive, no keyboard path in. The lightbox itself has no <code>role="dialog"</code>, no focus trap and doesn't return focus on close.</p>
+            <p class="fix"><b>Fixed:</b> each is now a <code>.case-figure__zoom</code> button, and <code>.image-modal</code> has the dialog treatment <code>.case-modal</code> already had.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Parallax ran with no prefers-reduced-motion guard</span>
+              <span class="where">case.css · all sections</span>
+              <span class="sev">Fixed</span> <span class="was">was A11y</span>
+            </div>
+            <p>Every case section transforms its content on scroll, at every viewport, with no opt-out. Scroll-coupled parallax is a known vestibular trigger and is exactly what the media feature exists for.</p>
+            <p class="fix"><b>Fixed:</b> the script returns early on <code>matchMedia("(prefers-reduced-motion: reduce)")</code>, with a CSS guard on <code>.parallax-content</code> and a global one in <code>style.css</code>.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Spacing scale defined, never used</span>
+              <span class="where">style.css:root · 9 tokens</span>
+              <span class="sev">Fixed</span> <span class="was">was Tokens</span>
+            </div>
+            <p>All nine <code>--space-*</code> tokens had zero references against 123 spacing declarations (165 individual values).</p>
+            <p class="fix"><b>Fixed:</b> rebuilt from usage data — added <code>--space-1</code>/<code>--space-5</code>, deleted the unreferenced <code>--space-9</code>, moved 44px out to <code>--control-height</code>, converted 126 values. Section-scale one-offs stay literal by design.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">No typography tokens at all</span>
+              <span class="where">both stylesheets · 29 declarations</span>
+              <span class="sev">Fixed</span> <span class="was">was Tokens</span>
+            </div>
+            <p>Font sizes, families and line-heights are literals everywhere, including inside media queries. Changing the base reading size means finding every one by hand. The scale that emerges is coherent — 14/16/20/24/32/40/60/72/120 — it just wasn't written down anywhere.</p>
+            <p class="fix"><b>Fixed:</b> <code>--font-display</code> / <code>--font-body</code>, nine role-named <code>--text-*</code> steps and <code>--leading-display</code>. 29 literals down to 4 deliberate ones.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">.card and .card-light were duplicates</span>
+              <span class="where">style.css · .card, .card-light</span>
+              <span class="sev">Fixed</span> <span class="was">was Naming</span>
+            </div>
+            <p>Eight identical declarations each; only <code>border-color</code> differs. The name is also inverted — <code>.card-light</code> is the variant for <i>dark</i> surfaces, the opposite of what <code>.light</code> means everywhere else.</p>
+            <p class="fix"><b>Fixed:</b> one <code>.card</code> driven by <code>--card-border</code>, flipped by <code>.light</code> exactly as <code>--focus-ring</code> is.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Decorative icons carry descriptive alt text</span>
+              <span class="where">case page · 12 images</span>
+              <span class="sev">Fixed</span> <span class="was">was A11y</span>
+            </div>
+            <p>Icons sitting next to their own visible label are announced twice — "Idea Icon" followed by "Insight". Two are misspelled as "Shiedl User Icon". <code>index.html</code> gets this right in all 8 cases, so the two pages disagree.</p>
+            <p class="fix"><b>Fixed:</b> <code>alt=""</code> on all 12. Both pages now follow the convention throughout.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Focus ring token bypassed in two places</span>
+              <span class="where">.btn-link · #contact .email-link</span>
+              <span class="sev">Fixed</span> <span class="was">was Tokens</span>
+            </div>
+            <p><code>.btn-link</code> hardcodes <code>--color-primary</code>, so if that button is ever placed on a lime surface its focus ring becomes invisible. The email link hardcodes <code>--color-secondary</code> — correct today only because it happens to sit on the light banner.</p>
+            <p class="fix"><b>Fixed:</b> both now use <code>var(--focus-ring)</code>; all five focus rules go through the token.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">.btn hardcoded a yellow border, so .btn.light was unusable</span>
+              <span class="where">style.css · .btn</span>
+              <span class="sev">Fixed</span> <span class="was">was Consistency</span>
+            </div>
+            <p>The border is <code>var(--color-primary)</code> rather than <code>currentColor</code>, so a <code>.btn.light</code> on the lime hero renders lime-on-lime with no visible edge. The variant is declared and has never been used — this is why. <code>.secondary</code> already works around it locally.</p>
+            <p class="fix"><b>Fixed:</b> <code>.btn</code> now borders with <code>currentColor</code>. Verified identical on dark surfaces, and both other variants behave.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Three inline styles bypassed the system</span>
+              <span class="where">case page</span>
+              <span class="sev">Fixed</span> <span class="was">was Consistency</span>
+            </div>
+            <p><code>color: #fd6b6b</code> is the only semantic colour in the project and it lives in an HTML attribute. <code>font-size: 24px</code> appears twice as an ad-hoc sub-heading that isn't in the type scale.</p>
+            <p class="fix"><b>Fixed:</b> the red is now <code>--color-negative</code> applied via <code>.metric-down</code>, and the two headings use <code>.subhead</code>. The page has zero inline styles.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Motion tokens unused; no transitions on hover</span>
+              <span class="where">--ease, --t-fast, --t-med</span>
+              <span class="sev">Fixed</span> <span class="was">was Polish</span>
+            </div>
+            <p>Every hover snapped instantly to <code>opacity: 0.8</code>, and the one transition in the codebase used <code>0.2s ease</code> rather than the tokens defined for it.</p>
+            <p class="fix"><b>Fixed:</b> all seven hover states transition through the tokens, <code>--t-med</code> drives the nav pill, and a global <code>prefers-reduced-motion</code> guard collapses everything to instant — including the homepage's JS anchor scroll.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Insight-card subtitle line-height equals its font-size</span>
+              <span class="where">case.css · .subtitle</span>
+              <span class="sev">Fixed</span> <span class="was">was Polish</span>
+            </div>
+            <p>16px on 16px. All three subtitles in the case study wrap, so ascenders and descenders nearly collided.</p>
+            <p class="fix"><b>Fixed:</b> now <code>line-height: normal</code>, matching the <code>.description</code> beneath it — Sora's own metric, measured at 20px, rather than a magic number.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Four visibility utilities with four different meanings</span>
+              <span class="where">.hide · .hide-m · .hide-mobile · .hide-desktop</span>
+              <span class="sev">Fixed</span> <span class="was">was Naming</span>
+            </div>
+            <p><code>.hide</code> only works inside <code>#hero-banner</code> below 1024px. <code>.hide-m</code> lives in case.css and fires at 1224px. <code>.hide-mobile</code> and <code>.hide-desktop</code> are hero-scoped and swap at 600px — and again in the portrait-tablet block. None of the names says which breakpoint it means.</p>
+            <p class="fix"><b>Fixed:</b> two real utilities named for their breakpoints, plus <code>.hero-cue--inline</code> / <code>--overlay</code> for the pair that were never utilities. See Patterns §3.6.</p>
+          </div>
+        </div>
+
+        <div class="f done">
+          <div class="stripe"></div>
+          <div>
+            <div class="hd">
+              <span class="ti">Bilingual comments and duplicate rule blocks</span>
+              <span class="where">both stylesheets</span>
+              <span class="sev">Fixed</span> <span class="was">was Housekeeping</span>
+            </div>
+            <p>Comments switched between Portuguese and English mid-file. <code>.case-modal</code> declared <code>display: none</code> twice; <code>.case-outro__actions</code> and <code>#work .case-cover .content</code> were each split across two adjacent blocks. <code>--radius-l</code> and <code>--transparency-secondary</code> were declared and never used.</p>
+            <p class="fix"><b>Fixed:</b> comments are English throughout both stylesheets and both scripts, the split blocks are merged, and the two dead tokens are gone.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <h4>What's working</h4>
+      <p>
+        Worth stating plainly, because an audit reads as a list of faults: the
+        contrast is excellent in both directions, the surface-inversion model is a
+        genuinely good idea cleanly executed, the responsive work handles cases most
+        sites ignore (portrait tablets, short phones, container-relative display
+        type), and the inline comments explain <i>why</i> — the letter-spacing
+        rounding sweep, the <code>display:contents</code> trap, the
+        IntersectionObserver threshold, the <code>font-display</code> choice. That
+        commentary is better than most production codebases carry, and it is what
+        made this document possible to write from the source alone.
+      </p>
+    </section>
+
+    <!-- ============================================ 06 -->
+    <section id="next">
+      <h2><span class="num">06</span>What was done, and what is left</h2>
+      <p class="sec-intro">
+        Every audited finding is closed. This is the record, and the short list of
+        what is deliberately still open.
+      </p>
+
+      <h4>Completed 2 September 2026</h4>
+      <div class="actions">
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">The four one-line correctness bugs</div>
+          <p>The unclosed <code>&lt;p&gt;</code>, 12 alt attributes, two focus rings, <code>.btn</code> to <code>currentColor</code>.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Case images keyboard-operable, parallax guarded</div>
+          <p>The four mockups became <code>.case-figure__zoom</code> buttons; <code>.image-modal</code> gained a focus trap, focus restore and <code>role="dialog"</code>; the parallax bails out under <code>prefers-reduced-motion</code>.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Typography tokens</div>
+          <p>Nine role-named steps plus the two families and <code>--leading-display</code>.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">.card / .card-light collapsed into one class</div>
+          <p>Driven by <code>--card-border</code>, flipped by <code>.light</code>.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Spacing scale adopted</div>
+          <p>126 values converted, 11 left literal by design.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Motion tokens wired up</div>
+          <p>With a global <code>prefers-reduced-motion</code> guard that also covers the homepage's JS anchor scroll.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">.case-figure declared as a component</div>
+          <p>A zoomable and a static variant, with layout on the <code>&lt;figure&gt;</code> so both occupy an identical box.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Insight-card leading fixed</div>
+          <p>To <code>normal</code>, matching the description beside it — Sora's own metric, 20px at 16px.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Visibility utilities renamed to state their breakpoints</div>
+          <p>And the hero cue pair renamed for what it is rather than when it disappears.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Comments unified, duplicates merged, dead tokens removed</div>
+          <p>English throughout both stylesheets and both scripts.</p></div></div>
+        <div class="a"><div class="idx" style="color:var(--accent)">✓</div><div>
+          <div class="t">Component states completed</div>
+          <p>Active and disabled on every control, with the scroll-spy class renamed <code>.is-current</code> to clear the way.</p></div></div>
+      </div>
+
+      <div class="note">
+        <b>One thing to carry forward.</b> <code>#intro</code> /
+        <code>#overview</code> became <code>.case-intro</code> /
+        <code>.case-overview</code>. Watch the specificity if you touch those
+        rules: the generic <code>.case-content section .container .content</code>
+        is (0,3,1), so a bare <code>.case-intro .container .content</code> (0,3,0)
+        would lose. The rules keep <code>.case-content</code> in front, making
+        them (0,4,0). Don't shorten them.
+      </div>
+
+      <h4>Still open</h4>
+      <p>Either your call, or genuinely not worth doing.</p>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Item</th><th>Why it is still here</th></tr></thead>
+          <tbody>
+            <tr><td>A loading state</td><td>No component has one, because nothing on the site is asynchronous. The first form that posts will need it.</td></tr>
+            <tr><td>Two off-grid spacing values — <code>10px</code>, <code>18px</code></td><td>Nudging them to 8/16 would put the whole codebase on the 4px grid, but it is a visible change. Your call, not a silent cleanup.</td></tr>
+            <tr><td><code>.case-modal__content</code> uses <code>1.4rem</code> / <code>0.95rem</code></td><td>22.4px and 15.2px, neither a step of the type scale. Same reasoning as above.</td></tr>
+            <tr><td>A <code>&lt;figcaption&gt;</code> on <code>.case-figure</code></td><td>The honest place for a "click to enlarge" cue, and for the before/after labels currently baked into the image pixels. Blocked until case #2's assets are exported with the labels out of the artwork.</td></tr>
+            <tr><td>The scroll cue exists twice in the markup</td><td>One copy is always hidden, so it is harmless — but it is duplicated content. A single element repositioned by CSS would be cleaner if the hero is reworked.</td></tr>
+            <tr><td>This document is synced by hand</td><td>Three copies: the repo markdown, the published page, and <code>myPortfolio/design-system.html</code>. The weakest part of the setup, and why Documentation sits at 8/10.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <b>Deliberately not on this list:</b> the JS text fitter (removed on
+        purpose), <code>font-display: swap</code> (breaks the hero mid-load),
+        aligning <code>scroll-behavior</code> (case.css overrides it
+        intentionally), and the 1.5px borders. These look like inconsistencies
+        and are decisions.
+      </div>
+    </section>
+
+    <div class="colophon">
+      Compiled from styles/style.css, styles/case.css, index.html and
+      cases/comprehensive-insurance.html · 2 September 2026, revised after the
+      same day's fixes<br>
+      Type set in Tanker (self-hosted) and Sora; data in IBM Plex Mono.<br>
+      Component previews use the source declarations verbatim.
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

@@ -24,18 +24,18 @@
 
     <script>
       (function () {
-        // Só aplica essa lógica se a URL tiver hash: ex: index.html#about
+        // Only runs when the URL carries a hash, e.g. index.html#about
         if (window.location.hash) {
           document.documentElement.classList.add("hash-loading");
 
           window.addEventListener("load", function () {
             var target = document.querySelector(window.location.hash);
             if (target) {
-              // garante que o scroll vai direto pra seção alvo, sem smooth
+              // jump straight to the target section, no smooth scroll
               target.scrollIntoView({ behavior: "auto", block: "start" });
             }
 
-            // mostra a página depois de reposicionar
+            // reveal the page once it has been repositioned
             document.documentElement.classList.remove("hash-loading");
             document.documentElement.classList.add("hash-loaded");
           });
@@ -56,7 +56,7 @@
             work helps companies solve real problems and unlock measurable
             business results
           </p>
-          <ul class="clean-list hide">
+          <ul class="clean-list u-hide-below-1024">
             <li>
               <a
                 href="https://www.linkedin.com/in/sborgesrafa/"
@@ -88,7 +88,7 @@
             strategic thinking, crafted to create user experiences that truly
             perform
           </p>
-          <ul class="clean-list hide-mobile">
+          <ul class="clean-list hero-cue--inline">
             <li>
               <a href="#work" class="btn-icon dark" aria-label="Go to Work">
                 <img
@@ -117,7 +117,7 @@
           </picture>
         </div>
 
-        <ul class="clean-list hide-desktop">
+        <ul class="clean-list hero-cue--overlay">
           <li>
             <a href="#work" class="btn-icon dark" aria-label="Go to Work">
               <img src="./assets/icons/arrow-down.svg" alt="" />
@@ -343,6 +343,9 @@
             </a>
           </li>
           <li>
+            <a href="/design-system/" class="btn-menu">Design system</a>
+          </li>
+          <li>
             <a
               href="https://calendly.com/rafael-sborges/new-meeting"
               target="_blank"
@@ -377,7 +380,7 @@
         function setActive(current) {
           menuLinks.forEach(function (link) {
             const on = !!current && link === current.link;
-            link.classList.toggle("active", on);
+            link.classList.toggle("is-current", on);
             if (on) link.setAttribute("aria-current", "true");
             else link.removeAttribute("aria-current");
           });
@@ -421,27 +424,32 @@
 
     <script>
       (function () {
-        // pega só links que apontam para âncoras na MESMA página (#work, #about, etc)
+        // only links pointing at anchors on THIS page (#work, #about, etc)
         const internalLinks = document.querySelectorAll('a[href^="#"]');
+
+        // This scroll is driven by JS, so the CSS reduced-motion guard cannot
+        // reach it — the preference has to be read here. Checked per click
+        // rather than once, so it follows the setting if it changes.
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
         internalLinks.forEach((link) => {
           link.addEventListener("click", function (event) {
             const hash = this.getAttribute("href");
 
-            // só hash puro (#algo). Ignora links vazios ou só "#"
+            // bare hashes only; ignore empty hrefs and a lone "#"
             if (!hash || hash === "#") return;
 
             const target = document.querySelector(hash);
             if (!target) return;
 
-            event.preventDefault(); // impede o scroll instantâneo padrão
+            event.preventDefault(); // suppress the default instant jump
 
             target.scrollIntoView({
-              behavior: "smooth",
+              behavior: reduceMotion.matches ? "auto" : "smooth",
               block: "start",
             });
 
-            // opcional: atualiza a URL com o hash
+            // keep the URL in step with where we scrolled
             history.pushState(null, "", hash);
           });
         });

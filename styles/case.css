@@ -29,7 +29,7 @@ cite {
 }
 
 /* ================================
-   Typography específica do case
+   Case-specific typography
    ================================ */
 /* The case page outline is now h1 (case title) -> h2 (section headings) ->
    h3 (insight cards). These three used to be h1/h2/h3 and inherited their
@@ -98,10 +98,10 @@ a.logo-mobile {
 .insight-card {
   display: flex;
   width: 100%;
-  padding: 24px;
+  padding: var(--space-6);
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: var(--space-6);
 
   border-radius: 24px;
   border: 1.5px solid var(--color-primary);
@@ -115,7 +115,7 @@ a.logo-mobile {
 .insight-card .tag {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .insight-card .tag img {
@@ -133,7 +133,7 @@ a.logo-mobile {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-3);
   align-self: stretch;
 }
 
@@ -144,11 +144,17 @@ a.logo-mobile {
   line-height: 24px;
 }
 
+/* line-height was 16px against a 16px font — a 1.0 ratio, so on the two-line
+   subtitles the ascenders and descenders nearly collided. `normal` rather than a
+   number on purpose: it is what .description directly below already uses, so the
+   two text blocks in the card share one rhythm, and it is Sora's own metric
+   (20px at 16px) rather than a magic value that would go stale if the face
+   changed. */
 .insight-card .card-content .subtitle {
   font-size: var(--text-body);
   font-style: normal;
   font-weight: 200;
-  line-height: 16px;
+  line-height: normal;
 }
 
 .insight-card .card-content .description {
@@ -159,7 +165,7 @@ a.logo-mobile {
 }
 
 /* ================================
-   Nav do case
+   Case nav
    ================================ */
 
 nav.case {
@@ -172,7 +178,7 @@ nav.case {
   max-width: 1532px;
   margin: 0 auto;
 
-  padding: 24px;
+  padding: var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -184,11 +190,11 @@ nav.case ul {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 40px;
+  gap: var(--space-10);
 }
 
 /* ================================
-   Layout base da section
+   Section layout
    ================================ */
 
 .case-content section {
@@ -201,7 +207,7 @@ nav.case ul {
   justify-content: center;
   align-items: center;
 
-  padding: 120px 24px;
+  padding: 120px var(--space-6);
 }
 
 .case-content section .container {
@@ -224,7 +230,7 @@ nav.case ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 24px;
+  gap: var(--space-6);
 }
 
 .case-content section .container .content-center {
@@ -233,15 +239,13 @@ nav.case ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 24px;
+  gap: var(--space-6);
 }
 
-.case-content section .container .mockup,
-.case-content section .container .zoom-btn {
+.case-content section .container .case-figure {
   grid-column: 4 / span 2;
   width: 100%;
   height: 100%;
-  object-fit: contain;
 }
 
 /* ================================
@@ -266,25 +270,25 @@ nav.case ul {
   flex: 1 0 0;
   align-self: stretch;
 
-  gap: 32px;
+  gap: var(--space-8);
 }
 
 .case-content .case-intro .container .content .top {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: var(--space-4);
   align-self: stretch;
 }
 
-/* Cards de impacto */
+/* Impact cards */
 
 .card-role {
   display: flex;
   align-items: center;
   align-content: center;
-  margin-top: 8px;
-  gap: 16px;
+  margin-top: var(--space-2);
+  gap: var(--space-4);
   align-self: stretch;
   flex-wrap: wrap;
 }
@@ -293,7 +297,7 @@ nav.case ul {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 24px;
+  gap: var(--space-6);
 }
 
 /* ================================
@@ -320,7 +324,7 @@ nav.case ul {
   width: 280px;
   max-height: 120px;
 
-  padding: 16px;
+  padding: var(--space-4);
   justify-content: space-between;
 }
 
@@ -382,7 +386,7 @@ nav.case ul {
   z-index: 1;
 }
 
-/* FIX para não cortar imagem */
+/* keeps the enlarged image from being cropped */
 .image-modal__content img {
   max-width: 90vw;
   max-height: 90vh;
@@ -390,18 +394,18 @@ nav.case ul {
   border-radius: 8px;
 }
 
-/* 🔥 Botão de fechar restaurado */
+/* close button */
 .image-modal__close {
   position: absolute;
   top: -10px;
   right: -40px;
 
-  width: 32px; /* tamanho do círculo */
+  width: 32px;
   height: 32px;
-  border-radius: 50%; /* 🔥 transforma em círculo */
+  border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.2); /* fundo translúcido */
-  backdrop-filter: blur(6px); /* efeito glass (opcional, mas bonito) */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.4);
 
   display: flex;
@@ -413,7 +417,7 @@ nav.case ul {
   font-weight: bold;
   cursor: pointer;
 
-  transition: background 0.2s ease;
+  transition: background-color var(--t-fast) var(--ease);
 }
 
 .image-modal__close:hover {
@@ -424,14 +428,50 @@ body.modal-open {
   overflow: hidden;
 }
 
-/* Zoomable mockups.
+/* ================================
+   Case figure
+   ================================ */
 
-   These open the lightbox, so they are real <button>s rather than click
-   handlers on an <img> — that is what makes them tab-reachable and announces
-   them as controls. The button takes the grid/flex placement the plain .mockup
-   images have (see the three rules above); the image inside just fills it. */
-.zoom-btn {
+/* The one image component a case section uses: a mockup sitting beside the
+   copy. Two variants:
+
+     .case-figure                    zoomable — opens the lightbox
+     .case-figure.is-static          not zoomable (the intro cover)
+
+   Layout lives on the <figure>; the button and the image inside just fill it.
+   That is deliberate — it means the two variants occupy an identical box
+   whether or not there is a button in the middle, so a section reads the same
+   either way.
+
+   Markup, for a new case study:
+
+     <figure class="case-figure">
+       <button type="button" class="case-figure__zoom js-zoom-image"
+               aria-label="Enlarge image: <describe it>">
+         <picture>
+           <source type="image/webp" srcset="/assets/images/Name.webp" />
+           <img class="case-figure__img" src="/assets/images/Name.png"
+                alt="<describe it>" decoding="async" />
+         </picture>
+       </button>
+     </figure>
+
+   Do NOT add loading="lazy" here: the parallax needs a known offsetHeight.
+   Percent-encode spaces in the srcset or the WebP is silently dropped.
+
+   NOTE: in the current case study the before/after labels ("MVP", "1st
+   Iteration") are baked into the image pixels, so the alt text is the only
+   machine-readable version of them. For a new case, prefer real captions —
+   this component has room for a <figcaption> under the image. */
+
+.case-figure {
+  min-width: 0;
+}
+
+.case-figure__zoom {
   display: block;
+  width: 100%;
+  height: 100%;
   padding: 0;
   border: 0;
   background: none;
@@ -439,20 +479,29 @@ body.modal-open {
   font: inherit;
   min-width: 0;
   cursor: zoom-in;
+
+  transition: opacity var(--t-fast) var(--ease);
 }
 
-/* one level more specific than the .container .mockup layout rules, so the
-   image fills the button instead of trying to place itself */
-.case-content section .container .zoom-btn .mockup {
+.case-figure__img {
+  display: block;
   width: 100%;
   height: 100%;
-  padding: 0;
-  grid-column: auto;
+  object-fit: contain;
 }
 
-.zoom-btn:focus-visible {
+/* the mockups look like plain images, so the fade is the affordance */
+.case-figure__zoom:hover {
+  opacity: var(--opacity-hover);
+}
+
+.case-figure__zoom:active {
+  opacity: var(--opacity-active);
+}
+
+.case-figure__zoom:focus-visible {
   outline: 2px solid var(--focus-ring);
-  outline-offset: 4px;
+  outline-offset: var(--space-1);
   border-radius: 8px;
 }
 
@@ -471,11 +520,11 @@ body.modal-open {
   }
 
   .case-content section {
-    padding: 92px 24px;
+    padding: 92px var(--space-6);
   }
 
   .case-content section .container {
-    padding: 32px;
+    padding: var(--space-8);
   }
 
   .breadcrumbs {
@@ -494,21 +543,21 @@ body.modal-open {
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    gap: 24px;
-    padding: 32px;
+    gap: var(--space-6);
+    padding: var(--space-8);
   }
 
-  .case-content section .container .mockup,
-  .case-content section .container .zoom-btn {
+  .case-content section .container .case-figure {
     width: 70%;
     height: 70%;
     align-self: center;
-    object-fit: contain;
     padding-bottom: 100px;
   }
 
-  .hide-m {
-    display: none;
+  /* name states the breakpoint; .hide-m said nothing about which. !important
+     for the same reason as .u-hide-below-1024: a utility has to win. */
+  .u-hide-below-1224 {
+    display: none !important;
   }
 }
 
@@ -521,26 +570,24 @@ body.modal-open {
     display: block;
   }
   nav.case ul {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .case-content section .container {
-    padding: 24px;
+    padding: var(--space-6);
   }
 
-  .case-content section .container .mockup,
-  .case-content section .container .zoom-btn {
+  .case-content section .container .case-figure {
     width: 100%;
     height: 100%;
     align-self: center;
-    object-fit: contain;
     padding-bottom: 100px;
   }
 }
 
 @media (max-width: 425px) {
   nav.case ul {
-    gap: 8px;
+    gap: var(--space-2);
   }
 
   p.case {
@@ -559,7 +606,7 @@ body.modal-open {
   }
 
   .case-content {
-    padding: 0 16px;
+    padding: 0 var(--space-4);
   }
 }
 
@@ -586,10 +633,10 @@ body.modal-open {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  margin-top: 40px;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
   /* rule separating the outro from the case content above it */
-  padding-top: 40px;
+  padding-top: var(--space-10);
   border-top: 1.5px solid var(--transparency-primary);
   text-align: center;
 }
@@ -599,14 +646,11 @@ body.modal-open {
 }
 
 .case-outro__actions {
-  margin-top: 8px;
-}
-
-.case-outro__actions {
+  margin-top: var(--space-2);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 /* ================================
