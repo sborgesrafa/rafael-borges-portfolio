@@ -84,6 +84,11 @@ ul {
   --radius-l: 36px;
   --radius-xl: 40px;
 
+  /* Focus ring. Defaults to the yellow for dark surfaces; .light containers
+     flip it to the dark green below, so the ring is always visible against
+     whatever it is sitting on. */
+  --focus-ring: var(--color-primary);
+
   /* Motion */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --t-fast: 150ms;
@@ -101,6 +106,7 @@ ul {
 .light {
   background-color: var(--color-bg-light);
   color: var(--color-text-on-light);
+  --focus-ring: var(--color-secondary);
 }
 
 /* <picture> is a wrapper only: display:contents keeps the <img> as the
@@ -190,7 +196,7 @@ strong {
 }
 
 .btn:focus-visible {
-  outline: 2px solid orangered;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -210,7 +216,7 @@ strong {
 }
 
 .btn-icon:focus-visible {
-  outline: 2px solid orangered;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -269,7 +275,7 @@ strong {
 }
 
 .btn-menu:focus-visible {
-  outline: 2px solid orangered;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -361,13 +367,6 @@ header {
 }
 
 #hero-banner p {
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-#hero-banner h1 {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -710,6 +709,7 @@ main {
 }
 
 .case-modal__content {
+  --focus-ring: var(--color-secondary);
   position: relative;
   z-index: 1;
   max-width: 520px;
@@ -766,7 +766,10 @@ body.case-modal-open {
 
 .btn.secondary {
   background: transparent;
-  border: 1px solid var(--color-primary);
+  /* currentColor, not --color-primary: this variant sits on the light modal
+     surface, where a yellow border is invisible. It also matches the 1.5px
+     border weight used everywhere else. */
+  border: 1.5px solid currentColor;
   color: inherit;
 }
 
